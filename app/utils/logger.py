@@ -14,10 +14,8 @@ class Logger:
             'loading': '[~]: ',
             'debug':   '[#]: ',
             'default': '[ ]: ',
-            'none':    ''
-        }    
+            'none':    ''}    
 
-    @staticmethod
     def log(message, log_type='default'):        
         # get current date and time
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -31,14 +29,12 @@ class Logger:
         else:
             print(f"{Logger.log_flags.get(log_type, '')}{message}")     
 
-    @staticmethod
     def setup_logs():
         # create directory for logs if it doesn't exist
         Logger.create_log_dir()
         # set environment variable to disable qt.dbus.integration message
         os.environ['QT_LOGGING_RULES'] = "qt.dbus.*=false"
 
-    @staticmethod
     def create_log_dir():
         if not os.path.exists(Logger.log_dir):
             os.makedirs(Logger.log_dir)

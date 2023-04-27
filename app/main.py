@@ -1,5 +1,5 @@
 import os
-from gui.app_gui import AppGUI
+from gui.app import AppGUI
 from utils.logger import Logger
 from resources.config import AppConfig
 
