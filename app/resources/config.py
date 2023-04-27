@@ -7,4 +7,13 @@ class AppConfig():
     def debug(): return True
 
 class ThemeConfig():
-    def path_to_stylesheet(): return './app/resources/style_dark.qss'    
+    def path_to_stylesheet(): return './app/resources/style_dark.qss'   
+
+class TestData():
+    def system_info():
+        return [
+            ('Processor', f'Intel Core i5'),
+            ('Memory', f'8 GB'),
+            ('Storage', f'500 GB'),
+            ('Graphics', f'NVIDIA GeForce'),
+            ('Operating System', f'Windows 10')] 

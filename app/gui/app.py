@@ -3,7 +3,7 @@ import sys
 import PySide6.QtCore as QtCore
 import PySide6.QtWidgets as QtWidgets
 
-from gui.content import MainView
+from gui.content import ContentView
 from resources.config import AppConfig, ThemeConfig
 
 
@@ -25,7 +25,7 @@ class AppGUI(QtWidgets.QApplication):
         self.window.setMinimumWidth(600)
         self.window.setMinimumHeight(400)
         # window central widget
-        main_view = MainView()      
+        main_view = ContentView()      
         self.window.setCentralWidget(main_view)
         # show the window
         self.window.show()

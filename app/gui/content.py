@@ -2,9 +2,9 @@ import PySide6.QtWidgets as QtWidgets
 
 from gui.page import PageDashboard, PageSystemInfo
 from gui.widgets import ButtonSidebar
-from gui.widgets import HLineSeparator
 
-class MainView(QtWidgets.QWidget):
+
+class ContentView(QtWidgets.QWidget):
     def __init__(self):
         super().__init__() 
         self.setup_ui()
@@ -20,7 +20,12 @@ class MainView(QtWidgets.QWidget):
         # create widget to hold the stacked layout
         self.page_widget = QtWidgets.QWidget()
         self.page_widget.setStyleSheet("background-color: #1d2022;")
-        self.page_widget.setLayout(self.page_stack)   
+        self.page_widget.setLayout(self.page_stack) 
+        
+        # wrap page_widget in a scroll area
+        scroll_area = QtWidgets.QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(self.page_widget)
         
         # create sidebar
         self.sidebar = QtWidgets.QWidget()
@@ -41,7 +46,7 @@ class MainView(QtWidgets.QWidget):
         # create main view layout
         hbox = QtWidgets.QHBoxLayout(self)
         hbox.addWidget(self.sidebar)
-        hbox.addWidget(self.page_widget)
+        hbox.addWidget(scroll_area)
 
     def show_dashboard_page(self):
         self.page_stack.setCurrentWidget(self.page_dashboard)
