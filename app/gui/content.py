@@ -19,13 +19,13 @@ class ContentView(QtWidgets.QWidget):
         self.page_stack.addWidget(self.page_system_info)   
         # create widget to hold the stacked layout
         self.page_widget = QtWidgets.QWidget()
-        self.page_widget.setStyleSheet("background-color: #1d2022;")
         self.page_widget.setLayout(self.page_stack) 
         
         # wrap page_widget in a scroll area
         scroll_area = QtWidgets.QScrollArea()
         scroll_area.setWidgetResizable(True)
         scroll_area.setWidget(self.page_widget)
+        scroll_area.setStyleSheet("background-color: #1d2022;")
         
         # create sidebar
         self.sidebar = QtWidgets.QWidget()

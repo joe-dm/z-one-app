@@ -3,7 +3,7 @@ import random
 import PySide6.QtWidgets as QtWidgets
 import PySide6.QtCore as QtCore
 
-from gui.widgets import PageTitle, SeparatorHLine, Table
+from gui.widgets import PageTitle, SeparatorHLine, TableWithTitle
 from resources.config import TestData
 
 class Page(QtWidgets.QWidget):
@@ -23,6 +23,7 @@ class Page(QtWidgets.QWidget):
 
     def add_bottom_widgets(self):   
         self.layout.addStretch(1)
+        pass
 
 class PageDashboard(Page):
     def __init__(self):
@@ -50,7 +51,12 @@ class PageSystemInfo(Page):
 
     def setup_widgets(self):        
 
-        self.table = Table(TestData.system_info())        
-        self.layout.addWidget(self.table)
+        
+        self.table1 = TableWithTitle('Hardware', TestData.hardware())
+        self.table2 = TableWithTitle('Operating System', TestData.operating_system())
+
+
+        self.layout.addWidget(self.table1)
+        self.layout.addWidget(self.table2)
 
         super().add_bottom_widgets()
