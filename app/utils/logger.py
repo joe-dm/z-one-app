@@ -30,6 +30,8 @@ class Logger:
             print(f"{Logger.log_flags.get(log_type, '')}{message}")     
 
     def setup_logs():
+        #clear console
+        os.system('cls' if os.name=='nt' else 'clear')
         # create directory for logs if it doesn't exist
         Logger.create_log_dir()
         # set environment variable to disable qt.dbus.integration message

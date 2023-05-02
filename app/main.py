@@ -9,8 +9,6 @@ class App():
         self.app_gui = AppGUI()
 
     def start(self):  
-        # clear console  
-        os.system('cls' if os.name=='nt' else 'clear')
         # set up logs
         Logger.setup_logs()        
         # show app and developer info
