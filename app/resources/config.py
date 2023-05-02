@@ -6,8 +6,16 @@ class AppConfig():
         return f'{AppConfig.name()} v{AppConfig.version()} ({AppConfig.dev_info()})'
     def debug(): return True
 
-class ThemeConfig():
-    def path_to_stylesheet(): return './app/resources/style_dark.qss'   
+class ThemeConfig():    
+    colors = {
+        'black':        '#1d2022',
+        'grey-light':   '#cccccc',
+        'blue':         '#2596be',
+    }
+
+    def get_color(name): return ThemeConfig.colors.get(name)
+    def path_to_stylesheet(): return './app/resources/style_dark.qss'
+
 
 class TestData():
     def hardware():
@@ -29,4 +37,4 @@ class TestData():
             ('OS Version', '10.0.19042'),
             ('OS Release', '21H1'),
             ('Build Number', '19042.1234'),
-            ('Product ID', 'XXXXX-XXXXX-XXXXX-XXXXX-XXXXX')]
+            ('Product ID', 'XXXXX-XXXXX-XXXXX-XXXXX-XXXXX.............................')]
