@@ -4,23 +4,47 @@ import PySide6.QtWidgets as QtWidgets
 
 from resources.config import ThemeConfig
 
-class Sidebar(QtWidgets.QWidget):
-    def __init__(self):
-        super().__init__()          
-        self.setup_ui()
 
+class ButtonWithIcon(QtWidgets.QWidget):
+    def __init__(self, text, icon_path):
+        super().__init__()
+        self.text = text
+        self.icon_path = icon_path
+        self.setup_ui()
+    
     def setup_ui(self):
-        # set properties
-        self.setMaximumWidth(150)
-        self.setMinimumWidth(150)
-        # create buttons
-        self.btn_dashboard = ButtonSidebar('Dashboard')
-        self.btn_system_info = ButtonSidebar('System Info')
-        # create sidebar layout and add buttons
-        sidebar_layout = QtWidgets.QVBoxLayout(self)
-        sidebar_layout.addWidget(self.btn_dashboard)
-        sidebar_layout.addWidget(self.btn_system_info)
-        sidebar_layout.addStretch()
+        self.btn_icon = QtWidgets.QPushButton(self)
+        self.btn_icon.setIcon(QtGui.QIcon(self.icon_path))
+        self.btn_icon.setFixedWidth(30)
+
+        self.btn_text = QtWidgets.QPushButton(self.text)
+        self.btn_text.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        self.btn_text.setStyleSheet("text-align: left;")
+        
+        layout = QtWidgets.QHBoxLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(5)
+        
+        layout.addWidget(self.btn_icon)
+        layout.addWidget(self.btn_text)
+        
+        layout.setAlignment(QtCore.Qt.AlignLeft)
+        
+        self.btn_icon.enterEvent = self.on_enter_event
+        self.btn_icon.leaveEvent = self.on_leave_event
+        self.btn_text.enterEvent = self.on_enter_event
+        self.btn_text.leaveEvent = self.on_leave_event
+
+    def set_active(self):
+        self.setStyleSheet(f"background-color: red")
+    def set_inactive(self):
+        self.setStyleSheet("")
+
+    def on_enter_event(self, event):
+        self.setStyleSheet(f"border: 1px solid {ThemeConfig.get_color('blue')};")
+    def on_leave_event(self, event):       
+        self.setStyleSheet("")
+
 
 class ButtonSidebar(QtWidgets.QPushButton):
     def __init__(self, text):

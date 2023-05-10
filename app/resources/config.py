@@ -13,7 +13,13 @@ class ThemeConfig():
         'blue':         '#2596be',
     }
 
+    icons = {
+        'default':  './app/resources/img/ico_default.png',
+        'settings': './app/resources/img/ico_settings.png',
+    }
+
     def get_color(name): return ThemeConfig.colors.get(name)
+    def get_icon_path(name): return ThemeConfig.icons.get(name)
     def path_to_stylesheet(): return './app/resources/style_dark.qss'
 
 

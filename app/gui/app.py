@@ -3,8 +3,8 @@ import sys
 import PySide6.QtCore as QtCore
 import PySide6.QtWidgets as QtWidgets
 
-from gui.widgets import Sidebar
 from gui.page import PageStack
+from gui.sidebar import Sidebar
 from resources.config import AppConfig, ThemeConfig
 
 
@@ -30,12 +30,9 @@ class AppGUI(QtWidgets.QApplication):
         self.sidebar = Sidebar()
         self.page_stack = PageStack()
 
-        # connect sidebar button signals to switch pages        
-        self.sidebar.btn_dashboard.clicked.connect(
-            lambda: self.page_stack.show_page(self.page_stack.page_dashboard))
-        self.sidebar.btn_system_info.clicked.connect(
-            lambda: self.page_stack.show_page(self.page_stack.page_system_info))
-
+        # connect sidebar button signals to switch page        
+        self.sidebar.connect_btn_signals(self.page_stack)
+        
         # setup window central widget
         central_widget = QtWidgets.QWidget()      
         self.window.setCentralWidget(central_widget)
