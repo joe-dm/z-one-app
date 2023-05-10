@@ -4,25 +4,51 @@ import PySide6.QtWidgets as QtWidgets
 import PySide6.QtCore as QtCore
 
 from gui.widgets import PageTitle, SeparatorHLine, TableWithTitle
-from resources.config import TestData
+from resources.config import TestData, ThemeConfig
+
+class PageStack(QtWidgets.QScrollArea):
+    def __init__(self):
+        super().__init__()          
+        self.setup_ui()
+
+    def setup_ui(self):
+        # create pages
+        self.page_dashboard = PageDashboard()
+        self.page_system_info = PageSystemInfo()
+        
+        # create stacked layout and add pages
+        self.page_stack_layout = QtWidgets.QStackedLayout()
+        self.page_stack_layout.addWidget(self.page_dashboard)
+        self.page_stack_layout.addWidget(self.page_system_info)
+
+        # create container to hold stacked layout
+        self.container = QtWidgets.QWidget()
+        self.container.setLayout(self.page_stack_layout)
+
+        # set scroll area properties
+        self.setWidgetResizable(True)
+        self.setWidget(self.container)
+        self.setStyleSheet(f"background-color: {ThemeConfig.get_color('black')};")
+
+    def show_page(self, page):
+        self.page_stack_layout.setCurrentWidget(page)
 
 class Page(QtWidgets.QWidget):
     def __init__(self, title):
         super().__init__()
         self.title = title
+        self.page_layout = QtWidgets.QVBoxLayout(self)
         self.setup_ui()
 
     def setup_ui(self):
-        # create common page widgets
+        # create common widgets
         self.label_title = PageTitle(self.title)
-
-        # create layout and add common widgets
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self.label_title)
-        self.layout.addWidget(SeparatorHLine())
+        # add common widgets        
+        self.page_layout.addWidget(self.label_title)
+        self.page_layout.addWidget(SeparatorHLine())    
 
     def add_bottom_widgets(self):   
-        self.layout.addStretch(1)
+        self.page_layout.addStretch(1)
         pass
 
 class PageDashboard(Page):
@@ -32,15 +58,8 @@ class PageDashboard(Page):
 
     def setup_widgets(self):
         # add widgets specific to this page
-        self.description = QtWidgets.QLabel('This is the dashboard page!')
-        self.layout.addWidget(self.description)
-
-        # add some random widgets for testing scrolling
-        for i in range(20):
-            widget = QtWidgets.QLabel(f'This is widget {i}')
-            widget.setStyleSheet('background-color: #1d2022; color: #e5e5e5;')
-            self.layout.addWidget(widget)
-
+        self.description = QtWidgets.QLabel('This is the dashboard page!')          
+        self.page_layout.addWidget(self.description)
         super().add_bottom_widgets()
 
 
@@ -50,13 +69,10 @@ class PageSystemInfo(Page):
         self.setup_widgets()
 
     def setup_widgets(self):        
-
-        
         self.table1 = TableWithTitle('Hardware', TestData.hardware())
         self.table2 = TableWithTitle('Operating System', TestData.operating_system())
 
-
-        self.layout.addWidget(self.table1)
-        self.layout.addWidget(self.table2)
+        self.page_layout.addWidget(self.table1)
+        self.page_layout.addWidget(self.table2)
 
         super().add_bottom_widgets()
