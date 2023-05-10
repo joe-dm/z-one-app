@@ -36,6 +36,15 @@ class Logger:
         Logger.create_log_dir()
         # set environment variable to disable qt.dbus.integration message
         os.environ['QT_LOGGING_RULES'] = "qt.dbus.*=false"
+        # show app and developer info
+        Logger.log(f'{AppConfig.description()}\n', 'none')     
+        # show app starting directory
+        Logger.log(f'{AppConfig.name()} started at {os.getcwd()}')  
+        # show debug mode
+        if AppConfig.debug() == True: 
+            Logger.log(f'Debugging mode is enabled', 'info')
+        else:
+            Logger.log(f'Debugging mode is disabled', 'info')
 
     def create_log_dir():
         if not os.path.exists(Logger.log_dir):
