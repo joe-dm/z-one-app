@@ -57,7 +57,6 @@ class PageDashboard(Page):
         self.setup_widgets()
 
     def setup_widgets(self):
-        # add widgets specific to this page
         self.description = QtWidgets.QLabel('This is the dashboard page!')          
         self.page_layout.addWidget(self.description)
         super().add_bottom_widgets()
