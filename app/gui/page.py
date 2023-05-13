@@ -1,9 +1,6 @@
-import random
-
 import PySide6.QtWidgets as QtWidgets
-import PySide6.QtCore as QtCore
 
-from gui.widgets import PageTitle, SeparatorHLine, TableWithTitle
+from gui.widgets import PageTitle, SeparatorHLine, TableWithTitle, ButtonWithIcon
 from resources.config import TestData, ThemeConfig
 
 class PageStack(QtWidgets.QScrollArea):
@@ -49,7 +46,7 @@ class Page(QtWidgets.QWidget):
 
     def add_bottom_widgets(self):   
         self.page_layout.addStretch(1)
-        pass
+
 
 class PageDashboard(Page):
     def __init__(self):
