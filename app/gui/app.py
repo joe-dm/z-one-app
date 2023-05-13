@@ -38,7 +38,7 @@ class AppGUI(QtWidgets.QApplication):
         self.window.setCentralWidget(central_widget)
 
         # setup app layout
-        app_layout = QtWidgets.QHBoxLayout(central_widget)
+        app_layout = QtWidgets.QHBoxLayout(central_widget)        
         app_layout.addWidget(self.sidebar)
         app_layout.addWidget(self.page_stack)
 
