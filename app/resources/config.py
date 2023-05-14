@@ -1,4 +1,4 @@
-class AppConfig():        
+class AppConfig():
     def name(): return 'z-one'
     def version(): return '1.0.2304'
     def dev_info(): return 'github.com/joe-dm'
@@ -6,41 +6,35 @@ class AppConfig():
         return f'{AppConfig.name()} v{AppConfig.version()} ({AppConfig.dev_info()})'
     def debug(): return True
 
+class ConsoleConfig():
+    flags = {
+        'info':    '[i]: ',
+        'error':   '[E]: ',
+        'warning': '[!]: ',
+        'trying':  '[~]: ',
+        'debug':   '[#]: ',
+        'default': '[ ]: ',
+        'child':   '     ',
+        'none':    ''} 
+
+class PathConfig():
+    icons = {
+        'default':  './app/resources/img/ico_default.png',
+        'settings': './app/resources/img/ico_settings.png',}
+
+    def log_file():   return 'z-one.log'
+    def log_folder(): return 'logs'
+    
+    def stylesheet(): 
+        return './app/resources/style_dark.qss'
+
 class ThemeConfig():    
     colors = {
         'black':        '#1d2022',
+        'black-dark':   '#191919',
         'grey-light':   '#cccccc',
-        'blue':         '#2596be',
-    }
-
-    icons = {
-        'default':  './app/resources/img/ico_default.png',
-        'settings': './app/resources/img/ico_settings.png',
-    }
+        'blue':         '#2596be',}  
 
     def get_color(name): return ThemeConfig.colors.get(name)
-    def get_icon_path(name): return ThemeConfig.icons.get(name)
-    def path_to_stylesheet(): return './app/resources/style_dark.qss'
+    def get_icon_path(name): return PathConfig.icons.get(name)
 
-
-class TestData():
-    def hardware():
-        return [
-            ('Processor', 'Intel Core i7'),
-            ('Memory', '16 GB'),
-            ('Storage', '1 TB SSD'),
-            ('Graphics', 'NVIDIA GeForce RTX 3080'),
-            ('Display', '27 inch 4K monitor'),
-            ('Motherboard', 'ASUS Prime H310M-E R2.0')]
-        
-    
-    def operating_system():
-        return [
-            ('OS Name', 'Windows 10'),
-            ('OS Architecture', '64-bit'),
-            ('User Name', 'John Doe'),
-            ('Install Date', '04/15/2023'),
-            ('OS Version', '10.0.19042'),
-            ('OS Release', '21H1'),
-            ('Build Number', '19042.1234'),
-            ('Product ID', 'XXXXX-XXXXX-XXXXX-XXXXX-XXXXX.............................')]

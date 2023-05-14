@@ -1,7 +1,4 @@
 import PySide6.QtWidgets as QtWidgets
-from gui.widgets import ButtonWithIcon
-from resources.config import ThemeConfig
-from utils.logger import Logger
 
 class Sidebar(QtWidgets.QWidget):
     def __init__(self):
@@ -10,24 +7,14 @@ class Sidebar(QtWidgets.QWidget):
 
     def setup_ui(self):
         # set properties
-        self.setMaximumWidth(150)
-        self.setMinimumWidth(150)
-        # create buttons
-        self.btn_dashboard = ButtonWithIcon('Dashboard', ThemeConfig.get_icon_path('default'))
-        self.btn_system_info = ButtonWithIcon('System Info', ThemeConfig.get_icon_path('default'))
-        self.btn_settings = ButtonWithIcon('Settings', ThemeConfig.get_icon_path('default'))
-        # create sidebar layout and add buttons
-        sidebar_layout = QtWidgets.QVBoxLayout(self)
-        sidebar_layout.addWidget(self.btn_dashboard)
-        sidebar_layout.addWidget(self.btn_system_info)
-        sidebar_layout.addWidget(self.btn_settings)
-        sidebar_layout.addStretch()
+        self.setFixedWidth(150)
 
-    def connect_btn_signals(self, page_stack):
-        # connect dashboard page
-        self.btn_dashboard.btn_icon.clicked.connect(lambda: page_stack.show_page(page_stack.page_dashboard))
-        self.btn_dashboard.btn_text.clicked.connect(lambda: page_stack.show_page(page_stack.page_dashboard))
-                
-        # connect system info page
-        self.btn_system_info.btn_icon.clicked.connect(lambda: page_stack.show_page(page_stack.page_system_info))
-        self.btn_system_info.btn_text.clicked.connect(lambda: page_stack.show_page(page_stack.page_system_info))
+        # create buttons
+        self.button_dashboard = QtWidgets.QPushButton('Dashboard')
+        self.button_cpu = QtWidgets.QPushButton('CPU')
+
+        # create layout and add widgets
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.addWidget(self.button_dashboard)
+        layout.addWidget(self.button_cpu)
+        layout.addStretch()
