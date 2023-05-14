@@ -2,6 +2,7 @@ import PySide6.QtGui as QtGui
 import PySide6.QtWidgets as QtWidgets
 
 from resources.config import ThemeConfig
+from gui.widgets import SeparatorHLine, LabelTitle
 
 class PageStack(QtWidgets.QScrollArea):
     def __init__(self):
@@ -24,30 +25,19 @@ class PageStack(QtWidgets.QScrollArea):
         # scroll area properties
         self.setWidgetResizable(True)
         self.setWidget(container)
-        self.setStyleSheet(f"background-color: {ThemeConfig.get_color('black')};")
+        self.setStyleSheet(f"background-color: {ThemeConfig.color_black()};")
 
 
 class Page(QtWidgets.QWidget):
     def __init__(self, title):
         super().__init__()        
         # initialise widgets
-        self.label_title = QtWidgets.QLabel(title)
-        self.separator = QtWidgets.QFrame()
+        self.label_title = LabelTitle(title)
+        self.separator = SeparatorHLine()
         self.page_layout = QtWidgets.QVBoxLayout(self)
         self.setup_ui()
 
-    def setup_ui(self):
-        # title properties
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.label_title.setFont(font)
-        self.label_title.setStyleSheet(f"color: {ThemeConfig.get_color('grey-light')};")
-
-        # separator properties
-        self.separator.setFrameShape(QtWidgets.QFrame.HLine)
-        self.separator.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.separator.setEnabled(False)
-
+    def setup_ui(self):         
         # add widgets to layout
         self.page_layout.addWidget(self.label_title)
         self.page_layout.addWidget(self.separator)
