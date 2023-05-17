@@ -9,14 +9,14 @@ from util.logger import Logger
 class App(QtWidgets.QApplication):
     def __init__(self):
         super().__init__()        
-        Logger.setup_logs()     # setup logging               
-        self.setup_stylesheet() # setup stylesheet
-        self.window = Window()  # initialise main window
+        Logger.setup_logs()                 
+        self.setup_stylesheet() 
+        self.window = Window() 
 
     def setup_stylesheet(self):        
-        stylesheet_path = PathConfig.stylesheet()
+        stylesheet_path = PathConfig.stylesheet
         try:
-            Logger.log('Loading app stylesheet', 'trying')
+            Logger.log('Loading stylesheet', 'trying')
             with open(stylesheet_path, "r") as f:
                 stylesheet_content = f.read()
                 self.setStyleSheet(stylesheet_content)

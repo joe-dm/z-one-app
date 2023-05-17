@@ -4,8 +4,8 @@ from resources.config import AppConfig, PathConfig, ThemeConfig
 
 
 class Logger:
-    log_file = PathConfig.log_file()
-    log_folder = PathConfig.log_folder()
+    log_file = PathConfig.log_file
+    log_folder = PathConfig.log_folder
     log_path = os.path.abspath(os.path.join(log_folder, log_file))
     
     gui_console = None
@@ -23,7 +23,7 @@ class Logger:
             log_file.write(log_message)
 
         # check if debug message and print it if debugging output is enabled
-        if flag == 'debug' and not AppConfig.debug():
+        if flag == 'debug' and not AppConfig.debug:
             pass
         else:            
             if Logger.gui_console:
@@ -36,9 +36,9 @@ class Logger:
         #os.system('cls' if os.name=='nt' else 'clear')
         Logger.create_log_dir()
         os.environ['QT_LOGGING_RULES'] = "qt.dbus.*=false"
-        Logger.log(f'{AppConfig.description()}\n', 'none')
-        Logger.log(f'{AppConfig.name()} started at {os.getcwd()}', 'info')
-        if AppConfig.debug():
+        Logger.log(f'{AppConfig.description}\n', 'none')
+        Logger.log(f'{AppConfig.name} started at {os.getcwd()}', 'info')
+        if AppConfig.debug:
             Logger.log(f'Debugging mode is enabled', 'info')
         else:
             Logger.log(f'Debugging mode is disabled', 'info')

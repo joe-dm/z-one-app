@@ -1,13 +1,12 @@
 import functools
 
 import PySide6.QtCore as QtCore
-import PySide6.QtGui as QtGui
 import PySide6.QtWidgets as QtWidgets
 
 from gui.sidebar import Sidebar
 from gui.console import Console
 from gui.page import PageStack
-from resources.config import AppConfig, ThemeConfig
+from resources.config import AppConfig
 from util.logger import Logger
 
 class Window(QtWidgets.QMainWindow):
@@ -18,16 +17,12 @@ class Window(QtWidgets.QMainWindow):
     
     def setup_ui(self):
         # set window properties
-        self.setWindowTitle(AppConfig.name())
+        self.setWindowTitle(AppConfig.name)
         self.setMinimumWidth(600)
         self.setMinimumHeight(400)        
         self.resize(800, 600)
         self.setCentralWidget(self.content)
-        self.show()
-
-        # set icon
-        icon = QtGui.QIcon(ThemeConfig.logo())
-        self.setWindowIcon(icon)
+        self.show()       
 
 
 class Content(QtWidgets.QWidget):
@@ -65,7 +60,14 @@ class Content(QtWidgets.QWidget):
     def setup_connections(self):
         sidebar_buttons = [
             (self.sidebar.button_dashboard, self.page_stack.page_dashboard),
-            (self.sidebar.button_cpu, self.page_stack.page_cpu)
+            (self.sidebar.button_cpu, self.page_stack.page_cpu),
+            (self.sidebar.button_gpu, self.page_stack.page_gpu),   
+            (self.sidebar.button_ram, self.page_stack.page_ram),
+            (self.sidebar.button_disk, self.page_stack.page_disk),
+            (self.sidebar.button_network, self.page_stack.page_network),
+            (self.sidebar.button_apps, self.page_stack.page_apps),
+            (self.sidebar.button_settings, self.page_stack.page_settings),
+            (self.sidebar.button_logs, self.page_stack.page_logs)
         ]
         for button, page in sidebar_buttons:
             button.button_icon.clicked.connect(functools.partial(self.switch_page, page=page))
