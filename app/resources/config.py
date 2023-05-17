@@ -1,46 +1,57 @@
-class AppConfig():        
-    def name(): return 'z-one'
-    def version(): return '1.0.2304'
-    def dev_info(): return 'github.com/joe-dm'
-    def description(): 
-        return f'{AppConfig.name()} v{AppConfig.version()} ({AppConfig.dev_info()})'
-    def debug(): return True
+import os
 
-class ThemeConfig():    
-    colors = {
-        'black':        '#1d2022',
-        'grey-light':   '#cccccc',
-        'blue':         '#2596be',
-    }
-
-    icons = {
-        'default':  './app/resources/img/ico_default.png',
-        'settings': './app/resources/img/ico_settings.png',
-    }
-
-    def get_color(name): return ThemeConfig.colors.get(name)
-    def get_icon_path(name): return ThemeConfig.icons.get(name)
-    def path_to_stylesheet(): return './app/resources/style_dark.qss'
+class AppConfig:    
+    name = 'z-one'
+    version = '1.0.2304'
+    dev_info = 'github.com/joe-dm'
+    description = f'{name} {version} ({dev_info})'
+    debug = True
 
 
-class TestData():
-    def hardware():
-        return [
-            ('Processor', 'Intel Core i7'),
-            ('Memory', '16 GB'),
-            ('Storage', '1 TB SSD'),
-            ('Graphics', 'NVIDIA GeForce RTX 3080'),
-            ('Display', '27 inch 4K monitor'),
-            ('Motherboard', 'ASUS Prime H310M-E R2.0')]
+class PathConfig:
+    log_file = 'z-one.log'
+    log_folder = 'logs'  
+
+    stylesheet = './app/resources/style_dark.qss'
+    images = './app/resources/img/'
+
+
+class ThemeConfig:
+    console_flags = {
+        'info':    '[i]: ',
+        'error':   '[E]: ',
+        'warning': '[!]: ',
+        'trying':  '[~]: ',
+        'debug':   '[#]: ',
+        'default': '[ ]: ',
+        'child':   '     ',
+        'none':    ''} 
+
+    class Color:
+        primary =   '#2596be'
+        secondary = '#ff8400'
+
+        black =     '#1d2022'
+        black_dark ='#191919'
+
+        grey_light ='#cccccc' 
+
+    class Icon:
+        logo =      f"{PathConfig.images}logo.png"
+        default =   f"{PathConfig.images}ico_default.png"
+        dashboard = f"{PathConfig.images}ico_dashboard.png"
+        cpu =       f"{PathConfig.images}ico_cpu.png"
+        gpu =       f"{PathConfig.images}ico_gpu.png"
+        ram =       f"{PathConfig.images}ico_ram.png"
+        disk =      f"{PathConfig.images}ico_disk.png"
+        network =   f"{PathConfig.images}ico_network.png"
+        apps =      f"{PathConfig.images}ico_apps.png"
+        settings =  f"{PathConfig.images}ico_settings.png"
+        logs =      f"{PathConfig.images}ico_logs.png"    
+
+    class Font:
+        monospace = 'Courier New'
         
-    
-    def operating_system():
-        return [
-            ('OS Name', 'Windows 10'),
-            ('OS Architecture', '64-bit'),
-            ('User Name', 'John Doe'),
-            ('Install Date', '04/15/2023'),
-            ('OS Version', '10.0.19042'),
-            ('OS Release', '21H1'),
-            ('Build Number', '19042.1234'),
-            ('Product ID', 'XXXXX-XXXXX-XXXXX-XXXXX-XXXXX.............................')]
+        size_title = 15
+        size_logo  = 12
+        size_small = 9     
