@@ -1,4 +1,3 @@
-import PySide6.QtCore as QtCore
 import PySide6.QtGui as QtGui
 import PySide6.QtWidgets as QtWidgets
 
@@ -21,15 +20,14 @@ class Console(QtWidgets.QWidget):
         layout.addWidget(self.text_edit)
 
         # set font
-        font = QtGui.QFont(ThemeConfig.font_console_name(), ThemeConfig.font_console_size())
+        font = QtGui.QFont(ThemeConfig.Font.monospace, ThemeConfig.Font.size_small)
         self.text_edit.setFont(font)
         # Disable text wrapping
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
         # set background color
-        self.text_edit.setStyleSheet(f"background-color: {ThemeConfig.color_black_dark()}; border: none;")
+        self.text_edit.setStyleSheet(f"background-color: {ThemeConfig.Color.black_dark}; border: none;")
         # disable editing
         self.text_edit.setReadOnly(True)
-
 
     def append(self, message):
         self.text_edit.append(message)
