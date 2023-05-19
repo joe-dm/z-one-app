@@ -68,10 +68,15 @@ class Content(QtWidgets.QWidget):
             (self.sidebar.button_apps, self.page_stack.page_apps),
             (self.sidebar.button_settings, self.page_stack.page_settings),
             (self.sidebar.button_logs, self.page_stack.page_logs)
-        ]
+        ] 
+
+        # connect sidebar buttons
         for button, page in sidebar_buttons:
             button.button_icon.clicked.connect(functools.partial(self.switch_page, page=page))
             button.button_text.clicked.connect(functools.partial(self.switch_page, page=page))
+        
+        # connect header toggle
+        self.sidebar.header.button_toggle.clicked.connect(functools.partial(self.sidebar.toggle))
 
     
     def switch_page(self, page):
