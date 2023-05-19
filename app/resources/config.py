@@ -48,6 +48,8 @@ class ThemeConfig:
         apps =      f"{PathConfig.images}ico_apps.png"
         settings =  f"{PathConfig.images}ico_settings.png"
         logs =      f"{PathConfig.images}ico_logs.png"    
+        arrow_left =f"{PathConfig.images}ico_arrow_left.png"    
+        arrow_right=f"{PathConfig.images}ico_arrow_right.png"   
 
     class Font:
         monospace = 'Courier New'

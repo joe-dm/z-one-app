@@ -1,5 +1,5 @@
 import sys
-import PySide6.QtCore as QtCore
+
 import PySide6.QtWidgets as QtWidgets
 
 from gui.window import Window

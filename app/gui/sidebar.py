@@ -3,12 +3,17 @@ import PySide6.QtGui as QtGui
 import PySide6.QtWidgets as QtWidgets
 
 from resources.config import ThemeConfig
+from util.logger import Logger
 
 class Sidebar(QtWidgets.QWidget):
+    is_expanded = True
+
     def __init__(self):
         super().__init__()   
-        # create logo widget
-        self.logo = SidebarLogo()
+        # create header widget
+        self.header = SidebarHeader()
+        # separator
+        self.separator = LineSeparator()
         # create button widgets
         self.button_dashboard = SidebarButton('Dashboard', ThemeConfig.Icon.dashboard)
         self.button_cpu = SidebarButton('CPU', ThemeConfig.Icon.cpu)
@@ -23,10 +28,12 @@ class Sidebar(QtWidgets.QWidget):
         self.setup_ui()
 
     def setup_ui(self):        
+        self.setMaximumWidth(150)
         # create layout and add widgets
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
-        layout.addWidget(self.logo)
+        layout.addWidget(self.header)
+        layout.addWidget(self.separator)
         layout.addWidget(self.button_dashboard)
         layout.addWidget(self.button_cpu)
         layout.addWidget(self.button_gpu)
@@ -38,12 +45,46 @@ class Sidebar(QtWidgets.QWidget):
         layout.addWidget(self.button_settings)
         layout.addWidget(self.button_logs)
 
+    def toggle(self):
+        if Sidebar.is_expanded:            
+            # hide text buttons
+            self.button_dashboard.set_closed()
+            self.button_cpu.set_closed()
+            self.button_gpu.set_closed()
+            self.button_ram.set_closed()
+            self.button_disk.set_closed()
+            self.button_network.set_closed()
+            self.button_apps.set_closed()
+            self.button_settings.set_closed()
+            self.button_logs.set_closed()
+            
+            self.header.set_closed()            
+            Sidebar.is_expanded = False
+        
+        else:
+            # show text buttons
+            self.button_dashboard.set_opened()
+            self.button_cpu.set_opened()
+            self.button_gpu.set_opened()
+            self.button_ram.set_opened()
+            self.button_disk.set_opened()
+            self.button_network.set_opened()
+            self.button_apps.set_opened()
+            self.button_settings.set_opened()
+            self.button_logs.set_opened()
+            # show header items
+            self.header.set_opened()       
+
+            # set sidebar to expanded
+            Sidebar.is_expanded = True
+
+
 class SidebarButton(QtWidgets.QWidget):
-    def __init__(self, text, icon_path):
+    def __init__(self, text, icon):
         super().__init__()
 
         self.text = text
-        self.icon_path = icon_path
+        self.icon = icon
 
         self.button_icon = QtWidgets.QPushButton()
         self.button_text = QtWidgets.QPushButton()
@@ -53,7 +94,7 @@ class SidebarButton(QtWidgets.QWidget):
     def setup_ui(self):        
         # button icon properties
         self.button_icon.setFixedWidth(30)
-        self.button_icon.setIcon(QtGui.QIcon(self.icon_path))
+        self.button_icon.setIcon(QtGui.QIcon(self.icon))
 
         # button text properties
         self.button_text.setText(self.text)
@@ -72,50 +113,78 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_icon.leaveEvent = self.on_leave_event
         self.button_text.enterEvent = self.on_enter_event
         self.button_text.leaveEvent = self.on_leave_event
-        
-    
+
+    def set_closed(self):        
+        self.button_text.setVisible(False)        
+    def set_opened(self):
+        self.button_text.setVisible(True) 
+
     def on_enter_event(self, event):
         self.setStyleSheet(f"border: 1px solid {ThemeConfig.Color.primary};")
     def on_leave_event(self, event):
         self.setStyleSheet("")
 
-class SidebarLogo(QtWidgets.QWidget):
+
+class SidebarHeader(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()  
 
         self.logo = QtWidgets.QLabel()
-        self.logo_text = QtWidgets.QLabel('𝕫-𝕠𝕟𝕖') 
+        self.logo_text = QtWidgets.QLabel('𝕫-𝕠𝕟𝕖')
+
+        self.spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+
+        self.button_toggle = QtWidgets.QPushButton()
+        self.icon_close = QtGui.QIcon(ThemeConfig.Icon.arrow_left)
+        self.icon_open = QtGui.QIcon(ThemeConfig.Icon.arrow_right)
+
+        self.header_layout = QtWidgets.QHBoxLayout(self)
 
         self.setup_ui()
         
     def setup_ui(self):
-        # setup logo widget        
+        # setup logo image        
         logo_pixmap = QtGui.QPixmap(ThemeConfig.Icon.logo)
         logo_pixmap = logo_pixmap.scaled(30, 30, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
         self.logo.setPixmap(logo_pixmap)
 
-        # setup application name label       
+        # setup logo text     
         logo_font = QtGui.QFont(ThemeConfig.Font.monospace, ThemeConfig.Font.size_logo)     
         logo_font.setWeight(QtGui.QFont.Bold)                     
-        self.logo_text.setFont(logo_font)           
+        self.logo_text.setFont(logo_font)   
 
-        # setup layout and add widgets
-        layout = QtWidgets.QHBoxLayout(self)
-        layout.setAlignment(QtCore.Qt.AlignLeft)
-        layout.setContentsMargins(0,0,0,0)
-        layout.setSpacing(1)
-        layout.addWidget(self.logo)
-        layout.addWidget(self.logo_text)
+        # setup toggle button   
+        self.button_toggle.setIcon(self.icon_close)
 
-class SidebarToggle(QtWidgets.QWidget):
+        # setup layout and add widgets        
+        self.header_layout.setAlignment(QtCore.Qt.AlignLeft)
+        self.header_layout.setContentsMargins(0,0,0,0)
+        self.header_layout.setSpacing(1)
+        self.header_layout.addWidget(self.logo)
+        self.header_layout.addWidget(self.logo_text)        
+        self.header_layout.addSpacerItem(self.spacer)
+        self.header_layout.addWidget(self.button_toggle)
+
+    def set_closed(self):
+        self.header_layout.removeWidget(self.logo)
+        self.header_layout.removeWidget(self.logo_text)
+        self.header_layout.removeItem(self.spacer)
+        self.button_toggle.setIcon(self.icon_open)
+    def set_opened(self):
+        # remove toggle button
+        self.header_layout.removeWidget(self.button_toggle)
+        # add all widgets again
+        self.header_layout.addWidget(self.logo)
+        self.header_layout.addWidget(self.logo_text)
+        self.header_layout.addItem(self.spacer)
+        self.header_layout.addWidget(self.button_toggle)
+        self.button_toggle.setIcon(self.icon_close)
+
+
+class LineSeparator(QtWidgets.QFrame):
     def __init__(self):
-        super().__init__()  
-        self.setup_ui()
+        super().__init__()        
         
-    def setup_ui(self):
-        
-
-        # setup layout and add widgets
-        layout = QtWidgets.QHBoxLayout(self)
-
-        
+        self.setFrameShape(QtWidgets.QFrame.HLine)
+        self.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.setEnabled(False)    
