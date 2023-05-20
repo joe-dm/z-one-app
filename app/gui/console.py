@@ -24,8 +24,9 @@ class Console(QtWidgets.QWidget):
         self.text_edit.setFont(font)
         # Disable text wrapping
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
-        # set background color
-        self.text_edit.setStyleSheet(f"background-color: {ThemeConfig.Color.black_dark}; border: none;")
+        # set colors
+        self.text_edit.setStyleSheet(
+            f"background-color: {ThemeConfig.Color.black_dark}; color: {ThemeConfig.Color.secondary}; border: none;")
         # disable editing
         self.text_edit.setReadOnly(True)
 

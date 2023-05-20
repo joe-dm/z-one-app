@@ -30,6 +30,7 @@ class Logger:
                 Logger.gui_console.append(console_message)           
             else:
                 Logger.preloaded_messages.append(console_message)
+                #Logger.preloaded_messages.append((flag, message))
 
     @staticmethod
     def setup_logs():

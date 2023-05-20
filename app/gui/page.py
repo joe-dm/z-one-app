@@ -1,7 +1,8 @@
-import PySide6.QtGui as QtGui
+
 import PySide6.QtWidgets as QtWidgets
 
-from resources.config import ThemeConfig
+from gui.widgets import PageTitle, Separator, TableWithTitle
+from resources.config import ThemeConfig, SampleData
 
 class PageStack(QtWidgets.QScrollArea):
     def __init__(self):
@@ -46,7 +47,7 @@ class Page(QtWidgets.QWidget):
         super().__init__()        
         # initialise widgets
         self.label_title = PageTitle(title)
-        self.separator = PageSeparator()
+        self.separator = Separator()
         self.page_layout = QtWidgets.QVBoxLayout(self)
         self.setup_ui()
 
@@ -62,12 +63,18 @@ class Page(QtWidgets.QWidget):
 class PageDashboard(Page):
     def __init__(self):
         super().__init__('Dashboard')
-        # initialise widgets
-        self.description = QtWidgets.QLabel('This is the Dashboard page!')
+        # initialise widgets        
+        self.cpu = TableWithTitle('CPU', SampleData.cpu_info)
+        self.gpu = TableWithTitle('GPU', SampleData.gpu_info)
+        self.disk = TableWithTitle('Disk', SampleData.disk_info)
+        self.os = TableWithTitle('Operating System', SampleData.os_info)
         self.setup_widgets()
 
     def setup_widgets(self):               
-        self.page_layout.addWidget(self.description)
+        self.page_layout.addWidget(self.cpu)
+        self.page_layout.addWidget(self.gpu)
+        self.page_layout.addWidget(self.disk)
+        self.page_layout.addWidget(self.os)
         super().add_bottom_widgets()
 
 
@@ -165,29 +172,3 @@ class PageLogs(Page):
     def setup_widgets(self):               
         self.page_layout.addWidget(self.description)
         super().add_bottom_widgets()
-
-
-
-
-class PageTitle(QtWidgets.QLabel):
-    def __init__(self, text):
-        super().__init__()
-        self.page_name = text
-        self.setup_ui()
-
-    def setup_ui(self):
-        self.setText(self.page_name)
-        self.setStyleSheet(f"color: {ThemeConfig.Color.grey_light};")
-
-        font = QtGui.QFont()
-        font.setPointSize(ThemeConfig.Font.size_title)
-        self.setFont(font)
-
-
-class PageSeparator(QtWidgets.QFrame):
-    def __init__(self):
-        super().__init__()        
-        
-        self.setFrameShape(QtWidgets.QFrame.HLine)
-        self.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.setEnabled(False)     

@@ -2,8 +2,8 @@ import PySide6.QtCore as QtCore
 import PySide6.QtGui as QtGui
 import PySide6.QtWidgets as QtWidgets
 
+from gui.widgets import Separator
 from resources.config import ThemeConfig
-from util.logger import Logger
 
 class Sidebar(QtWidgets.QWidget):
     is_expanded = True
@@ -13,7 +13,7 @@ class Sidebar(QtWidgets.QWidget):
         # create header widget
         self.header = SidebarHeader()
         # separator
-        self.separator = LineSeparator()
+        self.separator = Separator()
         # create button widgets
         self.button_dashboard = SidebarButton('Dashboard', ThemeConfig.Icon.dashboard)
         self.button_cpu = SidebarButton('CPU', ThemeConfig.Icon.cpu)
@@ -24,6 +24,10 @@ class Sidebar(QtWidgets.QWidget):
         self.button_apps = SidebarButton('Apps', ThemeConfig.Icon.apps)
         self.button_settings = SidebarButton('Settings', ThemeConfig.Icon.settings)
         self.button_logs = SidebarButton('Logs', ThemeConfig.Icon.logs)
+        self.button_list = [            
+            self.button_dashboard, self.button_cpu, self.button_gpu,
+            self.button_ram, self.button_disk, self.button_network,
+            self.button_apps, self.button_settings, self.button_logs]
         
         self.setup_ui()
 
@@ -48,34 +52,20 @@ class Sidebar(QtWidgets.QWidget):
     def toggle(self):
         if Sidebar.is_expanded:            
             # hide text buttons
-            self.button_dashboard.set_closed()
-            self.button_cpu.set_closed()
-            self.button_gpu.set_closed()
-            self.button_ram.set_closed()
-            self.button_disk.set_closed()
-            self.button_network.set_closed()
-            self.button_apps.set_closed()
-            self.button_settings.set_closed()
-            self.button_logs.set_closed()
-            
-            self.header.set_closed()            
+            for button in self.button_list:                      
+                button.button_text.setVisible(False)
+            # hide header
+            self.header.set_closed()  
+
             Sidebar.is_expanded = False
         
         else:
             # show text buttons
-            self.button_dashboard.set_opened()
-            self.button_cpu.set_opened()
-            self.button_gpu.set_opened()
-            self.button_ram.set_opened()
-            self.button_disk.set_opened()
-            self.button_network.set_opened()
-            self.button_apps.set_opened()
-            self.button_settings.set_opened()
-            self.button_logs.set_opened()
-            # show header items
-            self.header.set_opened()       
+            for button in self.button_list:
+                button.button_text.setVisible(True)         
+            # show header 
+            self.header.set_opened()
 
-            # set sidebar to expanded
             Sidebar.is_expanded = True
 
 
@@ -112,12 +102,7 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_icon.enterEvent = self.on_enter_event
         self.button_icon.leaveEvent = self.on_leave_event
         self.button_text.enterEvent = self.on_enter_event
-        self.button_text.leaveEvent = self.on_leave_event
-
-    def set_closed(self):        
-        self.button_text.setVisible(False)        
-    def set_opened(self):
-        self.button_text.setVisible(True) 
+        self.button_text.leaveEvent = self.on_leave_event    
 
     def on_enter_event(self, event):
         self.setStyleSheet(f"border: 1px solid {ThemeConfig.Color.primary};")
@@ -130,7 +115,7 @@ class SidebarHeader(QtWidgets.QWidget):
         super().__init__()  
 
         self.logo = QtWidgets.QLabel()
-        self.logo_text = QtWidgets.QLabel('𝕫-𝕠𝕟𝕖')
+        self.logo_text = QtWidgets.QLabel('z-one') # 𝕫-𝕠𝕟𝕖
 
         self.spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
 
@@ -165,6 +150,10 @@ class SidebarHeader(QtWidgets.QWidget):
         self.header_layout.addSpacerItem(self.spacer)
         self.header_layout.addWidget(self.button_toggle)
 
+        # setup on enter event
+        self.button_toggle.enterEvent = self.on_enter_event
+        self.button_toggle.leaveEvent = self.on_leave_event
+
     def set_closed(self):
         self.header_layout.removeWidget(self.logo)
         self.header_layout.removeWidget(self.logo_text)
@@ -180,11 +169,7 @@ class SidebarHeader(QtWidgets.QWidget):
         self.header_layout.addWidget(self.button_toggle)
         self.button_toggle.setIcon(self.icon_close)
 
-
-class LineSeparator(QtWidgets.QFrame):
-    def __init__(self):
-        super().__init__()        
-        
-        self.setFrameShape(QtWidgets.QFrame.HLine)
-        self.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.setEnabled(False)    
+    def on_enter_event(self, event):
+        self.button_toggle.setStyleSheet(f"border: 1px solid {ThemeConfig.Color.primary};")
+    def on_leave_event(self, event):
+        self.button_toggle.setStyleSheet("")
