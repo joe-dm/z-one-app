@@ -16,24 +16,31 @@ class PathConfig:
 
 class ThemeConfig:
     console_flags = {
-        'info':    '[i]: ',
-        'error':   '[E]: ',
-        'warning': '[!]: ',
-        'trying':  '[~]: ',
-        'debug':   '[#]: ',
-        'default': '[ ]: ',
-        'child':   '     ',
-        'none':    ''} 
+        'info':     '[i]: ',
+        'error':    '[E]: ERROR! ',
+        'warning':  '[!]: WARNING! ',
+        'operation':'[~]: ',
+        'debug':    '[#]: ',
+        'default':  '[ ]: ',
+        'none':     ''} 
 
     class Color:
-        primary =     '#ff8400'
-        secondary =   '#3daee9'        
+        primary =       '#ff8400'
+        secondary =     '#7dd2ff'   
+        secondary_dark ='#3daee9'  
+        # traffic light
+        green =         '#79ffb1'
+        yellow =        '#fffd8a'
+        red =           '#ff7d6c'
 
-        black =     '#1d2022'
-        black_dark ='#191919'
+        # grayscale
+        white =         '#ffffff'
+        gray_light =    '#cccccc'
+        gray_dark =     '#757575'
+        black =         '#1d2022'
+        black_dark =    '#191919'
 
-        grey_light ='#cccccc' 
-
+        
     class Icon:
         logo =      f"{PathConfig.images}logo.png"
         default =   f"{PathConfig.images}ico_default.png"
@@ -54,7 +61,7 @@ class ThemeConfig:
         
         size_title = 15
         size_logo  = 12
-        size_small = 9  
+        size_small = 10
 
 
 class SampleData: 
@@ -88,3 +95,4 @@ class SampleData:
         ('Build Number', '19042.1234'),
         ('Product ID', 'XXXXX-XXXXX-XXXXX-XXXXX-XXXXX')]
 
+    

@@ -15,8 +15,7 @@ class Logger:
     def log(message, flag='default'):
         # get date and time, and create the log and console messages
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        log_message = f"[{now}] {ThemeConfig.console_flags.get(flag, '')}{message}\n"
-        console_message = f"{ThemeConfig.console_flags.get(flag, '')}{message}"
+        log_message = f"[{now}] {ThemeConfig.console_flags.get(flag, '')}{message}\n"        
 
         # write to log file
         with open(Logger.log_path, 'a') as log_file:
@@ -27,25 +26,31 @@ class Logger:
             pass
         else:            
             if Logger.gui_console:
-                Logger.gui_console.append(console_message)           
-            else:
-                Logger.preloaded_messages.append(console_message)
-                #Logger.preloaded_messages.append((flag, message))
+                Logger.gui_console.append(message, flag)           
+            else:                
+                Logger.preloaded_messages.append((message, flag))
 
     @staticmethod
-    def setup_logs():
-        #os.system('cls' if os.name=='nt' else 'clear')
-        Logger.create_log_dir()
-        os.environ['QT_LOGGING_RULES'] = "qt.dbus.*=false"
-        Logger.log(f'{AppConfig.description}\n', 'none')
+    def log_init(obj):
+        Logger.log(f"Initialized '{obj.__class__.__name__}'", 'debug')
+                        
+        
+
+    @staticmethod
+    def setup_logs():       
+        
+        Logger.log(f'{AppConfig.description}', 'none')
+        Logger.log(f'\n', 'none')
         Logger.log(f'{AppConfig.name} started at {os.getcwd()}', 'info')
         if AppConfig.debug:
             Logger.log(f'Debugging mode is enabled', 'info')
+            Logger.log(f'This is what a warning message looks like', 'warning')
+            Logger.log(f'This is what an error message looks like', 'error')
         else:
             Logger.log(f'Debugging mode is disabled', 'info')
 
     @staticmethod
-    def create_log_dir():
+    def check_log_dir():
         if not os.path.exists(Logger.log_folder):
             os.makedirs(Logger.log_folder)
 
@@ -53,7 +58,7 @@ class Logger:
     def set_gui_console(gui_console): 
         Logger.gui_console = gui_console
         # process preloaded messages
-        for message in Logger.preloaded_messages:
-            Logger.gui_console.append(message)
+        for message, flag in Logger.preloaded_messages:
+            Logger.gui_console.append(message, flag)
         # clear preloaded messages
         Logger.preloaded_messages = []

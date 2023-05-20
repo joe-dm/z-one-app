@@ -10,10 +10,11 @@ from gui.sidebar import Sidebar
 from resources.config import AppConfig
 from util.logger import Logger
 
-class Window(QtWidgets.QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
-        super().__init__() 
+        super().__init__()         
         self.content = Content()
+        self.test = 1
         self.setup_ui()
     
     def setup_ui(self):
@@ -23,7 +24,8 @@ class Window(QtWidgets.QMainWindow):
         self.setMinimumHeight(400)        
         self.resize(800, 600)
         self.setCentralWidget(self.content)
-        self.show()       
+        self.show()    
+        Logger.log_init(self)   
 
 
 class Content(QtWidgets.QWidget):
