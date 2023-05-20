@@ -21,20 +21,20 @@ class Logger:
         with open(Logger.log_path, 'a') as log_file:
             log_file.write(log_message)
 
-        # check if debug message and print it if debugging output is enabled
-        if flag == 'debug' and not AppConfig.debug:
-            pass
-        else:            
-            if Logger.gui_console:
-                Logger.gui_console.append(message, flag)           
-            else:                
-                Logger.preloaded_messages.append((message, flag))
+        # print to gui console
+        if Logger.gui_console:                
+            Logger.gui_console.append(message, flag)   
+        # preload if gui console is unavailable        
+        else:                
+            Logger.preloaded_messages.append((message, flag))
 
     @staticmethod
-    def log_init(obj):
+    def log_init(obj, show_props=False):
         Logger.log(f"Initialized '{obj.__class__.__name__}'", 'debug')
-                        
-        
+
+        if show_props:
+            for prop, value in obj.__dict__.items():
+                Logger.log(f"{prop}: {value}", 'debug child')
 
     @staticmethod
     def setup_logs():       

@@ -16,13 +16,15 @@ class PathConfig:
 
 class ThemeConfig:
     console_flags = {
-        'info':     '[i]: ',
-        'error':    '[E]: ERROR! ',
-        'warning':  '[!]: WARNING! ',
-        'operation':'[~]: ',
-        'debug':    '[#]: ',
-        'default':  '[ ]: ',
-        'none':     ''} 
+        'info':       '[i]: ',
+        'error':      '[E]: ERROR! ',
+        'warning':    '[!]: WARNING! ',
+        'operation':  '[~]: ',
+        'debug':      '[#]: ',        
+        'default':    '[ ]: ',
+        'child':      '     ',
+        'debug child':'     ',
+        'none':       ''} 
 
     class Color:
         primary =       '#ff8400'

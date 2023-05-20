@@ -3,6 +3,7 @@ import PySide6.QtGui as QtGui
 import PySide6.QtWidgets as QtWidgets
 
 from resources.config import ThemeConfig
+from util.logger import Logger
 
 class TableWithTitle(QtWidgets.QWidget):
     def __init__(self, title, data):
@@ -26,6 +27,9 @@ class TableWithTitle(QtWidgets.QWidget):
         layout.addWidget(Separator(color=ThemeConfig.Color.primary))
         layout.addWidget(self.table)    
         self.setLayout(layout)
+
+        Logger.log_init(self)
+        
 
 class Table(QtWidgets.QTableWidget):
     def __init__(self, data):

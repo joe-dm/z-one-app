@@ -4,6 +4,7 @@ import PySide6.QtWidgets as QtWidgets
 
 from gui.widgets import Separator
 from resources.config import ThemeConfig
+from util.logger import Logger
 
 class Sidebar(QtWidgets.QWidget):
     is_expanded = True
@@ -49,8 +50,11 @@ class Sidebar(QtWidgets.QWidget):
         layout.addWidget(self.button_settings)
         layout.addWidget(self.button_logs)
 
+        Logger.log_init(self)
+
     def toggle(self):
-        if Sidebar.is_expanded:            
+        if Sidebar.is_expanded:   
+            Logger.log('Closing sidebar', 'debug')
             # hide text buttons
             for button in self.button_list:                      
                 button.button_text.setVisible(False)
@@ -58,8 +62,9 @@ class Sidebar(QtWidgets.QWidget):
             self.header.set_closed()  
 
             Sidebar.is_expanded = False
-        
+
         else:
+            Logger.log('Opening sidebar', 'debug')
             # show text buttons
             for button in self.button_list:
                 button.button_text.setVisible(True)         
@@ -102,7 +107,7 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_icon.enterEvent = self.on_enter_event
         self.button_icon.leaveEvent = self.on_leave_event
         self.button_text.enterEvent = self.on_enter_event
-        self.button_text.leaveEvent = self.on_leave_event    
+        self.button_text.leaveEvent = self.on_leave_event           
 
     def on_enter_event(self, event):
         self.setStyleSheet(f"border: 1px solid {ThemeConfig.Color.primary};")
@@ -152,14 +157,14 @@ class SidebarHeader(QtWidgets.QWidget):
 
         # setup on enter event
         self.button_toggle.enterEvent = self.on_enter_event
-        self.button_toggle.leaveEvent = self.on_leave_event
+        self.button_toggle.leaveEvent = self.on_leave_event       
 
-    def set_closed(self):
+    def set_closed(self):        
         self.header_layout.removeWidget(self.logo)
         self.header_layout.removeWidget(self.logo_text)
         self.header_layout.removeItem(self.spacer)
         self.button_toggle.setIcon(self.icon_open)
-    def set_opened(self):
+    def set_opened(self):        
         # remove toggle button
         self.header_layout.removeWidget(self.button_toggle)
         # add all widgets again
