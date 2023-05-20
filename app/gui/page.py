@@ -3,6 +3,7 @@ import PySide6.QtWidgets as QtWidgets
 
 from gui.widgets import PageTitle, Separator, TableWithTitle
 from resources.config import ThemeConfig, SampleData
+from util.logger import Logger
 
 class PageStack(QtWidgets.QScrollArea):
     def __init__(self):
@@ -40,7 +41,8 @@ class PageStack(QtWidgets.QScrollArea):
         self.setWidgetResizable(True)
         self.setWidget(container)
         self.setStyleSheet(f"background-color: {ThemeConfig.Color.black};")
-
+        
+        Logger.log_init(self)
 
 class Page(QtWidgets.QWidget):
     def __init__(self, title):
@@ -55,6 +57,8 @@ class Page(QtWidgets.QWidget):
         # add widgets to layout
         self.page_layout.addWidget(self.label_title)
         self.page_layout.addWidget(self.separator)
+        
+        Logger.log_init(self)
 
     def add_bottom_widgets(self):
         self.page_layout.addStretch()

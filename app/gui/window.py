@@ -13,8 +13,7 @@ from util.logger import Logger
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()         
-        self.content = Content()
-        self.test = 1
+        self.content = Content()        
         self.setup_ui()
     
     def setup_ui(self):
@@ -37,7 +36,7 @@ class Content(QtWidgets.QWidget):
         self.console = Console()
 
         self.setup_ui()
-        self.setup_connections()
+        self.setup_sidebar_connections()
 
 
     def setup_ui(self):
@@ -60,7 +59,10 @@ class Content(QtWidgets.QWidget):
         self.setLayout(layout)
         self.layout().addWidget(vertical_splitter)
 
-    def setup_connections(self):
+        Logger.log_init(self)
+
+    def setup_sidebar_connections(self):
+        Logger.log('Setting up sidebar connections', 'debug')      
         sidebar_buttons = [
             (self.sidebar.button_dashboard, self.page_stack.page_dashboard),
             (self.sidebar.button_cpu, self.page_stack.page_cpu),
@@ -83,5 +85,6 @@ class Content(QtWidgets.QWidget):
 
     
     def switch_page(self, page):
+        Logger.log(f'Switching to page "{page.label_title.text()}"', 'debug')
         self.page_stack.page_stack_layout.setCurrentWidget(page)
-        Logger.log(f'Switched to page "{page.label_title.text()}"', 'debug')
+        
