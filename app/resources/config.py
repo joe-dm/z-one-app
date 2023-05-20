@@ -1,5 +1,3 @@
-import os
-
 class AppConfig:    
     name = 'z-one'
     version = '1.0.2304'
@@ -28,8 +26,8 @@ class ThemeConfig:
         'none':    ''} 
 
     class Color:
-        primary =   '#2596be'
-        secondary = '#ff8400'
+        primary =     '#ff8400'
+        secondary =   '#3daee9'        
 
         black =     '#1d2022'
         black_dark ='#191919'
@@ -56,4 +54,37 @@ class ThemeConfig:
         
         size_title = 15
         size_logo  = 12
-        size_small = 9     
+        size_small = 9  
+
+
+class SampleData: 
+    cpu_info = [
+        ('CPU Model', 'Intel Core i7-8700K'),
+        ('CPU Cores', '6'),
+        ('CPU Threads', '12'),
+        ('CPU Frequency', '3.7 GHz'),
+        ('CPU Usage', '25%'),
+        ('CPU Temperature', '65°C')]
+
+    gpu_info = [
+        ('GPU Model', 'NVIDIA GeForce RTX 2080 Ti'),
+        ('GPU Memory', '11 GB'),
+        ('GPU Clock', '1350 MHz'),
+        ('GPU Temperature', '70°C'),
+        ('GPU Usage', '75%')]
+
+    disk_info = [
+        ('Drive C:', 'SSD', '250 GB', '120 GB', '130 GB'),
+        ('Drive D:', 'HDD', '2 TB', '500 GB', '1.5 TB'),
+        ('Drive E:', 'SSD', '500 GB', '400 GB', '100 GB')]
+
+    os_info = [
+        ('OS Name', 'Windows 10'),
+        ('OS Architecture', '64-bit'),
+        ('User Name', 'John Doe'),
+        ('Install Date', '04/15/2023'),
+        ('OS Version', '10.0.19042'),
+        ('OS Release', '21H1'),
+        ('Build Number', '19042.1234'),
+        ('Product ID', 'XXXXX-XXXXX-XXXXX-XXXXX-XXXXX')]
+

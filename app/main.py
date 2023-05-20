@@ -16,13 +16,13 @@ class App(QtWidgets.QApplication):
     def setup_stylesheet(self):        
         stylesheet_path = PathConfig.stylesheet
         try:
-            Logger.log('Loading stylesheet', 'trying')
+            Logger.log('Loading stylesheet', 'debug')
             with open(stylesheet_path, "r") as f:
                 stylesheet_content = f.read()
                 self.setStyleSheet(stylesheet_content)
         except FileNotFoundError:
             Logger.log(
-                f"WARNING: Stylesheet file not found: {stylesheet_path}", 'warning')            
+                f"WARNING: Stylesheet file not found: {stylesheet_path}", 'warning')         
         except Exception as e:
             Logger.log(f"ERROR: Failed to load stylesheet: {str(e)}", 'error')
       

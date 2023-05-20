@@ -3,9 +3,10 @@ import functools
 import PySide6.QtCore as QtCore
 import PySide6.QtWidgets as QtWidgets
 
-from gui.sidebar import Sidebar
 from gui.console import Console
 from gui.page import PageStack
+from gui.sidebar import Sidebar
+
 from resources.config import AppConfig
 from util.logger import Logger
 
