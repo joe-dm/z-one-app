@@ -1,9 +1,7 @@
-import PySide6.QtCore as QtCore
-import PySide6.QtGui as QtGui
-import PySide6.QtWidgets as QtWidgets
+from PySide6 import QtGui, QtWidgets
 
 from resources.config import ThemeConfig
-from util.logger import Logger
+from utils.log import Logger
 
 class TableWithTitle(QtWidgets.QWidget):
     def __init__(self, title, data):

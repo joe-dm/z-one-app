@@ -1,9 +1,8 @@
-
-import PySide6.QtWidgets as QtWidgets
+from PySide6 import QtWidgets
 
 from gui.widgets import PageTitle, Separator, TableWithTitle
 from resources.config import ThemeConfig, SampleData
-from util.logger import Logger
+from utils.log import Logger
 
 class PageStack(QtWidgets.QScrollArea):
     def __init__(self):

@@ -1,8 +1,7 @@
-import PySide6.QtGui as QtGui
-import PySide6.QtWidgets as QtWidgets
+from PySide6 import QtGui, QtWidgets
 
 from resources.config import AppConfig, ThemeConfig
-from util.logger import Logger
+from utils.log import Logger
 
 class Console(QtWidgets.QWidget):
     last_used_color = None
@@ -25,7 +24,7 @@ class Console(QtWidgets.QWidget):
         # set font
         font = QtGui.QFont(ThemeConfig.Font.monospace, ThemeConfig.Font.size_small)
         self.text_edit.setFont(font)
-        # Disable text wrapping
+        # disable text wrapping
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
         # set colors
         self.text_edit.setStyleSheet(
@@ -36,14 +35,15 @@ class Console(QtWidgets.QWidget):
         Logger.log_init(self)
 
     def append(self, message, flag):
-        if AppConfig.debug==False and (flag=='debug' or flag=='debug child'):
+        if not AppConfig.debug and (flag=='debug' or flag=='debug child'):
             pass
         else:
             full_message = f"{ThemeConfig.console_flags.get(flag.strip(), '')}{message}"
-            # Replace spaces with non-breaking spaces
+
+            # replace spaces with non-breaking spaces
             full_message = full_message.replace(" ", "&nbsp;")
             
-            # Set message color        
+            # set message color        
             if flag == 'operation':
                 self.text_color = ThemeConfig.Color.secondary
             elif flag == 'debug' or flag == 'debug child':
@@ -53,23 +53,23 @@ class Console(QtWidgets.QWidget):
             elif flag == 'error':
                 self.text_color = ThemeConfig.Color.red
             elif flag == 'child':
-                self.text_color == Console.last_used_color
+                self.text_color = Console.last_used_color
             else:
                 self.text_color = ThemeConfig.Color.white
             Console.last_used_color = self.text_color
 
-            # Get current cursor position
+            # get current cursor position
             cursor = self.text_edit.textCursor()
             cursor.movePosition(QtGui.QTextCursor.End)
 
-            # Insert the message with the desired color
+            # insert the message with the desired color
             cursor.insertHtml(f"<span style='color: {self.text_color};'>{full_message}</span>")
             self.text_edit.setTextCursor(cursor)
 
-            # Move to the next line
+            # move to the next line
             cursor.insertText("\n")
 
-            # Scroll to the bottom and ensure cursor visibility
+            # scroll to the bottom and ensure cursor visibility
             self.text_edit.ensureCursorVisible()
 
             scroll_bar = self.text_edit.horizontalScrollBar()

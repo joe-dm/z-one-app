@@ -13,9 +13,17 @@ class Logger:
 
     @staticmethod
     def log(message, flag='default'):
+        # edit message 
+        if flag == 'operation':
+            message = f"{message}..."
+        elif flag == 'error':
+            message = f"ERROR! {message}"
+        elif flag == 'warning':
+            message = f"WARNING! {message}"
+
         # get date and time, and create the log and console messages
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        log_message = f"[{now}] {ThemeConfig.console_flags.get(flag, '')}{message}\n"        
+        log_message = f"[{now}] {ThemeConfig.console_flags.get(flag, '')}{message}\n"
 
         # write to log file
         with open(Logger.log_path, 'a') as log_file:
@@ -27,7 +35,7 @@ class Logger:
         # preload if gui console is unavailable        
         else:                
             Logger.preloaded_messages.append((message, flag))
-
+    
     @staticmethod
     def log_init(obj, show_props=False):
         Logger.log(f"Initialized '{obj.__class__.__name__}'", 'debug')
