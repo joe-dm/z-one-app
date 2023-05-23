@@ -1,10 +1,8 @@
-import PySide6.QtCore as QtCore
-import PySide6.QtGui as QtGui
-import PySide6.QtWidgets as QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 from gui.widgets import Separator
 from resources.config import ThemeConfig
-from util.logger import Logger
+from utils.log import Logger
 
 class Sidebar(QtWidgets.QWidget):
     is_expanded = True
@@ -107,7 +105,9 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_icon.enterEvent = self.on_enter_event
         self.button_icon.leaveEvent = self.on_leave_event
         self.button_text.enterEvent = self.on_enter_event
-        self.button_text.leaveEvent = self.on_leave_event           
+        self.button_text.leaveEvent = self.on_leave_event
+
+        Logger.log_init(self)      
 
     def on_enter_event(self, event):
         self.setStyleSheet(f"border: 1px solid {ThemeConfig.Color.primary};")
@@ -157,14 +157,18 @@ class SidebarHeader(QtWidgets.QWidget):
 
         # setup on enter event
         self.button_toggle.enterEvent = self.on_enter_event
-        self.button_toggle.leaveEvent = self.on_leave_event       
+        self.button_toggle.leaveEvent = self.on_leave_event 
 
-    def set_closed(self):        
+        Logger.log_init(self)      
+
+    def set_closed(self):
+        Logger.log('Closing header', 'debug')
         self.header_layout.removeWidget(self.logo)
         self.header_layout.removeWidget(self.logo_text)
         self.header_layout.removeItem(self.spacer)
         self.button_toggle.setIcon(self.icon_open)
     def set_opened(self):        
+        Logger.log('Opening header', 'debug')
         # remove toggle button
         self.header_layout.removeWidget(self.button_toggle)
         # add all widgets again

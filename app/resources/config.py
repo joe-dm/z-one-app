@@ -17,8 +17,8 @@ class PathConfig:
 class ThemeConfig:
     console_flags = {
         'info':       '[i]: ',
-        'error':      '[E]: ERROR! ',
-        'warning':    '[!]: WARNING! ',
+        'error':      '[E]: ',
+        'warning':    '[!]: ',
         'operation':  '[~]: ',
         'debug':      '[#]: ',        
         'default':    '[ ]: ',

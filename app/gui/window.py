@@ -1,14 +1,12 @@
 import functools
 
-import PySide6.QtCore as QtCore
-import PySide6.QtWidgets as QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 from gui.console import Console
 from gui.page import PageStack
 from gui.sidebar import Sidebar
-
 from resources.config import AppConfig
-from util.logger import Logger
+from utils.log import Logger
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
