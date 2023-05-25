@@ -2,14 +2,13 @@ import sys
 import os
 import time
 
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtCore
 
 from gui.window import MainWindow
 from resources.config import AppConfig, PathConfig
 from tools.info_gatherer import BasicInfo
-from tools.monitor import MonitorNetwork
+from tools.network import NetMon
 from utils.log import Logger
-from utils.thread import Thread
 
 
 class App(QtWidgets.QApplication):
@@ -17,6 +16,7 @@ class App(QtWidgets.QApplication):
         super().__init__([])
         self.setup()
         self.window = MainWindow()
+        self.threadpool = QtCore.QThreadPool()
         self.gather_info()
         self.start_monitoring()
         
@@ -55,8 +55,13 @@ class App(QtWidgets.QApplication):
 
     def start_monitoring(self)      :
         Logger.log('Starting system monitor', 'operation')
-        Thread.start(MonitorNetwork.ping)  
-        Thread.start(self.count)      
+        
+        net_mon = NetMon()
+        self.threadpool.start(net_mon)
+        #NetMon.run()
+        
+        #Thread.start(MonitorNetwork.ping)  
+        #Thread.start(self.count)      
     
     def count(self, n=10):
         for i in range(0, n):
@@ -66,8 +71,8 @@ class App(QtWidgets.QApplication):
     
     def quit(self):
         # Clean up the thread pool and wait for threads to finish
-        Thread.threadpool.waitForDone()
-        Thread.threadpool.clear()
+        #Thread.threadpool.waitForDone()
+        #Thread.threadpool.clear()
         
         # Call the original quit method to exit the application
         super().quit()
