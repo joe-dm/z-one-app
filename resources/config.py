@@ -1,31 +1,28 @@
 import os
 
-class AppConfig:    
-    name = 'z-one'
-    version = '1.0.2304'
-    dev_info = 'github.com/joe-dm'
-    description = f'{name} {version} ({dev_info})'
-    debug = True
+class AppConfig:
+    class Info:
+        name = 'z-one'
+        version = '1.0.2305'
+        dev_info = 'github.com/joe-dm'
+        description = f'{name} {version} ({dev_info})'
 
+    class Path:    
+        log_file = os.path.join('logs', 'z-one.log')    
+        stylesheet = os.path.join('app', 'resources', 'style_dark.qss')
+        images = os.path.join('app', 'resources', 'images')   
 
-class PathConfig:    
-    log_file = os.path.join('logs', 'z-one.log')    
-    stylesheet = os.path.join('app', 'resources', 'style_dark.qss')
-    images = os.path.join('app', 'resources', 'images')     
+    class Console:
+        debug = True
+
+        flag_default = '[ ]: '        
+        flag_info    = '[i]: '
+        flag_warning = '[!]: '
+        flag_error   = '[E]: '
+        flag_debug   = '[#]: '        
 
 
 class ThemeConfig:
-    console_flags = {
-        'info':       '[i]: ',
-        'error':      '[E]: ',
-        'warning':    '[!]: ',
-        'operation':  '[~]: ',
-        'debug':      '[#]: ',        
-        'default':    '[ ]: ',
-        'child':      '     ',
-        'debug child':'     ',
-        'none':       ''} 
-
     class Color:
         # main colors
         primary =       '#ff8400'
@@ -44,7 +41,7 @@ class ThemeConfig:
 
         
     class Icon:
-        _base_path = PathConfig.images
+        _base_path = AppConfig.Path.images
     
         logo        = os.path.join(_base_path, 'logo.png')
         #icons
@@ -62,10 +59,10 @@ class ThemeConfig:
         arrow_right = os.path.join(_base_path, 'ico_arrow_right.png')
 
     class Font:
-        monospace = 'Courier New'
+        family_monospace = 'Courier New'
         
-        size_title = 15
-        size_logo  = 12
+        size_large = 15
+        size_medium= 12
         size_small = 10
 
 

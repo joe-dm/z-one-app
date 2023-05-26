@@ -1,17 +1,18 @@
 import subprocess
-import time
 
 from PySide6 import QtCore
 
 from utils.thread import ThreadManager
+from utils.log import Logger
 
 
+# thread that never ends
 class NetworkMonitor(QtCore.QRunnable):
     def __init__(self, address='8.8.8.8'):
         super().__init__()
 
-        self.address = address   
-        self.is_running = True      
+        self.address = address        
+        self.is_running = True
         
         ThreadManager.start_thread(self)
 
@@ -19,35 +20,56 @@ class NetworkMonitor(QtCore.QRunnable):
     def run(self):
         while self.is_running:
             result = subprocess.run(["ping", "-c", "1", self.address], capture_output=True, text=True)
-            if result.returncode == 0:
-                print(f"Ping to {self.address} successful")
+            if result.returncode == 0:                
+                Logger.send(f"Ping to {self.address} successful")
             else:
-                print(f"Ping to {self.address} failed")
-            time.sleep(1)    
+                Logger.send(f"Ping to {self.address} failed")
+            QtCore.QThread.msleep(1000)  
 
     def finish(self):
         self.is_running = False        
-        ThreadManager.finish_thread(self)
-            
+        ThreadManager.report_finished(self)
 
-
+# thread that ends and can be ended early by ThreadManager
 class SheepCounter(QtCore.QRunnable):
     def __init__(self):
         super().__init__()
 
-        self.is_running = True        
-
-        ThreadManager.start_thread(self)    
+        self.is_running = True      
+        
+        ThreadManager.start_thread(self)
 
     @QtCore.Slot()
-    def run(self):        
-        for sheep in range(1, 3):            
-            print(f"Sheep {sheep}")
-            time.sleep(1)
-
+    def run(self, herd=50):
+        for sheep_num in range(1, herd):
+            if not self.is_running:
+                break
+            Logger.send(f"Sheep #{sheep_num}")
+            QtCore.QThread.msleep(250)
+        
         if self.is_running:
             self.finish()
 
     def finish(self):
+        self.is_running = False        
+        ThreadManager.report_finished(self)
+
+# thread that ends on its own and cannot be ended early by ThreadManager
+class ImportantCounter(QtCore.QRunnable):    
+
+    def __init__(self):
+        super().__init__()
+        self.is_running = True
+        ThreadManager.start_thread(self)
+
+    @QtCore.Slot()
+    def run(self, count=15):
+        for n in range(1, count):
+            print(f"Important count {n}")
+            QtCore.QThread.msleep(1000)
+        
         self.is_running = False
-        ThreadManager.finish_thread(self)
+        ThreadManager.report_finished(self)
+
+    def finish(self):
+        ThreadManager.report_waiting(self)
