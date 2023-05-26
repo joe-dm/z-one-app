@@ -1,28 +1,21 @@
 from gui.window import QApp
-from tools.network import NetworkMonitor, SheepCounter
 from utils.thread import ThreadManager
+from tools.network import NetworkMonitor, SheepCounter
 
 class App:
     def __init__(self):
-        self.qapp = QApp()   
-        self.network_monitor = NetworkMonitor()        
+        self.qapp = QApp()
+
+        self.net_mon = NetworkMonitor()
         self.sheep = SheepCounter()
-        
-        # connect main window close event to thread cleanup
-        self.qapp.main_window.closeEvent = self.cleanup_threads
 
+        # setup window close event
+        self.qapp.main_window.closeEvent = self.exit
 
-    def cleanup_threads(self, event):
+    def exit(self, event):
         ThreadManager.clean_up()
-        #event.accept()
-
-    def quit(self): 
-        self.qapp.quit()
-        
-
-
+    
 
 if __name__ == '__main__':
     app = App()
-    app.quit()
-    
+    app.qapp.exec()
