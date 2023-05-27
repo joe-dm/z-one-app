@@ -3,7 +3,7 @@ import subprocess
 from PySide6 import QtCore
 
 from utils.thread import ThreadManager
-from utils.log import Logger
+from utils.log import Log
 
 
 # thread that never ends
@@ -21,9 +21,9 @@ class NetworkMonitor(QtCore.QRunnable):
         while self.is_running:
             result = subprocess.run(["ping", "-c", "1", self.address], capture_output=True, text=True)
             if result.returncode == 0:                
-                Logger.send(f"Ping to {self.address} successful")
+                Log.debug(f"Ping to {self.address} successful")
             else:
-                Logger.send(f"Ping to {self.address} failed")
+                Log.debug(f"Ping to {self.address} failed")
             QtCore.QThread.msleep(1000)  
 
     def finish(self):
@@ -40,12 +40,12 @@ class SheepCounter(QtCore.QRunnable):
         ThreadManager.start_thread(self)
 
     @QtCore.Slot()
-    def run(self, herd=50):
+    def run(self, herd=10):
         for sheep_num in range(1, herd):
             if not self.is_running:
                 break
-            Logger.send(f"Sheep #{sheep_num}")
-            QtCore.QThread.msleep(250)
+            Log.debug(f"Sheep #{sheep_num}")
+            QtCore.QThread.msleep(1000)
         
         if self.is_running:
             self.finish()
@@ -63,9 +63,9 @@ class ImportantCounter(QtCore.QRunnable):
         ThreadManager.start_thread(self)
 
     @QtCore.Slot()
-    def run(self, count=15):
+    def run(self, count=10):
         for n in range(1, count):
-            print(f"Important count {n}")
+            Log.debug(f"Counting important number #{n}")
             QtCore.QThread.msleep(1000)
         
         self.is_running = False

@@ -1,6 +1,6 @@
 from PySide6 import QtCore
 
-from utils.log import Logger
+from utils.log import Log
 
 
 class ThreadManager:    
@@ -9,22 +9,22 @@ class ThreadManager:
 
     @staticmethod
     def start_thread(thread):        
-        Logger.send(f"Starting thread {thread}")
+        Log.debug(f"Starting thread {thread.__class__.__name__}")
         ThreadManager.active_threads.append(thread)
         ThreadManager.thread_pool.start(thread)
     
     @staticmethod
     def report_finished(thread):        
-        Logger.send(f"Finished thread {thread}")
+        Log.debug(f"Finished thread {thread.__class__.__name__}")
         ThreadManager.active_threads.remove(thread)
     
     @staticmethod
     def report_waiting(thread):
-        Logger.send(f"Waiting for thread {thread}")
+        Log.debug(f"Waiting for thread {thread.__class__.__name__}")
 
     @staticmethod
     def clean_up():
         if ThreadManager.active_threads:            
-            Logger.send(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
+            Log.debug(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
             for thread in ThreadManager.active_threads[:]:
                 thread.finish()     
