@@ -1,25 +1,21 @@
 import os
 
 class AppConfig:
+    debug = True
+
     class Info:
         name = 'z-one'
         version = '1.0.2305'
         dev_info = 'github.com/joe-dm'
         description = f'{name} {version} ({dev_info})'
 
-    class Path:    
-        log_file = os.path.join('logs', 'z-one.log')    
+    class Path:
+        log_folder = os.path.join('logs')
+        log_app = os.path.join(log_folder, 'z-one.log')    
+        
         stylesheet = os.path.join('app', 'resources', 'style_dark.qss')
         images = os.path.join('app', 'resources', 'images')   
 
-    class Console:
-        debug = True
-
-        flag_default = '[ ]: '        
-        flag_info    = '[i]: '
-        flag_warning = '[!]: '
-        flag_error   = '[E]: '
-        flag_debug   = '[#]: '        
 
 
 class ThemeConfig:

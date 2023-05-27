@@ -1,20 +1,48 @@
+import os
+
 from gui.window import QApp
+from resources.config import AppConfig
+from tools.network import NetworkMonitor, ImportantCounter
 from utils.thread import ThreadManager
-from tools.network import NetworkMonitor, SheepCounter
+from utils.log import Log
+
 
 class App:
     def __init__(self):
-        self.qapp = QApp()
+        self.start()
 
-        self.net_mon = NetworkMonitor()
-        self.sheep = SheepCounter()
-
-        # setup window close event
+        self.qapp = QApp()        
         self.qapp.main_window.closeEvent = self.exit
 
-    def exit(self, event):
-        ThreadManager.clean_up()
+        self.net_mon = NetworkMonitor()
+        self.counter = ImportantCounter()
+        
+
+    def start(self):  
+        # clear console      
+        os.system('cls' if os.name == 'nt' else 'clear')
+        
+
+        # setup log folder
+        Log.check_dir()
+
+        # show app info
+        Log.no_flag(f"{AppConfig.Info.description}")
+        Log.no_flag("")
+        Log.info(f"{AppConfig.Info.name} started at {os.getcwd()}")
+
+        # show debug mode
+        debug_mode = "enabled" if AppConfig.debug else "disabled"
+        Log.info(f'Debugging mode is {debug_mode}')
+        
     
+    def exit(self, event):
+        Log.info('Exiting')
+        event.ignore()        
+        ThreadManager.clean_up()
+        
+        
+        
 
 if __name__ == '__main__':
     app = App()
