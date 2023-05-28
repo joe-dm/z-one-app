@@ -1,7 +1,7 @@
 from PySide6 import QtGui, QtWidgets
 
 from resources.config import ThemeConfig
-from utils.log import Log
+from utils.log import Log, Flag
 
 class Console(QtWidgets.QWidget):    
 
@@ -43,8 +43,26 @@ class Console(QtWidgets.QWidget):
         cursor.movePosition(QtGui.QTextCursor.End)        
 
         # insert message and new line
-        cursor.insertHtml(f"<span>{full_message}</span>")
+        cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>{full_message}</span>")
         cursor.insertText("\n")
 
         if self.vertical_scroll_bar.value() > self.vertical_scroll_bar.maximum() - 50:
-            self.vertical_scroll_bar.setValue(self.vertical_scroll_bar.maximum())
+            self.scroll_to_bottom()
+    
+    def scroll_to_bottom(self):
+        self.vertical_scroll_bar.setValue(self.vertical_scroll_bar.maximum())
+    
+    def get_color(self, flag):
+        color = ThemeConfig.Color.white
+
+        if flag == Flag.task:
+            color = ThemeConfig.Color.primary
+        elif flag == Flag.warning:
+            color = ThemeConfig.Color.yellow
+        elif flag == Flag.error:
+            color = ThemeConfig.Color.red
+        elif flag == Flag.debug:
+            color = ThemeConfig.Color.gray_dark
+        
+        return color
+         

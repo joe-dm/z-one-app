@@ -37,16 +37,22 @@ class App:
         
     
     def exit(self, event):
-        Log.info('Exiting app...')
+        # scroll console to bottom
+        self.qapp.main_window.content.console.scroll_to_bottom()
+
+        # display info message
+        Log.info('Exiting...')
+        
+        # start cleaning up threads
         ThreadManager.clean_up()  
         
         # open popup
-        popup = PopupExit(self.qapp.main_window, 'Cleaning up and exiting...\nPlease wait.')
-        
+        popup = PopupExit(self.qapp.main_window)
+
         # wait for all threads to finish
         while ThreadManager.active_threads:
-            self.qapp.processEvents()
-        
+            self.qapp.processEvents()    
+
         # close popup
         popup.close()
 

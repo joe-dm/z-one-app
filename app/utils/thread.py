@@ -9,18 +9,18 @@ class ThreadManager:
 
     @staticmethod
     def start_thread(thread):        
-        Log.debug(f"Starting thread {thread.__class__.__name__}")
+        Log.debug(f"Starting thread: {thread.__class__.__name__}")
         ThreadManager.active_threads.append(thread)
         ThreadManager.thread_pool.start(thread)
     
     @staticmethod
     def report_finished(thread):        
-        Log.debug(f"Finished thread {thread.__class__.__name__}")
+        Log.debug(f"Finished thread: {thread.__class__.__name__}")
         ThreadManager.active_threads.remove(thread)
     
     @staticmethod
     def report_waiting(thread):
-        Log.debug(f"Waiting for thread {thread.__class__.__name__}")
+        Log.debug(f"Waiting for thread: {thread.__class__.__name__}")
 
     @staticmethod
     def clean_up():
