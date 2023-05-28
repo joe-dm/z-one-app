@@ -1,7 +1,6 @@
 import functools
 
 from PySide6 import QtWidgets, QtCore
-import PySide6.QtGui
 
 from gui.console import Console
 from gui.page import PageStack
@@ -49,7 +48,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show() 
 
         Log.debug_init(self)    
-          
+    
         
 
 class Content(QtWidgets.QWidget):

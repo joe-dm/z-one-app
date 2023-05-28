@@ -63,7 +63,7 @@ class ImportantCounter(QtCore.QRunnable):
         ThreadManager.start_thread(self)
 
     @QtCore.Slot()
-    def run(self, count=10):
+    def run(self, count=15):
         for n in range(1, count):
             Log.debug(f"Counting important number #{n}")
             QtCore.QThread.msleep(1000)
