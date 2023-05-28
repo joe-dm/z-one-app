@@ -1,5 +1,6 @@
 from PySide6 import QtWidgets, QtCore
 
+from utils.log import Log
 
 class PopupExit(QtWidgets.QDialog):
     def __init__(self, parent_widget):
@@ -29,7 +30,9 @@ class PopupExit(QtWidgets.QDialog):
 
         self.setModal(True)   
         self.setFixedSize(self.sizeHint())                
-        self.show()        
+        self.show()
+
+        Log.debug_init(self)
 
     def closeEvent(self, event):
         event.ignore()

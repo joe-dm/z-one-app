@@ -8,8 +8,6 @@ from gui.sidebar import Sidebar
 from resources.config import AppConfig
 from utils.log import Log
 
-
-
 class QApp(QtWidgets.QApplication):
     def __init__(self):
         super().__init__()
@@ -17,6 +15,7 @@ class QApp(QtWidgets.QApplication):
         self.main_window = MainWindow()               
 
     def setup_ui(self):
+        Log.task('Setting up GUI')
         # load stylesheet
         try:
             Log.debug('Loading stylesheet')

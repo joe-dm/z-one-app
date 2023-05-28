@@ -35,7 +35,7 @@ class Console(QtWidgets.QWidget):
         Log.debug_init(self)
 
     def append(self, message, flag):
-        # create full message
+        # create full message       
         full_message = f"{flag}{message}".replace(" ", "&nbsp;")
 
         # get cursor position
@@ -43,7 +43,7 @@ class Console(QtWidgets.QWidget):
         cursor.movePosition(QtGui.QTextCursor.End)        
 
         # insert message and new line
-        cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>{full_message}</span>")
+        cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>&nbsp;{full_message}</span>")
         cursor.insertText("\n")
 
         if self.vertical_scroll_bar.value() > self.vertical_scroll_bar.maximum() - 50:
@@ -56,13 +56,14 @@ class Console(QtWidgets.QWidget):
         color = ThemeConfig.Color.white
 
         if flag == Flag.task:
-            color = ThemeConfig.Color.primary
+            color = ThemeConfig.Color.secondary
         elif flag == Flag.warning:
             color = ThemeConfig.Color.yellow
         elif flag == Flag.error:
             color = ThemeConfig.Color.red
         elif flag == Flag.debug:
             color = ThemeConfig.Color.gray_dark
+        elif flag == Flag.none:
+            color = ThemeConfig.Color.primary
         
         return color
-         
