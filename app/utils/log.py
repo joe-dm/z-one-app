@@ -3,13 +3,12 @@ import datetime
 from PySide6 import QtCore
 from resources.config import AppConfig
 
-class Flag:    
-        default = ' | '        
-        info    = 'i| '
+class Flag:                  
+        info    = '•| '
         warning = '!| '
-        error   = 'E| '
+        error   = '×| '
         debug   = '#| '
-        task    = '~| '
+        task    = '»| '
         none    = ''   
 
 class Log:    
@@ -17,7 +16,7 @@ class Log:
     gui_console = None 
     preloaded_messages = []
 
-    # writers
+    # writers    
     def info(message):
         Log._log(message, Flag.info)
     def warning(message):
@@ -33,7 +32,7 @@ class Log:
     def debug_init(obj, show_props=False):        
         class_name = obj.__class__.__name__
         message = f"Initialized {class_name} "
-        indent = ' ' * len(Flag.default)
+        indent = ' ' * len(Flag.info)
         if show_props:
             message += f"with properties:\n"
             for prop, value in obj.__dict__.items():
@@ -47,20 +46,24 @@ class Log:
     
     # set the front gui console
     def set_gui_console(gui_console):
-        Log.gui_console = gui_console        
-        for message, flag in Log.preloaded_messages:
-            Log.gui_console.append(message, flag)        
-        Log.preloaded_messages = []        
+        Log.gui_console = gui_console
+        if gui_console:    
+            for message, flag in Log.preloaded_messages:
+                Log.gui_console.append(message, flag)        
+            Log.preloaded_messages = []        
     
 
     # process log message
-    def _log(message, flag=Flag.default):   
-        # print to gui console
-        if Log.gui_console:
-            Log.gui_console.append(message, flag)
-        # preload messages
+    def _log(message, flag):
+        if not AppConfig.debug and flag == Flag.debug:
+            pass
         else:
-            Log.preloaded_messages.append((message, flag))           
+            # print to gui console
+            if Log.gui_console:
+                Log.gui_console.append(message, flag)
+            # preload messages
+            else:
+                Log.preloaded_messages.append((message, flag))           
         
         # write to file
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

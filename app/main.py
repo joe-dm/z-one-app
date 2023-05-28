@@ -3,7 +3,7 @@ import os
 from gui.popup import PopupExit
 from gui.window import QApp
 from resources.config import AppConfig
-from tools.network import NetworkMonitor, ImportantCounter
+from tools.network import NetworkMonitor, TestThread, ImportantCounter
 from utils.thread import ThreadManager
 from utils.log import Log
 
@@ -16,7 +16,8 @@ class App:
         self.qapp.main_window.closeEvent = self.exit
 
         self.net_mon = NetworkMonitor()
-        self.counter = ImportantCounter()
+        self.test = TestThread()
+        self.test_important = ImportantCounter()
         
 
     def start(self):  
@@ -41,7 +42,7 @@ class App:
         self.qapp.main_window.content.console.scroll_to_bottom()
 
         # display info message
-        Log.info('Exiting...')
+        Log.task('Exiting...')
         
         # start cleaning up threads
         ThreadManager.clean_up()  
@@ -52,6 +53,9 @@ class App:
         # wait for all threads to finish
         while ThreadManager.active_threads:
             self.qapp.processEvents()    
+
+        # remove gui console to prevent exception
+        Log.set_gui_console(None)
 
         # close popup
         popup.close()

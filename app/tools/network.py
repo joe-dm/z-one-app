@@ -18,6 +18,7 @@ class NetworkMonitor(QtCore.QRunnable):
 
     @QtCore.Slot()
     def run(self):
+        Log.task('Started monitoring network')
         while self.is_running:
             result = subprocess.run(["ping", "-c", "1", self.address], capture_output=True, text=True)
             if result.returncode == 0:                
@@ -31,7 +32,7 @@ class NetworkMonitor(QtCore.QRunnable):
         ThreadManager.report_finished(self)
 
 # thread that ends and can be ended early by ThreadManager
-class SheepCounter(QtCore.QRunnable):
+class TestThread(QtCore.QRunnable):
     def __init__(self):
         super().__init__()
 
@@ -40,11 +41,19 @@ class SheepCounter(QtCore.QRunnable):
         ThreadManager.start_thread(self)
 
     @QtCore.Slot()
-    def run(self, herd=10):
-        for sheep_num in range(1, herd):
+    def run(self, maximum=10):
+        Log.task('Started test thread')
+        for n in range(1, maximum):
             if not self.is_running:
                 break
-            Log.debug(f"Sheep #{sheep_num}")
+            
+            Log.debug(f"Test #{n}")  
+
+            if n == 3:
+                Log.warning('This is a warning message.')
+            elif n == 5:
+                Log.error('This is an error message.')
+                
             QtCore.QThread.msleep(1000)
         
         if self.is_running:
@@ -53,6 +62,7 @@ class SheepCounter(QtCore.QRunnable):
     def finish(self):
         self.is_running = False        
         ThreadManager.report_finished(self)
+
 
 # thread that ends on its own and cannot be ended early by ThreadManager
 class ImportantCounter(QtCore.QRunnable):    
@@ -64,8 +74,9 @@ class ImportantCounter(QtCore.QRunnable):
 
     @QtCore.Slot()
     def run(self, count=15):
+        Log.task('Started counting important things')
         for n in range(1, count):
-            Log.debug(f"Counting important number #{n}")
+            Log.debug(f"Counting important thing #{n}")
             QtCore.QThread.msleep(1000)
         
         self.is_running = False

@@ -53,6 +53,7 @@ class ThemeConfig:
         logs        = os.path.join(_base_path, 'ico_logs.png')
         arrow_left  = os.path.join(_base_path, 'ico_arrow_left.png')
         arrow_right = os.path.join(_base_path, 'ico_arrow_right.png')
+        test        = os.path.join(_base_path, 'smile.png')
 
     class Font:
         family_monospace = 'Courier New'
