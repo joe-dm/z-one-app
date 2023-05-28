@@ -1,14 +1,15 @@
 import os
+import datetime
 from PySide6 import QtCore
 from resources.config import AppConfig
 
 class Flag:    
-        default = '[ ] '        
-        info    = '[i] '
-        warning = '[!] '
-        error   = '[E] '
-        debug   = '[#] '
-        task    = '[~] '
+        default = ' | '        
+        info    = 'i| '
+        warning = '!| '
+        error   = 'E| '
+        debug   = '#| '
+        task    = '~| '
         none    = ''   
 
 class Log:    
@@ -46,13 +47,10 @@ class Log:
     
     # set the front gui console
     def set_gui_console(gui_console):
-        Log.gui_console = gui_console
-        
+        Log.gui_console = gui_console        
         for message, flag in Log.preloaded_messages:
-            Log.gui_console.append(message, flag)
-        
-        Log.preloaded_messages = []
-        
+            Log.gui_console.append(message, flag)        
+        Log.preloaded_messages = []        
     
 
     # process log message
@@ -62,12 +60,11 @@ class Log:
             Log.gui_console.append(message, flag)
         # preload messages
         else:
-            Log.preloaded_messages.append((message, flag))        
+            Log.preloaded_messages.append((message, flag))           
         
-        # write to terminal
-        print(f"{flag}{message}")
         # write to file
-        Log._to_file(f"{flag}{message}\n")
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        Log._to_file(f"[{now}]{flag}{message}\n")
         
     
     # write to log file
