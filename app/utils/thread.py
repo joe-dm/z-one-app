@@ -5,7 +5,7 @@ from utils.log import Log
 
 class ThreadManager:    
     thread_pool = QtCore.QThreadPool() 
-    active_threads = []
+    active_threads = []    
 
     @staticmethod
     def start_thread(thread):        

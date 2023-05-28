@@ -13,7 +13,7 @@ class AppConfig:
         log_folder = os.path.join('logs')
         log_app = os.path.join(log_folder, 'z-one.log')    
         
-        stylesheet = os.path.join('app', 'resources', 'style_dark.qss')
+        stylesheet = os.path.join('app', 'resources', 'breeze_style', 'style.qss')
         images = os.path.join('app', 'resources', 'images')   
 
 
