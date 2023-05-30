@@ -25,7 +25,7 @@ class NetworkMonitor(QtCore.QRunnable):
                 Log.debug(f"Ping to {self.address} successful")
             else:
                 Log.debug(f"Ping to {self.address} failed")
-            QtCore.QThread.msleep(1000)  
+            #QtCore.QThread.msleep(100)  
 
     def finish(self):
         self.is_running = False        
@@ -41,7 +41,7 @@ class TestThread(QtCore.QRunnable):
         ThreadManager.start_thread(self)
 
     @QtCore.Slot()
-    def run(self, maximum=10):
+    def run(self, maximum=100000):
         Log.task('Started test thread')
         for n in range(1, maximum):
             if not self.is_running:
@@ -54,7 +54,7 @@ class TestThread(QtCore.QRunnable):
             elif n == 5:
                 Log.error('This is an error message.')
                 
-            QtCore.QThread.msleep(1000)
+            #QtCore.QThread.msleep(100)
         
         if self.is_running:
             self.finish()

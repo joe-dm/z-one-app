@@ -11,9 +11,12 @@ class Console(QtWidgets.QWidget):
         self.text_edit = QtWidgets.QTextEdit()
         self.vertical_scroll_bar = self.text_edit.verticalScrollBar()
         self.horizontal_scroll_bar = self.text_edit.horizontalScrollBar()        
+        
+        self.auto_scroll = True
 
         self.setup_ui()
         Log.set_gui_console(self)
+       
 
     def setup_ui(self):       
         # setup layout
@@ -30,9 +33,12 @@ class Console(QtWidgets.QWidget):
         self.text_edit.setStyleSheet(
             f"background-color: {ThemeConfig.Color.black_dark}; border: none;")
         # disable editing
-        self.text_edit.setReadOnly(True)              
+        self.text_edit.setReadOnly(True)            
+
+        #self.vertical_scroll_bar.valueChanged.connect(self.on_sidebar_value_changed)
 
         Log.debug_init(self)
+
 
     def append(self, message, flag):
         # create full message       
@@ -46,11 +52,19 @@ class Console(QtWidgets.QWidget):
         cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>&nbsp;{full_message}</span>")
         cursor.insertText("\n")
 
-        if self.vertical_scroll_bar.value() > self.vertical_scroll_bar.maximum() - 50:
-            self.scroll_to_bottom()
-    
-    def scroll_to_bottom(self):
-        self.vertical_scroll_bar.setValue(self.vertical_scroll_bar.maximum())
+        #if self.vertical_scroll_bar.value() >= self.vertical_scroll_bar.maximum() - 50:
+        #if self.auto_scroll:
+        #    self.scroll_to_bottom()
+        
+
+    #def scroll_to_bottom(self):
+    #    self.vertical_scroll_bar.setValue(self.vertical_scroll_bar.maximum())
+
+    #def on_sidebar_value_changed(self, value):
+    #    # Check if the user has manually scrolled up
+    #    if value >= self.vertical_scroll_bar.maximum() - 50:
+    #        self.auto_scroll = False
+        
     
     def get_color(self, flag):
         color = ThemeConfig.Color.white

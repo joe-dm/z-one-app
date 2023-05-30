@@ -13,9 +13,10 @@ class Flag:
         none    = ''   
 
 class Log:    
-    lock = QtCore.QMutex()
+    file_lock = QtCore.QMutex()
     gui_console = None 
-    preloaded = []
+    gui_console_queue = Queue()
+    preloaded_messages = []
 
     # log writers    
     def info(message):      Log._log(message, Flag.info)
@@ -37,34 +38,50 @@ class Log:
     # check log directory 
     def check_dir():
         if not os.path.exists(AppConfig.Path.log_folder):
-            os.makedirs(AppConfig.Path.log_folder)    
-
+            os.makedirs(AppConfig.Path.log_folder)       
+    
     # set the front gui console
     def set_gui_console(gui_console):
         Log.gui_console = gui_console
         if gui_console:    
-            for message, flag in Log.preloaded:
-                Log._log(message, flag)     
-            Log.preloaded = [] 
-            
+            for message, flag in Log.preloaded_messages:
+                Log.gui_console.append(message, flag)        
+            Log.preloaded_messages = []     
+            Log.gui_console.scroll_to_bottom()    
 
     # process log message
-    def _log(message, flag):         
+    def _log(message, flag):        
+        Log._to_file(message)
+        #Log._to_gui_console(message, flag)
+        print(flag, message)        
         
-        file_path = os.path.abspath(AppConfig.Path.log_app)    
+
+    # write to gui console
+    def _to_gui_console(message, flag):
+        try:     
+            if not AppConfig.debug and flag == Flag.debug:
+                pass
+            else:
+                # print to gui console
+                if Log.gui_console:
+                    Log.gui_console.append(message, flag)
+                # preload messages
+                else: 
+                    Log.preloaded_messages.append((message, flag))
+        except:
+            print('ERROR')
+        
+    
+    # write to log file
+    def _to_file(message, file_name=AppConfig.Path.log_app):
+        Log.file_lock.lock()
+        
+        path = os.path.abspath(file_name)    
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-        Log.lock.lock()
+        message = f"[{now}]{message}\n"
+        
         try:
-            #if Log.gui_console:
-                # write to gui console
-            #    Log.gui_console.append(message, flag)
-            #else:
-            #    Log.preloaded.append((message, flag))
-
-            # write to file
-            with open(file_path, 'a') as log_file:
-                log_file.write(f"[{now}]{message}")
-        finally: 
-            Log.lock.unlock()
+            with open(path, 'a') as log_file:
+                log_file.write(message)
+        finally: Log.file_lock.unlock()
               
