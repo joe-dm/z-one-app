@@ -1,29 +1,54 @@
 import functools
 
-from PySide6 import QtCore, QtWidgets
+from PySide6 import QtWidgets, QtCore
 
 from gui.console import Console
 from gui.page import PageStack
 from gui.sidebar import Sidebar
 from resources.config import AppConfig
-from utils.log import Logger
+from utils.log import Log
+
+class QApp(QtWidgets.QApplication):
+    def __init__(self):
+        super().__init__()
+        self.setup_ui()
+        self.main_window = MainWindow()               
+
+    def setup_ui(self):
+        Log.task('Setting up GUI')
+        # load stylesheet
+        try:
+            Log.debug('Loading stylesheet')
+            with open(AppConfig.Path.stylesheet, "r") as f:
+                stylesheet_content = f.read()
+                self.setStyleSheet(stylesheet_content)
+        except FileNotFoundError:
+            Log.warning(f"Stylesheet file not found: {AppConfig.Path.stylesheet}")            
+        except Exception as e:
+            Log.error(f"Failed to load stylesheet: {str(e)}")
+
+        Log.debug_init(self)
+
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
-        super().__init__()         
-        self.content = Content()        
+        super().__init__()
+        self.content = Content()
         self.setup_ui()
-    
-    def setup_ui(self):
+
+    def setup_ui(self):        
         # set window properties
-        self.setWindowTitle(AppConfig.name)
+        self.setWindowTitle(AppConfig.Info.name)
         self.setMinimumWidth(600)
         self.setMinimumHeight(400)        
         self.resize(800, 600)
         self.setCentralWidget(self.content)
-        self.show()    
-        Logger.log_init(self)   
+        # show window
+        self.show() 
 
+        Log.debug_init(self)    
+    
+        
 
 class Content(QtWidgets.QWidget):
     def __init__(self):
@@ -57,10 +82,10 @@ class Content(QtWidgets.QWidget):
         self.setLayout(layout)
         self.layout().addWidget(vertical_splitter)
 
-        Logger.log_init(self)
+        Log.debug_init(self)
 
     def setup_sidebar_connections(self):
-        Logger.log('Setting up sidebar connections', 'debug')      
+        Log.debug('Setting up sidebar connections')
         sidebar_buttons = [
             (self.sidebar.button_dashboard, self.page_stack.page_dashboard),
             (self.sidebar.button_cpu, self.page_stack.page_cpu),
@@ -83,6 +108,6 @@ class Content(QtWidgets.QWidget):
 
     
     def switch_page(self, page):
-        Logger.log(f'Switching to page "{page.label_title.text()}"', 'debug')
+        Log.debug(f'Switching to page "{page.label_title.text()}"')
         self.page_stack.page_stack_layout.setCurrentWidget(page)
         

@@ -1,32 +1,26 @@
-class AppConfig:    
-    name = 'z-one'
-    version = '1.0.2304'
-    dev_info = 'github.com/joe-dm'
-    description = f'{name} {version} ({dev_info})'
+import os
+
+class AppConfig:
     debug = True
 
+    class Info:
+        name = 'z-one'
+        version = '1.0.2305'
+        dev_info = 'github.com/joe-dm'
+        description = f'{name} {version} ({dev_info})'
 
-class PathConfig:
-    log_file = 'z-one.log'
-    log_folder = 'logs'  
+    class Path:
+        log_folder = os.path.join('logs')
+        log_app = os.path.join(log_folder, 'z-one.log')    
+        
+        stylesheet = os.path.join('app', 'resources', 'breeze_style', 'style.qss')
+        images = os.path.join('app', 'resources', 'images')   
 
-    stylesheet = './app/resources/style_dark.qss'
-    images = './app/resources/img/'
 
 
 class ThemeConfig:
-    console_flags = {
-        'info':       '[i]: ',
-        'error':      '[E]: ',
-        'warning':    '[!]: ',
-        'operation':  '[~]: ',
-        'debug':      '[#]: ',        
-        'default':    '[ ]: ',
-        'child':      '     ',
-        'debug child':'     ',
-        'none':       ''} 
-
     class Color:
+        # main colors
         primary =       '#ff8400'
         secondary =     '#7dd2ff'   
         secondary_dark ='#3daee9'  
@@ -34,7 +28,6 @@ class ThemeConfig:
         green =         '#79ffb1'
         yellow =        '#fffd8a'
         red =           '#ff7d6c'
-
         # grayscale
         white =         '#ffffff'
         gray_light =    '#cccccc'
@@ -44,25 +37,29 @@ class ThemeConfig:
 
         
     class Icon:
-        logo =      f"{PathConfig.images}logo.png"
-        default =   f"{PathConfig.images}ico_default.png"
-        dashboard = f"{PathConfig.images}ico_dashboard.png"
-        cpu =       f"{PathConfig.images}ico_cpu.png"
-        gpu =       f"{PathConfig.images}ico_gpu.png"
-        ram =       f"{PathConfig.images}ico_ram.png"
-        disk =      f"{PathConfig.images}ico_disk.png"
-        network =   f"{PathConfig.images}ico_network.png"
-        apps =      f"{PathConfig.images}ico_apps.png"
-        settings =  f"{PathConfig.images}ico_settings.png"
-        logs =      f"{PathConfig.images}ico_logs.png"    
-        arrow_left =f"{PathConfig.images}ico_arrow_left.png"    
-        arrow_right=f"{PathConfig.images}ico_arrow_right.png"   
+        _base_path = AppConfig.Path.images
+    
+        logo        = os.path.join(_base_path, 'logo.png')
+        #icons
+        default     = os.path.join(_base_path, 'ico_default.png')
+        dashboard   = os.path.join(_base_path, 'ico_dashboard.png')
+        cpu         = os.path.join(_base_path, 'ico_cpu.png')
+        gpu         = os.path.join(_base_path, 'ico_gpu.png')
+        ram         = os.path.join(_base_path, 'ico_ram.png')
+        disk        = os.path.join(_base_path, 'ico_disk.png')
+        network     = os.path.join(_base_path, 'ico_network.png')
+        apps        = os.path.join(_base_path, 'ico_apps.png')
+        settings    = os.path.join(_base_path, 'ico_settings.png')
+        logs        = os.path.join(_base_path, 'ico_logs.png')
+        arrow_left  = os.path.join(_base_path, 'ico_arrow_left.png')
+        arrow_right = os.path.join(_base_path, 'ico_arrow_right.png')
+        test        = os.path.join(_base_path, 'smile.png')
 
     class Font:
-        monospace = 'Courier New'
+        family_monospace = 'Courier New'
         
-        size_title = 15
-        size_logo  = 12
+        size_large = 15
+        size_medium= 12
         size_small = 10
 
 

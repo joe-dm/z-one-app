@@ -1,7 +1,7 @@
 from PySide6 import QtGui, QtWidgets
 
 from resources.config import ThemeConfig
-from utils.log import Logger
+from utils.log import Log
 
 class TableWithTitle(QtWidgets.QWidget):
     def __init__(self, title, data):
@@ -26,7 +26,7 @@ class TableWithTitle(QtWidgets.QWidget):
         layout.addWidget(self.table)    
         self.setLayout(layout)
 
-        Logger.log_init(self)
+        Log.debug_init(self)
         
 
 class Table(QtWidgets.QTableWidget):
@@ -81,7 +81,7 @@ class PageTitle(QtWidgets.QLabel):
         #self.setStyleSheet(f"color: {ThemeConfig.Color.grey_light};")
 
         font = QtGui.QFont()
-        font.setPointSize(ThemeConfig.Font.size_title)
+        font.setPointSize(ThemeConfig.Font.size_large)
         self.setFont(font)
 
 

@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "pixmap"
-    ]
+    ],
+    "files.exclude": {
+        "**/.vscode": true
+    }
 }

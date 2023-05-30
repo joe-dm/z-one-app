@@ -1,64 +1,30 @@
-import sys
-import traceback
-import inspect
-
 from PySide6 import QtCore
 
-from utils.log import Logger
+from utils.log import Log
 
-class Thread:
-    threadpool = QtCore.QThreadPool()
 
-    @staticmethod
-    def start(function, *args, **kwargs):
-        worker = Worker(function, *args, **kwargs)
-        Thread.threadpool.start(worker)
-        Thread.log_thread(worker)
-        worker.signals.finished.connect(lambda: Thread.log_thread(worker, False))
+class ThreadManager:    
+    thread_pool = QtCore.QThreadPool() 
+    active_threads = []    
 
     @staticmethod
-    def log_thread(worker, started=True):
-        # Retrieve the necessary information about the thread        
-        function_name = worker.function.__name__
-        function_module = inspect.getmodule(worker.function).__name__
-
-        # Determine the thread status
-        status = "started" if started else "finished"
-
-        # Create the log message
-        log_message = f"Thread {status}: {function_name} ({function_module})"
-
-        # Log the message using the Logger
-        Logger.log(log_message, 'debug')    
+    def start_thread(thread):        
+        Log.debug(f"Starting thread: {thread.__class__.__name__}")
+        ThreadManager.active_threads.append(thread)
+        ThreadManager.thread_pool.start(thread)
     
+    @staticmethod
+    def report_finished(thread):        
+        Log.debug(f"Finished thread: {thread.__class__.__name__}")
+        ThreadManager.active_threads.remove(thread)
+    
+    @staticmethod
+    def report_waiting(thread):
+        Log.debug(f"Waiting for thread: {thread.__class__.__name__}")
 
-
-class Worker(QtCore.QRunnable):
-    def __init__(self, function, *args, **kwargs):
-        super().__init__()
-
-        # store constructor arguments (re-used for processing)
-        self.function = function
-        self.args = args
-        self.kwargs = kwargs
-        self.signals = Signals()
-
-    @QtCore.Slot()
-    def run(self):
-        # Retrieve args/kwargs here; and fire processing using them
-        try:
-            result = self.function(*self.args, **self.kwargs)
-        except:
-            traceback.print_exc()
-            exctype, value = sys.exc_info()[:2]
-            self.signals.error.emit((exctype, value, traceback.format_exc()))
-        else:
-            self.signals.result.emit(result)  # Return the result of the processing
-        finally:
-            self.signals.finished.emit()  # Done
-
-class Signals(QtCore.QObject):
-    error = QtCore.Signal(tuple)
-    result = QtCore.Signal(object)
-    progress = QtCore.Signal(int)
-    finished = QtCore.Signal()
+    @staticmethod
+    def clean_up():
+        if ThreadManager.active_threads:            
+            Log.debug(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
+            for thread in ThreadManager.active_threads[:]:
+                thread.finish()     
