@@ -12,7 +12,7 @@ class App:
     def __init__(self):
         self.start()
 
-        self.qapp = QApp()        
+        self.qapp = QApp()       
         self.qapp.main_window.closeEvent = self.exit
 
         self.net_mon = NetworkMonitor()
@@ -22,7 +22,7 @@ class App:
 
     def start(self):  
         # clear console      
-        os.system('cls' if os.name == 'nt' else 'clear')        
+        #os.system('cls' if os.name == 'nt' else 'clear')        
 
         # setup log folder
         Log.check_dir()
@@ -38,8 +38,9 @@ class App:
         
     
     def exit(self, event):
+        
         # scroll console to bottom
-        self.qapp.main_window.content.console.scroll_to_bottom()
+        #self.qapp.main_window.content.console.scroll_to_bottom()
 
         # display info message
         Log.task('Exiting...')

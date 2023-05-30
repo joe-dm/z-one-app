@@ -137,7 +137,7 @@ class PageNetwork(Page):
         self.setup_widgets()
 
     def setup_widgets(self):               
-        self.page_layout.addWidget(self.description)
+        #self.page_layout.addWidget(self.description)
         super().add_bottom_widgets()
 
 
