@@ -1,19 +1,22 @@
 from PySide6 import QtGui, QtWidgets
 
-from resources.config import AppConfig, ThemeConfig
-from utils.log import Logger
+from resources.config import ThemeConfig
+from utils.log import Log, Flag
 
-class Console(QtWidgets.QWidget):
-    last_used_color = None
+class Console(QtWidgets.QWidget):    
 
     def __init__(self):
         super().__init__()          
         
         self.text_edit = QtWidgets.QTextEdit()
-        self.text_color = ThemeConfig.Color.white
+        self.vertical_scroll_bar = self.text_edit.verticalScrollBar()
+        self.horizontal_scroll_bar = self.text_edit.horizontalScrollBar()        
+        
+        self.auto_scroll = True
 
         self.setup_ui()
-        Logger.set_gui_console(self)
+        Log.set_gui_console(self)
+       
 
     def setup_ui(self):       
         # setup layout
@@ -22,7 +25,7 @@ class Console(QtWidgets.QWidget):
         layout.addWidget(self.text_edit)
 
         # set font
-        font = QtGui.QFont(ThemeConfig.Font.monospace, ThemeConfig.Font.size_small)
+        font = QtGui.QFont(ThemeConfig.Font.family_monospace, ThemeConfig.Font.size_small)
         self.text_edit.setFont(font)
         # disable text wrapping
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
@@ -30,47 +33,51 @@ class Console(QtWidgets.QWidget):
         self.text_edit.setStyleSheet(
             f"background-color: {ThemeConfig.Color.black_dark}; border: none;")
         # disable editing
-        self.text_edit.setReadOnly(True)
+        self.text_edit.setReadOnly(True)            
 
-        Logger.log_init(self)
+        #self.vertical_scroll_bar.valueChanged.connect(self.on_sidebar_value_changed)
+
+        Log.debug_init(self)
+
 
     def append(self, message, flag):
-        if not AppConfig.debug and (flag=='debug' or flag=='debug child'):
-            pass
-        else:
-            full_message = f"{ThemeConfig.console_flags.get(flag.strip(), '')}{message}"
+        # create full message       
+        full_message = f"{flag}{message}".replace(" ", "&nbsp;")
 
-            # replace spaces with non-breaking spaces
-            full_message = full_message.replace(" ", "&nbsp;")
-            
-            # set message color        
-            if flag == 'operation':
-                self.text_color = ThemeConfig.Color.secondary
-            elif flag == 'debug' or flag == 'debug child':
-                self.text_color = ThemeConfig.Color.gray_dark
-            elif flag == 'warning':
-                self.text_color = ThemeConfig.Color.yellow
-            elif flag == 'error':
-                self.text_color = ThemeConfig.Color.red
-            elif flag == 'child':
-                self.text_color = Console.last_used_color
-            else:
-                self.text_color = ThemeConfig.Color.white
-            Console.last_used_color = self.text_color
+        # get cursor position
+        cursor = self.text_edit.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.End)        
 
-            # get current cursor position
-            cursor = self.text_edit.textCursor()
-            cursor.movePosition(QtGui.QTextCursor.End)
+        # insert message and new line
+        cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>&nbsp;{full_message}</span>")
+        cursor.insertText("\n")
 
-            # insert the message with the desired color
-            cursor.insertHtml(f"<span style='color: {self.text_color};'>{full_message}</span>")
-            self.text_edit.setTextCursor(cursor)
+        #if self.vertical_scroll_bar.value() >= self.vertical_scroll_bar.maximum() - 50:
+        #if self.auto_scroll:
+        #    self.scroll_to_bottom()
+        
 
-            # move to the next line
-            cursor.insertText("\n")
+    #def scroll_to_bottom(self):
+    #    self.vertical_scroll_bar.setValue(self.vertical_scroll_bar.maximum())
 
-            # scroll to the bottom and ensure cursor visibility
-            self.text_edit.ensureCursorVisible()
+    #def on_sidebar_value_changed(self, value):
+    #    # Check if the user has manually scrolled up
+    #    if value >= self.vertical_scroll_bar.maximum() - 50:
+    #        self.auto_scroll = False
+        
+    
+    def get_color(self, flag):
+        color = ThemeConfig.Color.white
 
-            scroll_bar = self.text_edit.horizontalScrollBar()
-            scroll_bar.setSliderPosition(scroll_bar.minimum())    
+        if flag == Flag.task:
+            color = ThemeConfig.Color.secondary
+        elif flag == Flag.warning:
+            color = ThemeConfig.Color.yellow
+        elif flag == Flag.error:
+            color = ThemeConfig.Color.red
+        elif flag == Flag.debug:
+            color = ThemeConfig.Color.gray_dark
+        elif flag == Flag.none:
+            color = ThemeConfig.Color.primary
+        
+        return color

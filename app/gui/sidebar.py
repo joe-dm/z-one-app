@@ -2,7 +2,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 
 from gui.widgets import Separator
 from resources.config import ThemeConfig
-from utils.log import Logger
+from utils.log import Log
 
 class Sidebar(QtWidgets.QWidget):
     is_expanded = True
@@ -48,11 +48,11 @@ class Sidebar(QtWidgets.QWidget):
         layout.addWidget(self.button_settings)
         layout.addWidget(self.button_logs)
 
-        Logger.log_init(self)
+        Log.debug_init(self)
 
     def toggle(self):
         if Sidebar.is_expanded:   
-            Logger.log('Closing sidebar', 'debug')
+            Log.debug('Closing sidebar')
             # hide text buttons
             for button in self.button_list:                      
                 button.button_text.setVisible(False)
@@ -62,7 +62,7 @@ class Sidebar(QtWidgets.QWidget):
             Sidebar.is_expanded = False
 
         else:
-            Logger.log('Opening sidebar', 'debug')
+            Log.debug('Opening sidebar')
             # show text buttons
             for button in self.button_list:
                 button.button_text.setVisible(True)         
@@ -107,7 +107,7 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_text.enterEvent = self.on_enter_event
         self.button_text.leaveEvent = self.on_leave_event
 
-        Logger.log_init(self)      
+        Log.debug_init(self)      
 
     def on_enter_event(self, event):
         self.setStyleSheet(f"border: 1px solid {ThemeConfig.Color.primary};")
@@ -139,7 +139,7 @@ class SidebarHeader(QtWidgets.QWidget):
         self.logo.setPixmap(logo_pixmap)
 
         # setup logo text     
-        logo_font = QtGui.QFont(ThemeConfig.Font.monospace, ThemeConfig.Font.size_logo)     
+        logo_font = QtGui.QFont(ThemeConfig.Font.family_monospace, ThemeConfig.Font.size_medium)     
         logo_font.setWeight(QtGui.QFont.Bold)                     
         self.logo_text.setFont(logo_font)   
 
@@ -159,16 +159,16 @@ class SidebarHeader(QtWidgets.QWidget):
         self.button_toggle.enterEvent = self.on_enter_event
         self.button_toggle.leaveEvent = self.on_leave_event 
 
-        Logger.log_init(self)      
+        Log.debug_init     
 
     def set_closed(self):
-        Logger.log('Closing header', 'debug')
+        Log.debug('Closing header')
         self.header_layout.removeWidget(self.logo)
         self.header_layout.removeWidget(self.logo_text)
         self.header_layout.removeItem(self.spacer)
         self.button_toggle.setIcon(self.icon_open)
     def set_opened(self):        
-        Logger.log('Opening header', 'debug')
+        Log.debug('Opening header')
         # remove toggle button
         self.header_layout.removeWidget(self.button_toggle)
         # add all widgets again
