@@ -1,70 +1,79 @@
 import os
 import datetime
-from queue import Queue
-from PySide6 import QtCore
+
 from resources.config import AppConfig
 
-class Flag:                  
-        info    = '•| '
-        warning = '!| '
-        error   = '×| '
-        debug   = '#| '
-        task    = '»| '
-        none    = ''   
+class LogFlag:
+    info     = '•| '
+    warning  = '!| '
+    error    = '×| '
+    critical = '✖| '
+    task     = '»| '
+    debug    = '#| '  
+    none     = ''   
+    
+    def show_flag_samples():
+        Log.info('This is an info message')
+        Log.warning('This is a warning message')
+        Log.error('This is an error message')
+        Log.critical('This is a critical error message')
+        Log.task('This is a task message')
+        Log.debug('This is a debug message')
 
-class Log:    
-    lock = QtCore.QMutex()
-    gui_console = None 
-    preloaded = []
+class Log:
+    def info(message):
+        LogHandler.handle(message, LogFlag.info)
+    def warning(message):
+        LogHandler.handle(f"WARNING! {message}", LogFlag.warning)
+    def error(message):
+        LogHandler.handle(f"ERROR! {message}", LogFlag.error)
+    def critical(message):
+        LogHandler.handle(f"CRITICAL ERROR! {message}", LogFlag.critical)
+    def task(message):
+        LogHandler.handle(f"{message}...", LogFlag.task)
+    def no_flag(message):
+        LogHandler.handle(message, LogFlag.none)
+    def debug(message):
+        LogHandler.handle(message, LogFlag.debug)
+    def debug_init(obj, show_attributes=False):        
+        message = f"Initialized {obj.__class__.__name__}"
+        indent = ' ' * len(LogFlag.debug)
+        if show_attributes:
+            message += " with attributes:\n"
+            for attr, value in obj.__dict__.items():
+                message += f"{indent}{attr}: {value}\n"
+        Log.debug(message)
 
-    # log writers    
-    def info(message):      Log._log(message, Flag.info)
-    def warning(message):   Log._log(f"WARNING! {message}", Flag.warning)
-    def error(message):     Log._log(f"ERROR! {message}", Flag.error)
-    def task(message):      Log._log(message, Flag.task)  
-    def no_flag(message):   Log._log(message, Flag.none)    
-    def debug(message):     Log._log(message, Flag.debug) 
-    def debug_init(obj, show_props=False):        
-        class_name = obj.__class__.__name__
-        message = f"Initialized {class_name} "
-        indent = ' ' * len(Flag.info)
-        if show_props:
-            message += f"with properties:\n"
-            for prop, value in obj.__dict__.items():
-                message += f"{indent}{prop}: {value}\n"        
-        Log.debug(message)    
+class LogHandler:
+    log_dir = os.path.join('logs')
+    log_file = os.path.join(log_dir, 'z-one.log')
+    gui_console = None
+    preloaded_messages = []
 
-    # check log directory 
-    def check_dir():
-        if not os.path.exists(AppConfig.Path.log_folder):
-            os.makedirs(AppConfig.Path.log_folder)    
+    def handle(message, flag):
+        LogHandler.write_to_file(message, flag)
+        LogHandler.write_to_gui_console(message, flag)
+        print(f"{flag}{message}")    
 
-    # set the front gui console
-    def set_gui_console(gui_console):
-        Log.gui_console = gui_console
-        if gui_console:    
-            for message, flag in Log.preloaded:
-                Log._log(message, flag)     
-            Log.preloaded = [] 
-            
-
-    # process log message
-    def _log(message, flag):         
-        
-        file_path = os.path.abspath(AppConfig.Path.log_app)    
+    def write_to_file(message, flag):
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(LogHandler.log_file, 'a') as file:
+            file.write(f"[{now}] {flag}{message}\n")
+        
+    def write_to_gui_console(message, flag):
+        if not AppConfig.debug and flag == LogFlag.debug:
+            pass
+        else:
+            if LogHandler.gui_console:
+                LogHandler.gui_console.append(message, flag)
+            else:
+                LogHandler.preloaded_messages.append((message, flag))
+    
+    def set_gui_console(gui_console):
+        LogHandler.gui_console = gui_console        
+        for message, flag in LogHandler.preloaded_messages:
+            LogHandler.write_to_gui_console(message, flag)
+        LogHandler.preloaded_messages = []
 
-        Log.lock.lock()
-        try:
-            #if Log.gui_console:
-                # write to gui console
-            #    Log.gui_console.append(message, flag)
-            #else:
-            #    Log.preloaded.append((message, flag))
-
-            # write to file
-            with open(file_path, 'a') as log_file:
-                log_file.write(f"[{now}]{message}")
-        finally: 
-            Log.lock.unlock()
-              
+    
+    

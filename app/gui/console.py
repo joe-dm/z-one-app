@@ -1,83 +1,56 @@
-from PySide6 import QtGui, QtWidgets
+from PySide6 import QtWidgets, QtGui
 
-from resources.config import ThemeConfig
-from utils.log import Log, Flag
+from resources.theme import ThemeFont, ThemeStylesheet, ThemeColor
+from utils.log import LogHandler, LogFlag
 
-class Console(QtWidgets.QWidget):    
-
+class Console(QtWidgets.QWidget):
     def __init__(self):
-        super().__init__()          
-        
+        super().__init__()
+
         self.text_edit = QtWidgets.QTextEdit()
-        self.vertical_scroll_bar = self.text_edit.verticalScrollBar()
-        self.horizontal_scroll_bar = self.text_edit.horizontalScrollBar()        
-        
-        self.auto_scroll = True
 
-        self.setup_ui()
-        Log.set_gui_console(self)
-       
+        self.init_ui()
+        LogHandler.set_gui_console(self)
 
-    def setup_ui(self):       
+    def init_ui(self):
         # setup layout
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
         layout.addWidget(self.text_edit)
 
         # set font
-        font = QtGui.QFont(ThemeConfig.Font.family_monospace, ThemeConfig.Font.size_small)
+        font = QtGui.QFont(ThemeFont.console_family, ThemeFont.console_size)
         self.text_edit.setFont(font)
+
         # disable text wrapping
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
-        # set colors
-        self.text_edit.setStyleSheet(
-            f"background-color: {ThemeConfig.Color.black_dark}; border: none;")
-        # disable editing
-        self.text_edit.setReadOnly(True)            
 
-        #self.vertical_scroll_bar.valueChanged.connect(self.on_sidebar_value_changed)
-
-        Log.debug_init(self)
-
+        # set stylesheet
+        self.text_edit.setStyleSheet(ThemeStylesheet.console)
+        
 
     def append(self, message, flag):
-        # create full message       
-        full_message = f"{flag}{message}".replace(" ", "&nbsp;")
-
         # get cursor position
         cursor = self.text_edit.textCursor()
-        cursor.movePosition(QtGui.QTextCursor.End)        
+        cursor.movePosition(QtGui.QTextCursor.End)
 
-        # insert message and new line
-        cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>&nbsp;{full_message}</span>")
-        cursor.insertText("\n")
+        # create message and append
+        full_message = f"{flag}{message}".replace(" ", "&nbsp;")
+        cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>{full_message}</span>")
+        cursor.insertText('\n')
 
-        #if self.vertical_scroll_bar.value() >= self.vertical_scroll_bar.maximum() - 50:
-        #if self.auto_scroll:
-        #    self.scroll_to_bottom()
-        
-
-    #def scroll_to_bottom(self):
-    #    self.vertical_scroll_bar.setValue(self.vertical_scroll_bar.maximum())
-
-    #def on_sidebar_value_changed(self, value):
-    #    # Check if the user has manually scrolled up
-    #    if value >= self.vertical_scroll_bar.maximum() - 50:
-    #        self.auto_scroll = False
-        
-    
     def get_color(self, flag):
-        color = ThemeConfig.Color.white
+        color = ThemeColor.white
 
-        if flag == Flag.task:
-            color = ThemeConfig.Color.secondary
-        elif flag == Flag.warning:
-            color = ThemeConfig.Color.yellow
-        elif flag == Flag.error:
-            color = ThemeConfig.Color.red
-        elif flag == Flag.debug:
-            color = ThemeConfig.Color.gray_dark
-        elif flag == Flag.none:
-            color = ThemeConfig.Color.primary
-        
-        return color
+        if flag == LogFlag.task:
+            color = ThemeColor.secondary
+        elif flag == LogFlag.warning:
+            color = ThemeColor.yellow
+        elif flag == LogFlag.error or flag == LogFlag.critical:
+            color = ThemeColor.red
+        elif flag == LogFlag.debug:
+            color = ThemeColor.gray_dark
+        elif flag == LogFlag.none:
+            color = ThemeColor.primary
+
+        return color 

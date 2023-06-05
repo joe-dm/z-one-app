@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#ffffff"
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg269"
+   sodipodi:docname="cogwheel.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs273" />
+  <sodipodi:namedview
+     id="namedview271"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="0.985"
+     inkscape:cx="236.54822"
+     inkscape:cy="400.50761"
+     inkscape:window-width="1846"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg269" />
+  <path
+     d="m 2.3984563,14.0916 -1.2,0.6948 a 1.2,1.2 0 0 0 -0.43919995,1.6392 l 1.78559995,3.0936 a 1.2,1.2 0 0 0 1.6392,0.4392 l 1.2144,-0.6984 a 2.3844,2.3844 0 0 1 2.3832,0 l 0.024,0.0132 a 2.3868,2.3868 0 0 1 1.2,2.0688 V 22.8 A 1.2,1.2 0 0 0 10.205656,24 h 3.6 a 1.2,1.2 0 0 0 1.2,-1.2 v -1.4616 a 2.382,2.382 0 0 1 1.194,-2.0652 l 0.0252,-0.0144 a 2.3844,2.3844 0 0 1 2.3832,0 l 1.2096,0.6984 a 1.2,1.2 0 0 0 1.6392,-0.4392 l 1.7856,-3.0936 a 1.2,1.2 0 0 0 -0.444,-1.638 l -1.2,-0.6948 a 2.3928,2.3928 0 0 1 -1.2,-2.0796 v -0.0252 a 2.3892,2.3892 0 0 1 1.2,-2.0784 l 1.2,-0.6948 a 1.2,1.2 0 0 0 0.4392,-1.6392 l -1.788,-3.0936 a 1.2,1.2 0 0 0 -1.6392,-0.4392 l -1.212,0.6984 a 2.3844,2.3844 0 0 1 -2.3832,0 l -0.0168,-0.012 a 2.3868,2.3868 0 0 1 -1.2,-2.0688 V 1.2 a 1.2,1.2 0 0 0 -1.2,-1.2 h -3.6 A 1.2,1.2 0 0 0 8.9984563,1.2 v 1.5528 a 2.2272,2.2272 0 0 1 -1.116,1.9272 l -0.1836,0.1056 a 2.226,2.226 0 0 1 -2.2236,0 l -1.2888,-0.744 a 1.2,1.2 0 0 0 -1.6392,0.4392 L 0.76165635,7.5744 A 1.2,1.2 0 0 0 1.1984563,9.2136 l 1.2,0.6948 a 2.3928,2.3928 0 0 1 1.2,2.0796 v 0.0252 a 2.3892,2.3892 0 0 1 -1.2,2.0784 z M 11.998456,8.4 A 3.6,3.6 0 1 1 8.3984563,12 3.6,3.6 0 0 1 11.998456,8.4 Z"
+     id="path267"
+     style="stroke-width:1.2" />
+</svg>
