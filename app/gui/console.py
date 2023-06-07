@@ -1,6 +1,6 @@
 from PySide6 import QtWidgets, QtGui
 
-from resources.theme import ThemeFont, ThemeStylesheet, ThemeColor
+from resources.theme import ThemeStylesheet, ThemeColor
 from utils.log import LogHandler, LogFlag
 
 class Console(QtWidgets.QWidget):
@@ -17,11 +17,7 @@ class Console(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
         layout.addWidget(self.text_edit)
-
-        # set font
-        font = QtGui.QFont(ThemeFont.console_family, ThemeFont.console_size)
-        self.text_edit.setFont(font)
-
+        
         # disable text wrapping
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
 
@@ -49,8 +45,7 @@ class Console(QtWidgets.QWidget):
         elif flag == LogFlag.error or flag == LogFlag.critical:
             color = ThemeColor.red
         elif flag == LogFlag.debug:
-            color = ThemeColor.gray_dark
+            color = ThemeColor.gray
         elif flag == LogFlag.none:
             color = ThemeColor.primary
-
         return color 
