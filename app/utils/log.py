@@ -12,7 +12,7 @@ class LogFlag:
     debug    = '#| '  
     none     = ''   
     
-    def show_flag_samples():
+    def show_samples():
         Log.info('This is an info message')
         Log.warning('This is a warning message')
         Log.error('This is an error message')
