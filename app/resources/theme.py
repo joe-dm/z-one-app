@@ -41,6 +41,7 @@ class ThemeStylesheet:
     )
     page_title = (
         f'font-size: 20px;'
+        f'color: {ThemeColor.white_2};'
     )
 
     line_horizontal_1 = (

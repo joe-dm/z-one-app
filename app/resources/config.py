@@ -10,6 +10,7 @@ class AppConfig:
 class PathConfig:
     stylesheet = os.path.join('app', 'resources', 'breeze_style', 'style.qss')    
     logo = os.path.join('app', 'resources', 'images', 'logo.png')
+    logo_text = os.path.join('app', 'resources', 'images', 'logo-text.png')
     icons_directory = os.path.join('app', 'resources', 'images', 'icons')
 
     icon_dashboard = os.path.join(icons_directory, 'dashboard.svg')

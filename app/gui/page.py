@@ -90,7 +90,7 @@ class PageProcessor(Page):
         self.setup_ui()
 
     def setup_ui(self):
-        self.page_layout.addWidget(self.description)  
+        #self.page_layout.addWidget(self.description)  
         self.page_layout.addStretch()
 
 
