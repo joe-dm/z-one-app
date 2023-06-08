@@ -70,6 +70,7 @@ class ThemeStylesheet:
     sidebar_header_button = (
         f'background-color: none;'
         f'border: 0.5px solid {ThemeColor.gray};'
+        f'border-radius: 0px;' 
     )
     sidebar_header_button_hover = sidebar_header_button + (
         f'background-color: {ThemeColor.black_midnight};'

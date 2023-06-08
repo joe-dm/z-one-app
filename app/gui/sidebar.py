@@ -112,10 +112,10 @@ class SidebarButton(QtWidgets.QWidget):
         # setup layout
         layout = QtWidgets.QHBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
-        layout.setSpacing(ThemeSize.widget_spacing)
+        layout.setSpacing(0)
         layout.addWidget(self.button_icon)
         layout.addWidget(self.button_text)
-        layout.setSpacing(0)
+        
 
         # set style
         self.setStyleSheet(ThemeStylesheet.sidebar_button)

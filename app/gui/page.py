@@ -29,6 +29,7 @@ class PageStack(QtWidgets.QWidget):
         self.stacked_layout.addWidget(self.page_apps)
         self.stacked_layout.addWidget(self.page_settings)
         self.stacked_layout.addWidget(self.page_logs)
+        self.setStyleSheet(ThemeStylesheet.page)
     
     def switch_page(self, page):
         self.stacked_layout.setCurrentWidget(page)
@@ -51,7 +52,7 @@ class Page(QtWidgets.QScrollArea):
         # scroll area properties
         self.setWidget(self.page_container)    
         self.setWidgetResizable(True)    
-        self.setStyleSheet(ThemeStylesheet.page)
+        #self.setStyleSheet(ThemeStylesheet.page)
 
         # title properties
         self.label_title.setStyleSheet(ThemeStylesheet.page_title)

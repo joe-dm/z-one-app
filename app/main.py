@@ -63,8 +63,8 @@ class App:
         
         # setup content (sidebar/page stack)
         content_layout = QtWidgets.QHBoxLayout(self.content)
-        content_layout.setContentsMargins(0,0,0,0)
-        content_layout.setSpacing(ThemeSize.widget_spacing)
+        content_layout.setContentsMargins(0,0,0,0)        
+        content_layout.setSpacing(0)
         content_layout.addWidget(self.sidebar)
         content_layout.addWidget(self.page_stack)
 
@@ -72,7 +72,7 @@ class App:
         self.splitter.addWidget(self.content)
         self.splitter.addWidget(self.console)
         self.splitter.setHandleWidth(ThemeSize.widget_spacing)
-        self.splitter.setHandleWidth(ThemeSize.widget_spacing)
+        
 
         # setup main window
         self.window.setWindowTitle(AppConfig.name)
