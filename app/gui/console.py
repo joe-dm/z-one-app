@@ -8,6 +8,7 @@ class Console(QtWidgets.QWidget):
         super().__init__()
 
         self.text_edit = QtWidgets.QTextEdit()
+        self.vertical_scrollbar = self.text_edit.verticalScrollBar()
 
         self.init_ui()
         LogHandler.set_gui_console(self)
@@ -34,6 +35,9 @@ class Console(QtWidgets.QWidget):
         full_message = f"{flag}{message}".replace(" ", "&nbsp;")
         cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>{full_message}</span>")
         cursor.insertText('\n')
+
+        # scroll to the bottom
+        self.vertical_scrollbar.setValue(self.vertical_scrollbar.maximum())
 
     def get_color(self, flag):
         color = ThemeColor.white

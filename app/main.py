@@ -8,24 +8,30 @@ from gui.page import PageStack
 from gui.sidebar import Sidebar
 from resources.config import AppConfig, PathConfig
 from resources.theme import ThemeSize
+from tools.network import SheepCounter, NetworkMonitor
+from utils.log import Log, LogHandler
 
-from utils.log import Log, LogHandler, LogFlag
 
 
 class App:
     def __init__(self):
         self.start()
 
+        # gui widgets
         self.app = QtWidgets.QApplication([])
         self.window = QtWidgets.QMainWindow()
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Vertical)
         self.content = QtWidgets.QWidget()
         self.sidebar = Sidebar()
         self.page_stack = PageStack()
-        self.console = Console()
+        self.console = Console()        
 
         self.setup_ui()
-        self.setup_connections()   
+        self.setup_connections()  
+
+        # test threads
+        self.sheep_counter = SheepCounter()  
+        self.network_monitor = NetworkMonitor()
     
     def start(self):
         # setup log folder/file
@@ -42,7 +48,7 @@ class App:
         # show debugging mode
         if AppConfig.debug:
             Log.info(f"Debugging output is enabled")
-            LogFlag.show_samples()
+            #LogFlag.show_samples()
         else:
             Log.info(f"Debugging output is disabled")
 
@@ -82,8 +88,10 @@ class App:
         self.window.setCentralWidget(self.splitter)
         self.window.show()
 
-
     def setup_connections(self):
+        # handle window close event
+        #self.window.closeEvent = self.exit
+
         # create a list of sidebar-button/page pairs
         button_page_pairs = [
             (self.sidebar.button_dashboard, self.page_stack.page_dashboard),
@@ -102,8 +110,13 @@ class App:
             button.button_icon.clicked.connect(functools.partial(self.sidebar.set_active_button, button=button))
             button.button_text.clicked.connect(functools.partial(self.sidebar.set_active_button, button=button))        
         # connect sidebar toggle button
-        self.sidebar.header.button_toggle.clicked.connect(functools.partial(self.sidebar.toggle))
-        
+        self.sidebar.header.button_toggle.clicked.connect(functools.partial(self.sidebar.toggle))     
+
+    def exit(self, event):
+        Log.info('Exiting app')
+
+        while True:
+            self.app.processEvents()
 
 if __name__ == '__main__':
     z_one = App()

@@ -2,10 +2,10 @@ import os
 
 class AppConfig:    
     name = 'z-one'
-    version = '1.0.2305'
+    version = '1.0.2306'
     dev_info = 'github.com/joe-dm'
     description = f'{name} {version} ({dev_info})'
-    debug = False
+    debug = True
 
 class PathConfig:
     stylesheet = os.path.join('app', 'resources', 'breeze_style', 'style.qss')    

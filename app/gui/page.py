@@ -52,7 +52,6 @@ class Page(QtWidgets.QScrollArea):
         # scroll area properties
         self.setWidget(self.page_container)    
         self.setWidgetResizable(True)    
-        #self.setStyleSheet(ThemeStylesheet.page)
 
         # title properties
         self.label_title.setStyleSheet(ThemeStylesheet.page_title)
@@ -90,7 +89,7 @@ class PageProcessor(Page):
         self.setup_ui()
 
     def setup_ui(self):
-        #self.page_layout.addWidget(self.description)  
+        self.page_layout.addWidget(self.description)  
         self.page_layout.addStretch()
 
 
