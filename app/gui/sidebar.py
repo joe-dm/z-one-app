@@ -185,6 +185,7 @@ class SidebarHeader(QtWidgets.QWidget):
         self.button_toggle.leaveEvent = self.on_leave_event
     
     def shrink(self):
+        self.button_toggle.setText('›')
         self.header_layout.removeWidget(self.logo_image)
         self.logo_image.setVisible(False)
         self.header_layout.removeWidget(self.logo_text)
@@ -195,6 +196,7 @@ class SidebarHeader(QtWidgets.QWidget):
     def expand(self):
         self.header_layout.removeWidget(self.button_toggle)
 
+        self.button_toggle.setText('‹')
         self.header_layout.insertWidget(0, self.logo_image)
         self.logo_image.setVisible(True)
         self.header_layout.insertWidget(1, self.logo_text)
