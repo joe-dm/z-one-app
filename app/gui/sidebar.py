@@ -1,6 +1,6 @@
 from PySide6 import QtCore, QtWidgets, QtGui
 
-from resources.config import AppConfig, PathConfig
+from resources.config import PathConfig
 from resources.theme import ThemeSize, ThemeStylesheet
 
 class Sidebar(QtWidgets.QWidget):
@@ -40,7 +40,7 @@ class Sidebar(QtWidgets.QWidget):
         layout.setSpacing(ThemeSize.widget_spacing)
         layout.addSpacing(5)
         layout.addWidget(self.header)
-        layout.addSpacing(5)
+        layout.addSpacing(10)
         layout.addWidget(self.button_dashboard)
         layout.addWidget(self.button_processor)
         layout.addWidget(self.button_gpu)
@@ -147,7 +147,7 @@ class SidebarHeader(QtWidgets.QWidget):
         super().__init__()
 
         self.logo_image = QtWidgets.QLabel()
-        self.logo_text = QtWidgets.QLabel(AppConfig.name)
+        self.logo_text = QtWidgets.QLabel()
         self.button_toggle = QtWidgets.QPushButton('‹')
         self.spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
 
@@ -161,12 +161,16 @@ class SidebarHeader(QtWidgets.QWidget):
 
         # setup logo image
         logo_pixmap = QtGui.QPixmap(PathConfig.logo)
-        size = ThemeSize.sidebar_button - 2
-        logo_pixmap = logo_pixmap.scaled(size, size, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+        logo_size = ThemeSize.sidebar_button - 2
+        logo_pixmap = logo_pixmap.scaled(logo_size, logo_size, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
         self.logo_image.setPixmap(logo_pixmap)     
 
-        # setup logo text
-        self.logo_text.setStyleSheet(ThemeStylesheet.sidebar_header_text)
+        # setup logo text image
+        logo_text_pixmap = QtGui.QPixmap(PathConfig.logo_text)
+        logo_text_size = ThemeSize.sidebar_button + 45
+        logo_text_pixmap = logo_text_pixmap.scaled(logo_text_size, logo_text_size, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+        self.logo_text.setPixmap(logo_text_pixmap)     
+
         
         # setup toggle buttons
         self.button_toggle.setStyleSheet(ThemeStylesheet.sidebar_header_button)
@@ -175,6 +179,7 @@ class SidebarHeader(QtWidgets.QWidget):
         # setup layout
         self.header_layout.setAlignment(QtCore.Qt.AlignLeft)
         self.header_layout.setContentsMargins(0,0,0,0)
+        self.header_layout.setSpacing(0)
         self.header_layout.addWidget(self.logo_image)
         self.header_layout.addWidget(self.logo_text)
         self.header_layout.addSpacerItem(self.spacer)
