@@ -8,8 +8,9 @@ from gui.page import PageStack
 from gui.sidebar import Sidebar
 from resources.config import AppConfig, PathConfig
 from resources.theme import ThemeSize
-from tools.network import SheepCounter, NetworkMonitor
-from utils.log import Log, LogHandler
+from tools.network import SheepCounter, NetworkMonitor, ImportantCounter
+from utils.log import Log
+from utils.thread import ThreadManager
 
 
 
@@ -32,14 +33,9 @@ class App:
         # test threads
         self.sheep_counter = SheepCounter()  
         self.network_monitor = NetworkMonitor()
+        self.important_counter = ImportantCounter()
     
     def start(self):
-        # setup log folder/file
-        if not os.path.exists(LogHandler.log_dir): 
-            os.makedirs(LogHandler.log_dir)        
-        if not os.path.exists(LogHandler.log_file): 
-            with open(LogHandler.log_file, "w"): pass
-
         # show app info
         Log.no_flag(f"{AppConfig.description}")
         Log.no_flag("")
@@ -90,7 +86,7 @@ class App:
 
     def setup_connections(self):
         # handle window close event
-        #self.window.closeEvent = self.exit
+        self.window.closeEvent = self.exit
 
         # create a list of sidebar-button/page pairs
         button_page_pairs = [
@@ -114,9 +110,14 @@ class App:
 
     def exit(self, event):
         Log.info('Exiting app')
-
-        while True:
+        ThreadManager.clean_up()
+        
+        while ThreadManager.active_threads:
             self.app.processEvents()
+
+        #event.ignore()
+        
+        
 
 if __name__ == '__main__':
     z_one = App()
