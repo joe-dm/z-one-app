@@ -1,5 +1,6 @@
 import os
 import datetime
+import inspect
 
 from resources.config import AppConfig
 
@@ -20,7 +21,18 @@ class LogFlag:
         Log.task('This is a task message')
         Log.debug('This is a debug message')
 
+class LogFile:
+    directory = os.path.join('logs')
+
+    app = os.path.join(directory, 'z-one.log')
+    network = os.path.join(directory, 'network.log')
+
+    def check_directory():
+        if not os.path.exists(LogFile.directory): 
+            os.makedirs(LogFile.directory) 
+
 class Log:
+    # main writers
     def info(message):
         LogHandler.handle(message, LogFlag.info)
     def warning(message):
@@ -45,19 +57,18 @@ class Log:
         Log.debug(message)
 
 class LogHandler:
-    log_dir = os.path.join('logs')
-    log_file = os.path.join(log_dir, 'z-one.log')
     gui_console = None
     preloaded_messages = []
 
     def handle(message, flag):
+        LogFile.check_directory()
         LogHandler.write_to_file(message, flag)
         LogHandler.write_to_gui_console(message, flag)
         print(f"{flag}{message}")    
 
-    def write_to_file(message, flag):
+    def write_to_file(message, flag, log_file=LogFile.app):
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        with open(LogHandler.log_file, 'a') as file:
+        with open(log_file, 'a') as file:
             file.write(f"[{now}] {flag}{message}\n")
         
     def write_to_gui_console(message, flag):

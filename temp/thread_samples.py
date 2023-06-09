@@ -4,6 +4,7 @@ from PySide6 import QtCore
 
 from utils.thread import Thread
 
+# thread that runs indefinitely and is ended by ThreadManager
 class NetworkMonitor(Thread):
     def __init__(self, address='8.8.8.8'):
         super().__init__()
@@ -21,7 +22,7 @@ class NetworkMonitor(Thread):
     def finish(self):
         self.is_running = False
 
-
+# thread that has an end and can be ended by ThreadManager
 class SheepCounter(Thread):
     def __init__(self, herd=10):
         super().__init__()
@@ -37,6 +38,7 @@ class SheepCounter(Thread):
     def finish(self):
         self.is_running = False
 
+# thread that has an end and cannot be ended by ThreadManager
 class ImportantCounter(Thread):
     def __init__(self, number=10):
         super().__init__()
