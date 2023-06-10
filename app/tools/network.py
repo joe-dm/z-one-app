@@ -23,7 +23,7 @@ class NetworkMonitor(Thread):
 
 
 class SheepCounter(Thread):
-    def __init__(self, herd=10):
+    def __init__(self, herd=10000):
         super().__init__()
         self.herd = herd        
     
@@ -38,7 +38,7 @@ class SheepCounter(Thread):
         self.is_running = False
 
 class ImportantCounter(Thread):
-    def __init__(self, number=10):
+    def __init__(self, number=5):
         super().__init__()
         self.number = number
     
