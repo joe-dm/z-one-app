@@ -45,10 +45,7 @@ class Page(QtWidgets.QScrollArea):
 
         self.page_layout = QtWidgets.QVBoxLayout()        
         self.page_container = QtWidgets.QWidget()
-
-        self.setup_page_ui()        
-     
-    def setup_page_ui(self):
+        
         # scroll area properties
         self.setWidget(self.page_container)    
         self.setWidgetResizable(True)    

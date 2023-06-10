@@ -1,10 +1,12 @@
 import os
+import sys
 import functools
 
 from PySide6 import QtWidgets, QtCore
 
 from gui.console import Console
 from gui.page import PageStack
+from gui.dialog import ExitDialog
 from gui.sidebar import Sidebar
 from resources.config import AppConfig, PathConfig
 from resources.theme import ThemeSize
@@ -20,12 +22,12 @@ class App:
 
         # gui widgets
         self.app = QtWidgets.QApplication([])
-        self.window = QtWidgets.QMainWindow()
+        self.main_window = QtWidgets.QMainWindow()
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Vertical)
         self.content = QtWidgets.QWidget()
         self.sidebar = Sidebar()
         self.page_stack = PageStack()
-        self.console = Console()        
+        self.console = Console()          
 
         self.setup_ui()
         self.setup_connections()  
@@ -33,7 +35,9 @@ class App:
         # test threads
         self.sheep_counter = SheepCounter()  
         self.network_monitor = NetworkMonitor()
-        self.important_counter = ImportantCounter()
+        self.important_counter = ImportantCounter()  
+        self.exit_dialog = ExitDialog(self.main_window)
+        
     
     def start(self):
         # show app info
@@ -77,16 +81,16 @@ class App:
         
 
         # setup main window
-        self.window.setWindowTitle(AppConfig.name)
-        self.window.setMinimumWidth(600)
-        self.window.setMinimumHeight(400)
-        self.window.resize(800, 600)
-        self.window.setCentralWidget(self.splitter)
-        self.window.show()
+        self.main_window.setWindowTitle(AppConfig.name)
+        self.main_window.setMinimumWidth(600)
+        self.main_window.setMinimumHeight(400)
+        self.main_window.resize(800, 600)
+        self.main_window.setCentralWidget(self.splitter)
+        self.main_window.show()
 
     def setup_connections(self):
         # handle window close event
-        self.window.closeEvent = self.exit
+        self.main_window.closeEvent = self.exit        
 
         # create a list of sidebar-button/page pairs
         button_page_pairs = [
@@ -108,14 +112,23 @@ class App:
         # connect sidebar toggle button
         self.sidebar.header.button_toggle.clicked.connect(functools.partial(self.sidebar.toggle))     
 
-    def exit(self, event):
-        Log.info('Exiting app')
-        ThreadManager.clean_up()
-        
-        while ThreadManager.active_threads:
-            self.app.processEvents()
+    def exit(self, event):  
+        event.ignore()
 
-        #event.ignore()
+        Log.info('Cleaning up and exiting app')
+        self.exit_dialog.show()
+
+        ThreadManager.clean_up() 
+
+        while ThreadManager.active_threads:
+            QtWidgets.QApplication.processEvents()
+            QtCore.QThread.msleep(500)
+
+        # close dialog
+        self.exit_dialog.close()
+        # close app 
+        event.accept()
+        
         
         
 

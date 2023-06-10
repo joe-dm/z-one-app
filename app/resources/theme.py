@@ -28,13 +28,33 @@ class ThemeColor:
 
 
 class ThemeStylesheet:
+    # console styles
     console = (
         f'background-color: {ThemeColor.black_dark};'
         f'border:none;'
         f'font-family: "Courier New", monospace;'
         f'font-size: 13px;'
+    )    
+
+    # dialog styles
+    dialog_overlay = (
+        f'background-color: transparent;'        
+    )
+    dialog_container = (
+        f'background-color: {ThemeColor.gray_3};'
+        f'border: none;'
     )
 
+    # line separator styles
+    line_horizontal_1 = (
+        f'border-style: none;'
+        f'border-bottom: 1px solid {ThemeColor.gray};'        
+    )
+    line_horizontal_2 = (        
+        f'border: 1px solid {ThemeColor.secondary};'      
+    )
+
+    # page styles
     page = (
         f'background-color: {ThemeColor.black_midnight};'
         f'border: none;'
@@ -44,15 +64,13 @@ class ThemeStylesheet:
         f'color: {ThemeColor.white_2};'
     )
 
-    line_horizontal_1 = (
-        f'border-style: none;'
-        f'border-bottom: 1px solid {ThemeColor.gray};'        
-    )
-    line_horizontal_2 = (
-        #f'border-style: solid;'
-        f'border: 1px solid {ThemeColor.secondary};'      
+    # popup styles    
+    popup_heading = (
+        f'font-weight: bold;'
+        f'font-size: 16px;'
     )
 
+    # sidebar styles
     sidebar_button = (
         f'background-color: none;'
         f'border: none;'
@@ -67,7 +85,6 @@ class ThemeStylesheet:
     sidebar_button_hover = sidebar_button + (
         f'background-color: {ThemeColor.black_midnight};'
     )
-
     sidebar_header_button = (
         f'background-color: none;'
         f'border: 0.5px solid {ThemeColor.gray};'

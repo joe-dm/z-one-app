@@ -42,10 +42,11 @@ class Thread(QtCore.QRunnable):
     def execute(self): pass 
     def finish(self): pass
 
-class ThreadManager:
+
+class ThreadManager(QtCore.QObject):
     thread_pool = QtCore.QThreadPool()
-    active_threads = []
-        
+    active_threads = []      
+
     def start_thread(thread):
         Log.task(f"Starting {thread.__class__.__name__}")
         ThreadManager.thread_pool.start(thread)
@@ -63,4 +64,3 @@ class ThreadManager:
             Log.debug(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
             for thread in ThreadManager.active_threads[:]:
                 thread.finish()
-    
