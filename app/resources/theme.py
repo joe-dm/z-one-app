@@ -36,13 +36,21 @@ class ThemeStylesheet:
         f'font-size: 13px;'
     )    
 
-    # dialog styles
-    dialog_overlay = (
-        f'background-color: transparent;'        
+    # dialog styles    
+    dialog = (
+        f'''
+        EmbeddedDialog {{
+            background-color: rgba(78, 87, 95, 0.3);
+        }}
+        QWidget#DialogContainer {{
+            border: 2px solid {ThemeColor.gray};
+        }}
+        '''    
     )
-    dialog_container = (
-        f'background-color: {ThemeColor.gray_3};'
-        f'border: none;'
+    dialog_heading = (
+        f'font-weight: bold;'
+        f'font-size: 18px;'
+        f'color: {ThemeColor.white};'
     )
 
     # line separator styles
@@ -62,12 +70,11 @@ class ThemeStylesheet:
     page_title = (
         f'font-size: 20px;'
         f'color: {ThemeColor.white_2};'
-    )
+    ) 
 
-    # popup styles    
-    popup_heading = (
-        f'font-weight: bold;'
-        f'font-size: 16px;'
+    # progress bars
+    progress_bar = (
+        f'border: 1px solid {ThemeColor.secondary};'
     )
 
     # sidebar styles

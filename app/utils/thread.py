@@ -45,7 +45,7 @@ class Thread(QtCore.QRunnable):
 
 class ThreadManager(QtCore.QObject):
     thread_pool = QtCore.QThreadPool()
-    active_threads = []      
+    active_threads = []
 
     def start_thread(thread):
         Log.task(f"Starting {thread.__class__.__name__}")
@@ -59,8 +59,9 @@ class ThreadManager(QtCore.QObject):
     def report_waiting(thread):
         Log.info(f"Waiting for {thread.__class__.__name__} to finish")
     
-    def clean_up():
-        if ThreadManager.active_threads:
-            Log.debug(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
+    def clean_up():        
+        if ThreadManager.active_threads:            
+            Log.info(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
             for thread in ThreadManager.active_threads[:]:
                 thread.finish()
+

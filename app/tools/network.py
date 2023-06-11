@@ -38,7 +38,7 @@ class SheepCounter(Thread):
         self.is_running = False
 
 class ImportantCounter(Thread):
-    def __init__(self, number=5):
+    def __init__(self, number=10):
         super().__init__()
         self.number = number
     
@@ -48,5 +48,4 @@ class ImportantCounter(Thread):
             QtCore.QThread.msleep(1000)
     
     def finish(self):
-        self.is_running = False
         self.signals.waiting.emit(self)
