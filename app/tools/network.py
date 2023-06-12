@@ -37,14 +37,15 @@ class SheepCounter(Thread):
     def finish(self):
         self.is_running = False
 
+
 class ImportantCounter(Thread):
-    def __init__(self, number=10):
+    def __init__(self, number=5):
         super().__init__()
         self.number = number
     
     def execute(self):        
         for n in range(self.number):            
-            self.signals.log_info.emit(f'Important count #{n}')
+            self.signals.log_info.emit(f'Important thread #{n}')
             QtCore.QThread.msleep(1000)
     
     def finish(self):
