@@ -2,6 +2,7 @@ from PySide6 import QtCore, QtWidgets, QtGui
 
 from resources.config import PathConfig
 from resources.theme import ThemeSize, ThemeStylesheet
+from utils.log import Log
 
 class Sidebar(QtWidgets.QWidget):
     def __init__(self):
@@ -55,6 +56,8 @@ class Sidebar(QtWidgets.QWidget):
         
         # set dashboard as active page
         self.set_active_button(self.button_dashboard)
+
+        Log.debug_init(self)
         
     
     def set_active_button(self, button):        
@@ -65,7 +68,8 @@ class Sidebar(QtWidgets.QWidget):
                 btn.set_inactive()
 
     def toggle(self):
-        if self.is_expanded:            
+        if self.is_expanded:     
+            Log.debug(f"Collapsing sidebar")   
             # hide text buttons
             for button in self.sidebar_buttons:
                 button.button_text.setVisible(False)  
@@ -73,6 +77,7 @@ class Sidebar(QtWidgets.QWidget):
             self.header.shrink()
             self.is_expanded = False
         else:
+            Log.debug(f"Expanding sidebar")   
             # show text buttons
             for button in self.sidebar_buttons:
                 button.button_text.setVisible(True) 
@@ -114,8 +119,7 @@ class SidebarButton(QtWidgets.QWidget):
         layout.setContentsMargins(0,0,0,0)
         layout.setSpacing(0)
         layout.addWidget(self.button_icon)
-        layout.addWidget(self.button_text)
-        
+        layout.addWidget(self.button_text)        
 
         # set style
         self.setStyleSheet(ThemeStylesheet.sidebar_button)
@@ -125,6 +129,8 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_icon.leaveEvent = self.on_leave_event
         self.button_text.enterEvent = self.on_enter_event
         self.button_text.leaveEvent = self.on_leave_event
+
+        Log.debug_init(self, self.text)
     
     def set_active(self):
         self.setStyleSheet(ThemeStylesheet.sidebar_button_active)
@@ -188,6 +194,8 @@ class SidebarHeader(QtWidgets.QWidget):
         # setup enter/leave events
         self.button_toggle.enterEvent = self.on_enter_event
         self.button_toggle.leaveEvent = self.on_leave_event
+
+        Log.debug_init(self)
     
     def shrink(self):
         self.button_toggle.setText('›')

@@ -5,12 +5,12 @@ class ThreadSignals(QtCore.QObject):
     finished = QtCore.Signal(object)
     waiting = QtCore.Signal(object)
     # used for console output
-    log_info = QtCore.Signal(str)
-    log_warning = QtCore.Signal(str)
-    log_error = QtCore.Signal(str)
-    log_critical = QtCore.Signal(str)
-    log_task = QtCore.Signal(str)
-    log_debug = QtCore.Signal(str)
+    log_info = QtCore.Signal(str, object)
+    log_warning = QtCore.Signal(str, object)
+    log_error = QtCore.Signal(str, object)
+    log_critical = QtCore.Signal(str, object)
+    log_task = QtCore.Signal(str, object)
+    log_debug = QtCore.Signal(str, object)
 
 class Thread(QtCore.QRunnable):
     def __init__(self):
@@ -48,20 +48,20 @@ class ThreadManager(QtCore.QObject):
     active_threads = []
 
     def start_thread(thread):
-        Log.task(f"Starting {thread.__class__.__name__}")
+        Log.debug(f"Starting thread: {thread.__class__.__name__}")
         ThreadManager.thread_pool.start(thread)
         ThreadManager.active_threads.append(thread)
         
     def report_finished(thread):
-        Log.info(f"Finished {thread.__class__.__name__}")        
+        Log.debug(f"Finished thread: {thread.__class__.__name__}")        
         ThreadManager.active_threads.remove(thread)
     
     def report_waiting(thread):
-        Log.info(f"Waiting for {thread.__class__.__name__} to finish")
+        Log.debug(f"Waiting for thread: {thread.__class__.__name__}")
     
     def clean_up():        
         if ThreadManager.active_threads:            
-            Log.info(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
+            Log.debug(f"Cleaning up {ThreadManager.thread_pool.activeThreadCount()} threads")
             for thread in ThreadManager.active_threads[:]:
                 thread.finish()
 

@@ -1,7 +1,7 @@
 from PySide6 import QtWidgets, QtGui
 
 from resources.theme import ThemeStylesheet, ThemeColor
-from utils.log import LogHandler, LogFlag
+from utils.log import Log, LogFlag, LogHandler
 
 class Console(QtWidgets.QWidget):
     def __init__(self):
@@ -12,6 +12,7 @@ class Console(QtWidgets.QWidget):
         self.auto_scroll = True
 
         self.init_ui()
+        
         LogHandler.set_gui_console(self)
 
     def init_ui(self):
@@ -25,6 +26,8 @@ class Console(QtWidgets.QWidget):
 
         # set stylesheet
         self.text_edit.setStyleSheet(ThemeStylesheet.console)
+
+        Log.debug_init(self)
         
 
     def append(self, message, flag):
@@ -35,10 +38,7 @@ class Console(QtWidgets.QWidget):
         # create message and append
         full_message = f"{flag}{message}".replace(" ", "&nbsp;")
         cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>{full_message}</span>")
-        cursor.insertText('\n')
-
-        # scroll to the bottom
-        #self.vertical_scrollbar.setValue(self.vertical_scrollbar.maximum())
+        cursor.insertText('\n')       
 
         # scroll to bottom if user hasn't scrolled up
         if self.vertical_scrollbar.value() >= self.vertical_scrollbar.maximum() - 50:
@@ -59,6 +59,6 @@ class Console(QtWidgets.QWidget):
             color = ThemeColor.red
         elif flag == LogFlag.debug:
             color = ThemeColor.gray
-        elif flag == LogFlag.none:
+        elif flag == LogFlag.no_flag:
             color = ThemeColor.primary
         return color 
