@@ -3,19 +3,26 @@ import subprocess
 from PySide6 import QtCore
 
 from utils.thread import Thread
+from utils.log import LogFile
 
 class NetworkMonitor(Thread):
     def __init__(self, address='8.8.8.8'):
         super().__init__()
         self.address = address
+        self.is_down = True
     
     def execute(self):
+        self.signals.log_task.emit(f"Monitoring network", LogFile.network)
         while self.is_running:
             result = subprocess.run(["ping", "-c", "1", self.address], capture_output=True, text=True)
-            if result.returncode == 0:
-                self.signals.log_debug.emit(f"Network is up. Ping to {self.address} successful")                
+            if result.returncode == 0:                
+                if self.is_down:
+                    self.signals.log_info.emit(f"Internet connection available", LogFile.network)
+                    self.is_down = False
             else:
-                self.signals.log_warning.emit(f"Network is down. Ping to {self.address} failed")
+                if not self.is_down:
+                    self.signals.log_warning.emit(f"Internet connection not available. Ping to {self.address} failed", LogFile.network)
+                    self.is_down = True
             QtCore.QThread.msleep(2000)
 
     def finish(self):

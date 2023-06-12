@@ -1,6 +1,5 @@
 import os
 import sys
-import functools
 
 from PySide6 import QtWidgets, QtCore
 
@@ -25,10 +24,10 @@ class App:
         self.main_window = MainWindow()
         self.main_window.closeEvent = self.prep_to_exit
 
-        # test
-        self.sheep_counter = SheepCounter()  
+        # test         
         self.network_monitor = NetworkMonitor()
-        self.important_counter = ImportantCounter()    
+        #self.sheep_counter = SheepCounter() 
+        #self.important_counter = ImportantCounter()    
         self.exit_dialog = ExitDialog(self.main_window)
     
     def start(self):
@@ -53,21 +52,24 @@ class App:
                 else:
                     Log.critical(f"Resource not found: {resource_path}")
              
-        # set app stylesheet        
+        # set app stylesheet 
+        Log.task(f"Setting stylesheet")
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
         self.app.setStyleSheet(stylesheet_content)
-           
+    
+
     def prep_to_exit(self, event):
         if self.is_closing:
             event.ignore()
         elif ThreadManager.active_threads:
-            Log.task('Preparing to exit')
+            Log.task('Preparing to exit app')
 
             self.is_closing = True
             event.ignore()
 
             self.main_window.prevent_resizing()
+            self.main_window.console.scroll_to_bottom()
             self.exit_dialog.show()            
 
             cleanup_timer = QtCore.QTimer(self.app)
@@ -75,11 +77,13 @@ class App:
             cleanup_timer.start(100) 
 
             ThreadManager.clean_up()
+        else:
+            self.exit()
             
 
     def exit(self):        
         if not ThreadManager.active_threads: 
-            Log.info('Exiting')                    
+            Log.info('App exiting')                    
             sys.exit(0)
         
 

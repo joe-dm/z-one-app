@@ -8,13 +8,12 @@ from gui.console import Console
 from resources.config import AppConfig
 from resources.theme import ThemeSize
 from utils.log import Log
-from utils.thread import ThreadManager
 
-class MainWindow(QtWidgets.QMainWindow): 
-    closing = False
-
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        Log.task(f"Loading interface")
+
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Vertical)
         self.content = QtWidgets.QWidget()
         self.sidebar = Sidebar()
@@ -45,7 +44,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(self.splitter)
         self.show()
 
+        Log.debug_init(self)
+
     def setup_connections(self):
+        Log.debug('Setting up main window connections')
         # create a list of sidebar-button/page pairs
         button_page_pairs = [
             (self.sidebar.button_dashboard, self.page_stack.page_dashboard),

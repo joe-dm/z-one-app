@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets
 
 from resources.theme import ThemeStylesheet
+from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):
     def __init__(self):
@@ -30,8 +31,11 @@ class PageStack(QtWidgets.QWidget):
         self.stacked_layout.addWidget(self.page_settings)
         self.stacked_layout.addWidget(self.page_logs)
         self.setStyleSheet(ThemeStylesheet.page)
+
+        Log.debug_init(self)
     
     def switch_page(self, page):
+        Log.debug(f"Switching to page '{page.title}'")
         self.stacked_layout.setCurrentWidget(page)
         
 
@@ -40,7 +44,8 @@ class Page(QtWidgets.QScrollArea):
     def __init__(self, title):
         super().__init__()
         
-        self.label_title = QtWidgets.QLabel(title)   
+        self.title = title
+        self.label_title = QtWidgets.QLabel(self.title)   
         self.separator = QtWidgets.QFrame()
 
         self.page_layout = QtWidgets.QVBoxLayout()        
@@ -65,6 +70,8 @@ class Page(QtWidgets.QScrollArea):
         self.page_layout.addWidget(self.label_title)
         self.page_layout.addWidget(self.separator)
         self.page_layout.addSpacing(5)
+
+        Log.debug_init(self)
 
 
 

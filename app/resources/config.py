@@ -6,6 +6,7 @@ class AppConfig:
     dev_info = 'github.com/joe-dm'
     description = f'{name} {version} ({dev_info})'
     debug = True
+        
 
 class PathConfig:
     stylesheet = os.path.join('app', 'resources', 'breeze_style', 'style.qss')    

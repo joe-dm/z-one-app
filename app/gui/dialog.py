@@ -1,5 +1,6 @@
 from PySide6 import QtWidgets, QtCore
 from resources.theme import ThemeStylesheet
+from utils.log import Log
 
 class EmbeddedDialog(QtWidgets.QWidget):
     def __init__(self, parent_widget):
@@ -21,7 +22,9 @@ class EmbeddedDialog(QtWidgets.QWidget):
         self.container_layout.setSpacing(20)
 
         # add container to full layout
-        self.full_layout.addWidget(self.container, alignment=QtCore.Qt.AlignCenter)        
+        self.full_layout.addWidget(self.container, alignment=QtCore.Qt.AlignCenter)     
+
+        Log.debug_init(self)   
         
 
     def showEvent(self, event):
