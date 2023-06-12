@@ -9,6 +9,7 @@ class Console(QtWidgets.QWidget):
 
         self.text_edit = QtWidgets.QTextEdit()
         self.vertical_scrollbar = self.text_edit.verticalScrollBar()
+        self.auto_scroll = True
 
         self.init_ui()
         LogHandler.set_gui_console(self)
@@ -37,6 +38,14 @@ class Console(QtWidgets.QWidget):
         cursor.insertText('\n')
 
         # scroll to the bottom
+        #self.vertical_scrollbar.setValue(self.vertical_scrollbar.maximum())
+
+        # scroll to bottom if user hasn't scrolled up
+        if self.vertical_scrollbar.value() >= self.vertical_scrollbar.maximum() - 50:
+            if self.auto_scroll:
+                self.scroll_to_bottom()
+    
+    def scroll_to_bottom(self):
         self.vertical_scrollbar.setValue(self.vertical_scrollbar.maximum())
 
     def get_color(self, flag):
