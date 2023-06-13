@@ -12,6 +12,14 @@ class PathConfig:
     stylesheet = os.path.join('app', 'resources', 'breeze_style', 'style.qss')    
     logo = os.path.join('app', 'resources', 'images', 'logo.png')
     logo_text = os.path.join('app', 'resources', 'images', 'logo-text.png')
+
+    # sounds
+    sounds_directory = os.path.join('app', 'resources', 'sounds')
+
+    sound_internet_down = os.path.join(sounds_directory, 'internet_down.wav')
+    sound_internet_restored = os.path.join(sounds_directory, 'internet_restored.wav')
+
+    # icons
     icons_directory = os.path.join('app', 'resources', 'images', 'icons')
 
     icon_dashboard = os.path.join(icons_directory, 'dashboard.svg')

@@ -1,5 +1,6 @@
 from PySide6 import QtCore
 from utils.log import Log
+from resources.sound import SoundAlert
 
 class ThreadSignals(QtCore.QObject):       
     finished = QtCore.Signal(object)
@@ -11,6 +12,8 @@ class ThreadSignals(QtCore.QObject):
     log_critical = QtCore.Signal(str, object)
     log_task = QtCore.Signal(str, object)
     log_debug = QtCore.Signal(str, object)
+    # sound alert
+    play_alert = QtCore.Signal(str)
 
 class Thread(QtCore.QRunnable):
     def __init__(self):
@@ -28,7 +31,9 @@ class Thread(QtCore.QRunnable):
         self.signals.log_error.connect(Log.error)
         self.signals.log_critical.connect(Log.critical)
         self.signals.log_task.connect(Log.task)
-        self.signals.log_debug.connect(Log.debug)        
+        self.signals.log_debug.connect(Log.debug)    
+        # connect alert signal
+        self.signals.play_alert.connect(SoundAlert.play)
 
         # start the thread
         ThreadManager.start_thread(self)

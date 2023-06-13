@@ -9,6 +9,7 @@ from gui.dialog import ExitDialog
 from gui.window import MainWindow
 from resources.config import AppConfig, PathConfig
 
+
 from tools.network import SheepCounter, NetworkMonitor, ImportantCounter
 from utils.log import Log
 from utils.thread import ThreadManager
@@ -22,13 +23,14 @@ class App:
         self.start()
 
         self.main_window = MainWindow()
-        self.main_window.closeEvent = self.prep_to_exit
+        self.main_window.closeEvent = self.prep_to_exit        
 
-        # test         
-        self.network_monitor = NetworkMonitor()
+        # tests     
+        self.network_monitor = NetworkMonitor()        
         #self.sheep_counter = SheepCounter() 
         #self.important_counter = ImportantCounter()    
         self.exit_dialog = ExitDialog(self.main_window)
+        
     
     def start(self):
         # show app info
@@ -57,6 +59,7 @@ class App:
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
         self.app.setStyleSheet(stylesheet_content)
+    
     
 
     def prep_to_exit(self, event):
