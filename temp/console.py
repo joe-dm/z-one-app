@@ -22,16 +22,15 @@ class Console(QtWidgets.QWidget):
         layout.setContentsMargins(0,0,0,0)
         layout.addWidget(self.text_edit)      
 
-        # connect scroll event
         self.vertical_scrollbar.valueChanged.connect(self.scrollbar_value_changed)         
 
-        # text edit properties
         self.text_edit.setReadOnly(True)
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap) # disable text wrapping        
         self.text_edit.setStyleSheet(ThemeStylesheet.console)        
 
         Log.debug_init(self)
-    
+        
+
     def append(self, message, flag):
         # get cursor position
         cursor = self.text_edit.textCursor()
@@ -41,8 +40,10 @@ class Console(QtWidgets.QWidget):
         full_message = f"{flag}{message}".replace('\n', '<br>')
         full_message = full_message.replace(" ", "&nbsp;")
         cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>{full_message}</span>")
-        cursor.insertText('\n')
-        
+        cursor.insertText('\n')       
+
+        # scroll to bottom if user hasn't scrolled up
+        #if self.vertical_scrollbar.value() == self.vertical_scrollbar.maximum():
         self.scroll_to_bottom()
     
     def scroll_to_bottom(self):
@@ -71,4 +72,3 @@ class Console(QtWidgets.QWidget):
         elif flag == LogFlag.no_flag:
             color = ThemeColor.primary
         return color 
-

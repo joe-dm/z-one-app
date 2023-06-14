@@ -16,7 +16,8 @@ class NetworkMonitor(Thread):
         self.signals.log_task.emit(f"Monitoring network", LogFile.network)
         while self.is_running:                    
             result = subprocess.run(["ping", "-c", "1", self.address], capture_output=True, text=True)
-            if result.returncode == 0:                
+            if result.returncode == 0:
+                self.signals.log_debug.emit(f"Ping to {self.address} successful", None)                
                 if self.is_down == None:
                     self.signals.log_info.emit(f"Internet connection available", LogFile.network)                    
                 elif self.is_down == True:
