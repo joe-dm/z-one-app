@@ -9,6 +9,7 @@ class Console(QtWidgets.QWidget):
 
         self.text_edit = QtWidgets.QTextEdit()
         self.vertical_scrollbar = self.text_edit.verticalScrollBar()
+        
         self.previous_scroll_value = self.vertical_scrollbar.value() 
         self.auto_scroll = True
 
@@ -48,13 +49,14 @@ class Console(QtWidgets.QWidget):
     def scroll_to_bottom(self):
         if self.auto_scroll:
             self.text_edit.ensureCursorVisible()
-            self.vertical_scrollbar.setValue(self.vertical_scrollbar.maximum())     
-
+            self.vertical_scrollbar.setValue(self.vertical_scrollbar.maximum())                 
+            
     def scrollbar_value_changed(self, value):
         if value < self.previous_scroll_value:
             self.auto_scroll = False
-        elif value == self.vertical_scrollbar.maximum():
+        elif value >= self.vertical_scrollbar.maximum() - 50:
             self.auto_scroll = True
+            self.previous_scroll_value = self.vertical_scrollbar.maximum()
         self.previous_scroll_value = value   
 
     def get_color(self, flag):

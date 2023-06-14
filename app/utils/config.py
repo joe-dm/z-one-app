@@ -1,10 +1,12 @@
 import os
+import datetime
 
 class AppConfig:    
     name = 'z-one'
     version = '1.0.2306'
-    dev_info = 'github.com/joe-dm'
-    description = f'{name} {version} ({dev_info})'
+    dev_name = 'Joe Morais'
+    dev_url = 'github.com/joe-dm'
+    description = f'{name} [Version {version}]\n© {datetime.datetime.now().year} {dev_name} ({dev_url})'
     debug = True
         
 

@@ -130,7 +130,7 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_text.enterEvent = self.on_enter_event
         self.button_text.leaveEvent = self.on_leave_event
 
-        Log.debug_init(self, self.text)
+        Log.debug_init(self, obj_name=self.text)
     
     def set_active(self):
         self.setStyleSheet(ThemeStylesheet.sidebar_button_active)

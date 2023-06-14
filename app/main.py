@@ -26,11 +26,11 @@ class App:
         self.main_window.closeEvent = self.prep_to_exit        
 
         # tests     
-        #self.network_monitor = NetworkMonitor()   
-        self.system_info = InfoGatherer()
+        self.network_monitor = NetworkMonitor() 
+        self.system_info = InfoGatherer()                
         #self.sheep_counter = SheepCounter() 
         #self.important_counter = ImportantCounter()    
-        self.exit_dialog = ExitDialog(self.main_window)
+        #self.exit_dialog = ExitDialog(self.main_window)
         
     
     def start(self):
@@ -74,7 +74,9 @@ class App:
 
             self.main_window.prevent_resizing()
             self.main_window.console.scroll_to_bottom()
-            self.exit_dialog.show()            
+
+            exit_dialog = ExitDialog(self.main_window)
+            exit_dialog.show()            
 
             cleanup_timer = QtCore.QTimer(self.app)
             cleanup_timer.timeout.connect(self.exit)
