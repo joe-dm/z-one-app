@@ -13,6 +13,7 @@ class ThreadSignals(QtCore.QObject):
     log_critical = QtCore.Signal(str, object)
     log_task = QtCore.Signal(str, object)
     log_debug = QtCore.Signal(str, object)
+    log_debug_init = QtCore.Signal(object, bool)
     # sound alert
     play_alert = QtCore.Signal(str)
 
@@ -33,6 +34,7 @@ class Thread(QtCore.QRunnable):
         self.signals.log_critical.connect(Log.critical)
         self.signals.log_task.connect(Log.task)
         self.signals.log_debug.connect(Log.debug)    
+        self.signals.log_debug_init.connect(Log.debug_init)    
         # connect alert signal
         self.signals.play_alert.connect(SoundAlert.play)
 
