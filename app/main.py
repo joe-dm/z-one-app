@@ -12,7 +12,7 @@ from utils.thread import ThreadManager
 
 # tests
 from tools.network import SheepCounter, NetworkMonitor, ImportantCounter
-from tools.gatherer import OperatingSystem, Processor, Python
+from tools.system_info import InfoGatherer
 
 
 class App:
@@ -26,10 +26,8 @@ class App:
         self.main_window.closeEvent = self.prep_to_exit        
 
         # tests     
-        self.network_monitor = NetworkMonitor()   
-        self.os = OperatingSystem()
-        self.cpu = Processor()
-        self.python = Python()
+        #self.network_monitor = NetworkMonitor()   
+        self.system_info = InfoGatherer()
         #self.sheep_counter = SheepCounter() 
         #self.important_counter = ImportantCounter()    
         self.exit_dialog = ExitDialog(self.main_window)
