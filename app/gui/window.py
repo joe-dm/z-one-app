@@ -5,8 +5,9 @@ from PySide6 import QtWidgets, QtCore
 from gui.sidebar import Sidebar
 from gui.page import PageStack
 from gui.console import Console
-from resources.config import AppConfig
-from resources.theme import ThemeSize
+
+from utils.config import AppConfig
+from utils.theme import ThemeSize
 from utils.log import Log
 
 class MainWindow(QtWidgets.QMainWindow):

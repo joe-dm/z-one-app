@@ -3,16 +3,16 @@ import sys
 
 from PySide6 import QtWidgets, QtCore
 
-
 from gui.dialog import ExitDialog
-
 from gui.window import MainWindow
-from resources.config import AppConfig, PathConfig
 
-
-from tools.network import SheepCounter, NetworkMonitor, ImportantCounter
+from utils.config import AppConfig, PathConfig
 from utils.log import Log
 from utils.thread import ThreadManager
+
+# tests
+from tools.network import SheepCounter, NetworkMonitor, ImportantCounter
+from tools.gatherer import OperatingSystem, Processor, Python
 
 
 class App:
@@ -26,7 +26,10 @@ class App:
         self.main_window.closeEvent = self.prep_to_exit        
 
         # tests     
-        self.network_monitor = NetworkMonitor()        
+        self.network_monitor = NetworkMonitor()   
+        self.os = OperatingSystem()
+        self.cpu = Processor()
+        self.python = Python()
         #self.sheep_counter = SheepCounter() 
         #self.important_counter = ImportantCounter()    
         self.exit_dialog = ExitDialog(self.main_window)
