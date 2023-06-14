@@ -1,6 +1,6 @@
 from PySide6 import QtWidgets, QtGui
 
-from resources.theme import ThemeStylesheet, ThemeColor
+from utils.theme import ThemeStylesheet, ThemeColor
 from utils.log import Log, LogFlag, LogHandler
 
 class Console(QtWidgets.QWidget):
@@ -23,7 +23,6 @@ class Console(QtWidgets.QWidget):
         
         # disable text wrapping
         self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
-
         # set stylesheet
         self.text_edit.setStyleSheet(ThemeStylesheet.console)
 
@@ -36,7 +35,8 @@ class Console(QtWidgets.QWidget):
         cursor.movePosition(QtGui.QTextCursor.End)
 
         # create message and append
-        full_message = f"{flag}{message}".replace(" ", "&nbsp;")
+        full_message = f"{flag}{message}".replace('\n', '<br>')
+        full_message = full_message.replace(" ", "&nbsp;")
         cursor.insertHtml(f"<span style='color: {self.get_color(flag)};'>{full_message}</span>")
         cursor.insertText('\n')       
 

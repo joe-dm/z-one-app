@@ -2,9 +2,9 @@ import subprocess
 
 from PySide6 import QtCore
 
-from utils.thread import Thread
+from utils.config import PathConfig
 from utils.log import LogFile
-from resources.config import PathConfig
+from utils.thread import Thread
 
 class NetworkMonitor(Thread):
     def __init__(self, address='8.8.8.8'):

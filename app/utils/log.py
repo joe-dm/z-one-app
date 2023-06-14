@@ -1,7 +1,7 @@
 import os
 import datetime
 
-from resources.config import AppConfig
+from utils.config import AppConfig
 
 class LogFlag:
     info     = '•| '
@@ -59,9 +59,9 @@ class Log:
 
         indent = ' ' * len(LogFlag.debug)
         if show_attributes:
-            message += " with attributes:\n"
+            message += " with attributes:"
             for attr, value in obj.__dict__.items():
-                message += f"{indent}{attr}: {value}\n"
+                message += f"\n{indent}{attr}: {value}"
         Log.debug(message, file)
 
 class LogHandler:

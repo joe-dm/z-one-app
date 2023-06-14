@@ -1,6 +1,7 @@
 from PySide6 import QtCore
+
 from utils.log import Log
-from resources.sound import SoundAlert
+from utils.sound import SoundAlert
 
 class ThreadSignals(QtCore.QObject):       
     finished = QtCore.Signal(object)

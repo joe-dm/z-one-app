@@ -1,6 +1,6 @@
 from PySide6 import QtWidgets
 
-from resources.theme import ThemeStylesheet
+from utils.theme import ThemeStylesheet
 from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):

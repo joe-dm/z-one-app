@@ -9,18 +9,18 @@ class AppConfig:
         
 
 class PathConfig:
-    stylesheet = os.path.join('app', 'resources', 'breeze_style', 'style.qss')    
-    logo = os.path.join('app', 'resources', 'images', 'logo.png')
-    logo_text = os.path.join('app', 'resources', 'images', 'logo-text.png')
+    stylesheet = os.path.join('app', '_resources', 'breeze_style', 'style.qss')    
+    logo = os.path.join('app', '_resources', 'images', 'logo.png')
+    logo_text = os.path.join('app', '_resources', 'images', 'logo-text.png')
 
     # sounds
-    sounds_directory = os.path.join('app', 'resources', 'sounds')
+    sounds_directory = os.path.join('app', '_resources', 'sounds')
 
     sound_internet_down = os.path.join(sounds_directory, 'internet_down.wav')
     sound_internet_restored = os.path.join(sounds_directory, 'internet_restored.wav')
 
     # icons
-    icons_directory = os.path.join('app', 'resources', 'images', 'icons')
+    icons_directory = os.path.join('app', '_resources', 'images', 'icons')
 
     icon_dashboard = os.path.join(icons_directory, 'dashboard.svg')
     icon_dashboard_active = os.path.join(icons_directory, 'dashboard_dark.svg')
