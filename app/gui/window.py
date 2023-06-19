@@ -39,7 +39,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # window properties
         self.setWindowTitle(AppConfig.name)
-        self.setMinimumWidth(600)
+        self.setMinimumWidth(750)
         self.setMinimumHeight(400)
         self.resize(800, 600)
         self.setCentralWidget(self.splitter)
@@ -52,7 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # create a list of sidebar-button/page pairs
         button_page_pairs = [
             (self.sidebar.button_dashboard, self.page_stack.page_dashboard),
-            (self.sidebar.button_processor, self.page_stack.page_processor),
+            (self.sidebar.button_cpu, self.page_stack.page_cpu),
             (self.sidebar.button_gpu, self.page_stack.page_gpu),
             (self.sidebar.button_memory, self.page_stack.page_memory),
             (self.sidebar.button_disk, self.page_stack.page_disk),

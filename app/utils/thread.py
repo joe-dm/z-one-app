@@ -7,12 +7,12 @@ class ThreadSignals(QtCore.QObject):
     finished = QtCore.Signal(object)
     waiting = QtCore.Signal(object)
     # used for console output
-    log_info = QtCore.Signal(str, object)
-    log_warning = QtCore.Signal(str, object)
-    log_error = QtCore.Signal(str, object)
-    log_critical = QtCore.Signal(str, object)
-    log_task = QtCore.Signal(str, object)
-    log_debug = QtCore.Signal(str, object)
+    log_info = QtCore.Signal(str, str)
+    log_warning = QtCore.Signal(str, str)
+    log_error = QtCore.Signal(str, str)
+    log_critical = QtCore.Signal(str, str)
+    log_task = QtCore.Signal(str, str)
+    log_debug = QtCore.Signal(str, str)
     log_debug_init = QtCore.Signal(object, bool)
     # sound alert
     play_alert = QtCore.Signal(str)

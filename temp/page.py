@@ -1,14 +1,12 @@
 from PySide6 import QtWidgets, QtCore
 
-from gui.common import Heading, HLine, Chart
-from tools.info_gatherer import CPUInfo
+from gui.widgets.cpu import CPUMonitor
 from utils.theme import ThemeStylesheet
 from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):
     def __init__(self):
-        super().__init__()     
-        self.setObjectName('PageStack')  
+        super().__init__()       
 
         self.stacked_layout = QtWidgets.QStackedLayout(self)
         self.page_dashboard = PageDashboard()
@@ -33,7 +31,7 @@ class PageStack(QtWidgets.QWidget):
         self.stacked_layout.addWidget(self.page_apps)
         self.stacked_layout.addWidget(self.page_settings)
         self.stacked_layout.addWidget(self.page_logs)
-        self.setStyleSheet(ThemeStylesheet.page_stack)
+        self.setStyleSheet(ThemeStylesheet.page)
 
         Log.debug_init(self)
     
@@ -44,90 +42,78 @@ class PageStack(QtWidgets.QWidget):
 
 class Page(QtWidgets.QScrollArea):
     def __init__(self, title):
-        super().__init__()        
+        super().__init__()
+        
         self.title = title
+        self.label_title = QtWidgets.QLabel(self.title)   
+        self.separator = QtWidgets.QFrame()
 
-        # main widgets
-        self.label_title = QtWidgets.QLabel(self.title, objectName='PageTitle')   
-        self.separator = HLine()             
+        self.page_container = QtWidgets.QWidget()
+        self.page_layout = QtWidgets.QGridLayout()  
+        self.current_row = 0
+        self.current_col = 0
+        self.max_cols = 3    
         
-        # container properties
-        self.page_container = QtWidgets.QWidget() 
-        self.page_container.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-               
-        # setup layout
-        self.page_layout = QtWidgets.QVBoxLayout(self.page_container)              
-        self.page_layout.addWidget(self.label_title) 
-        self.page_layout.addWidget(self.separator) 
-        self.page_layout.addSpacing(5)
-        
-        # page properties
-        self.setStyleSheet(ThemeStylesheet.page)        
+        # scroll area properties
         self.setWidget(self.page_container)    
-        self.setWidgetResizable(True)  
+        self.setWidgetResizable(True)    
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+
+        # title properties
+        self.label_title.setStyleSheet(ThemeStylesheet.page_title)
+
+        # separator properties
+        self.separator.setFrameShape(QtWidgets.QFrame.HLine)
+        self.separator.setFrameShadow(QtWidgets.QFrame.Sunken)    
+        self.separator.setStyleSheet(ThemeStylesheet.line_horizontal_1)
+
+        # set the container layout
+        self.page_container.setLayout(self.page_layout)
+
+        # add common widgets to layout
+        self.insert_widget(self.label_title, 3) 
+        self.insert_widget(self.separator, 3)     
+        
+        # push items to the top
+        self.page_container.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
 
         Log.debug_init(self)
     
-    def set_static_values(self): pass    
+    def insert_widget(self, widget, col_span=1):
+        # Calculate the current column
+        current_col = self.current_col % self.max_cols
 
+        # Calculate the widget's column span
+        if current_col + col_span > self.max_cols:
+            col_span = self.max_cols - current_col
 
-class PageCPU(Page):
-    def __init__(self):
-        super().__init__('CPU')
-        self.setup_ui()        
+        # Insert the widget at the current row and column
+        self.page_layout.addWidget(widget, self.current_row, current_col, 1, col_span)
 
-    def setup_ui(self):     
-        self.cpu_name_heading = Heading(CPUInfo.get_name())        
+        # Update the current row and column
+        self.current_col += col_span
+        if current_col + col_span == self.max_cols:
+            self.current_row += 1
 
-        # charts
-        self.cpu_usage_chart = Chart(
-            get_value_func=CPUInfo.get_current_usage, 
-            title='Usage', y_axis_max=100, unit='%')        
+        # Set the maximum width of the widget
+        widget.setMaximumWidth(self.width())
 
-        # add widgets to layout
-        self.page_layout.addWidget(self.cpu_name_heading)        
-        self.page_layout.addWidget(self.cpu_usage_chart) 
+        # Update the current row and column
+        self.current_col += col_span
+        if current_col + col_span == self.max_cols:
+            self.current_row += 1
+            
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
 
-       
-
-class PageCPU2(Page):
-    def __init__(self):
-        super().__init__('CPU')        
-        
-        self.has_static_values = False        
-        
-        # timer to wait for values to be set
-        self.timer_wait_for_values = QtCore.QTimer()
-        self.timer_wait_for_values.timeout.connect(self.wait_for_values)
-        self.timer_wait_for_values.start(100)
-        
-
-    def setup_ui(self):     
-        self.cpu_name_heading = Heading(CPUInfo.name)        
-
-        # charts
-        self.cpu_usage_chart = Chart(
-            get_value_func=CPUInfo.get_current_usage, 
-            y_axis_max=100,
-            title='% Usage')
-        self.cpu_frequency_chart = Chart(
-            get_value_func=CPUInfo.get_current_frequency,
-            y_axis_max=CPUInfo.frequency_max,
-            title='Speed',
-            unit='MHz')
-
-        # add widgets to layout
-        self.page_layout.addWidget(self.cpu_name_heading)        
-        self.page_layout.addWidget(self.cpu_usage_chart)  
-        self.page_layout.addWidget(self.cpu_frequency_chart)        
-        
-
-    def wait_for_values(self):
-        if CPUInfo.has_values:
-            self.timer_wait_for_values.stop()    
-            self.setup_ui()     
-    
-
+        # Update the maximum width of the child widgets when the scroll area is resized
+        for i in range(self.page_layout.count()):
+            item = self.page_layout.itemAt(i)
+            if item is not None:
+                widget = item.widget()
+                if widget is not None:
+                    widget.setMaximumWidth(self.width())
 
 class PageDashboard(Page):
     def __init__(self):
@@ -136,7 +122,32 @@ class PageDashboard(Page):
         self.setup_ui()
 
     def setup_ui(self):
-        self.page_layout.addWidget(self.description)
+        self.te = QtWidgets.QTextEdit()
+        self.te2 = QtWidgets.QTextEdit()
+        self.te3 = QtWidgets.QTextEdit()
+        self.te.setStyleSheet(f"border: 1px solid #ffffff;")
+        self.te2.setStyleSheet(f"border: 1px solid #ffffff;")
+        self.te3.setStyleSheet(f"border: 1px solid #ffffff;")
+        self.insert_widget(self.te, 1)
+        self.insert_widget(self.te2, 1)
+        self.insert_widget(self.te3, 1)
+
+
+class PageCPU(Page):
+    def __init__(self):
+        super().__init__('CPU')        
+        self.description = QtWidgets.QLabel('This is the Processor page!')
+        self.setup_ui()
+
+    def setup_ui(self):
+        self.cpu_monitor = CPUMonitor()
+        self.insert_widget(self.cpu_monitor, 3)          
+        #self.chart = Chart()
+        #self.insert_widget(self.chart, 3)          
+        
+                
+        #self.page_layout.addStretch()
+
 
 class PageGPU(Page):
     def __init__(self):

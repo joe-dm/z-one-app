@@ -28,6 +28,26 @@ class ThemeColor:
 
 
 class ThemeStylesheet:
+    # test widget
+    test_widget = (
+        f'border: 1px solid {ThemeColor.secondary};'
+    )
+
+    # widgets styles
+    cpu_monitor = (
+        f'''        
+        QLabel#HeadingTitle {{
+            font-size: 20px;    
+            color: {ThemeColor.white};
+        }}
+        QLabel#HeadingAltText {{
+            font-size: 12px;            
+            color: {ThemeColor.gray};
+            qproperty-alignment: 'AlignRight | AlignBottom';            
+        }}
+        '''  
+    )    
+
     # console styles
     console = (
         f'background-color: {ThemeColor.black_dark};'
@@ -51,26 +71,49 @@ class ThemeStylesheet:
         f'font-weight: bold;'
         f'font-size: 18px;'
         f'color: {ThemeColor.white};'
+    )    
+
+    # graph styles
+    chart = (
+        f'''
+        QLabel#GraphTitle {{
+            font-size: 14px;            
+            color: {ThemeColor.white_2};
+        }}
+        QLabel#GraphMax {{
+            font-size: 12px;
+            color: {ThemeColor.gray}; 
+            qproperty-alignment: 'AlignRight | AlignBottom';           
+        }}
+        '''   
     )
 
-    # line separator styles
+    # page styles    
+    page_stack = (
+        f'background-color: {ThemeColor.black_midnight};'
+        f'border: none;'         
+    )
+    page = (
+        f'''
+        QLabel#PageTitle {{
+            font-size: 16px;
+            font-weight: bold;
+            color: {ThemeColor.primary};
+        }}               
+        '''  
+    )    
+
+    # labels
+    label_heading = (
+        f'font-size: 18px;'
+        f'color: {ThemeColor.white};'
+    )
+
+    # lines
     line_horizontal_1 = (
         f'border-style: none;'
-        f'border-bottom: 1px solid {ThemeColor.gray};'        
+        f'border-bottom: 1px solid {ThemeColor.gray};'
     )
-    line_horizontal_2 = (        
-        f'border: 1px solid {ThemeColor.secondary};'      
-    )
-
-    # page styles
-    page = (
-        f'background-color: {ThemeColor.black_midnight};'
-        f'border: none;'
-    )
-    page_title = (
-        f'font-size: 20px;'
-        f'color: {ThemeColor.white_2};'
-    ) 
 
     # progress bars
     progress_bar = (

@@ -13,7 +13,7 @@ class Sidebar(QtWidgets.QWidget):
         self.header = SidebarHeader()
         # buttons
         self.button_dashboard = SidebarButton('Dashboard', PathConfig.icon_dashboard, PathConfig.icon_dashboard_active)
-        self.button_processor = SidebarButton('Processor', PathConfig.icon_processor, PathConfig.icon_processor_active)
+        self.button_cpu = SidebarButton('CPU', PathConfig.icon_processor, PathConfig.icon_processor_active)
         self.button_gpu = SidebarButton('GPU', PathConfig.icon_gpu, PathConfig.icon_gpu_active)
         self.button_memory = SidebarButton('Memory', PathConfig.icon_memory, PathConfig.icon_memory_active)
         self.button_disk = SidebarButton('Disk', PathConfig.icon_disk, PathConfig.icon_disk_active)
@@ -23,7 +23,7 @@ class Sidebar(QtWidgets.QWidget):
         self.button_logs = SidebarButton('Logs', PathConfig.icon_logs, PathConfig.icon_logs_active)
         # list of all buttons
         self.sidebar_buttons = [
-            self.button_dashboard, self.button_processor,
+            self.button_dashboard, self.button_cpu,
             self.button_gpu, self.button_memory,
             self.button_disk, self.button_network,
             self.button_apps, self.button_settings,
@@ -43,7 +43,7 @@ class Sidebar(QtWidgets.QWidget):
         layout.addWidget(self.header)
         layout.addSpacing(10)
         layout.addWidget(self.button_dashboard)
-        layout.addWidget(self.button_processor)
+        layout.addWidget(self.button_cpu)
         layout.addWidget(self.button_gpu)
         layout.addWidget(self.button_memory)
         layout.addWidget(self.button_disk)

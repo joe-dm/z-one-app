@@ -53,7 +53,7 @@ class Log:
     def debug(message, file=None):
         LogHandler.handle(message, LogFlag.debug, file)
 
-    def debug_init(obj, show_attributes=False, obj_name=None, file=None):        
+    def debug_init(obj, show_attributes=False, file=None, obj_name=None):
         message = f"Initialized {obj.__class__.__name__}"
         if obj_name: message = f"{message} '{obj_name}'"
 
