@@ -11,8 +11,7 @@ from utils.log import Log
 from utils.thread import ThreadManager
 
 # tests
-from tools.network import SheepCounter, NetworkMonitor, ImportantCounter
-from tools.system_info import InfoGatherer
+from tools.info_gatherer import InfoGatherer
 
 
 class App:
@@ -21,13 +20,15 @@ class App:
     def __init__(self):       
         self.app = QtWidgets.QApplication([])
         self.start()
+        
+        InfoGatherer.gather_all()
 
         self.main_window = MainWindow()
         self.main_window.closeEvent = self.prep_to_exit        
 
         # tests     
-        self.network_monitor = NetworkMonitor() 
-        self.system_info = InfoGatherer()                
+        #self.network_monitor = NetworkMonitor() 
+                     
         #self.sheep_counter = SheepCounter() 
         #self.important_counter = ImportantCounter()    
         #self.exit_dialog = ExitDialog(self.main_window)
@@ -60,8 +61,7 @@ class App:
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
         self.app.setStyleSheet(stylesheet_content)
-    
-    
+        
 
     def prep_to_exit(self, event):
         if self.is_closing:
