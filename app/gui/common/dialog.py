@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets, QtCore
-from utils.theme import ThemeStylesheet
+from config.theme import ThemeStylesheet
 from utils.log import Log
 
 class EmbeddedDialog(QtWidgets.QWidget):

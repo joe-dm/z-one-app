@@ -87,6 +87,15 @@ class ThemeStylesheet:
         }}
         '''   
     )
+    # table styles    
+    table = (
+        f'''        
+        QTableWidget {{              
+            background-color: transparent; 
+            alternate-background-color: {ThemeColor.gray_3};                              
+        }}        
+        '''
+    )
 
     # page styles    
     page_stack = (
@@ -105,6 +114,10 @@ class ThemeStylesheet:
 
     # labels
     label_heading = (
+        f'font-size: 18px;'
+        f'color: {ThemeColor.white};'
+    )
+    label_table_title = (
         f'font-size: 18px;'
         f'color: {ThemeColor.white};'
     )

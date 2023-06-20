@@ -1,0 +1,89 @@
+Initialized 'BasicInfo'
+system: Linux
+node: medusa
+release: 5.19.0-42-generic
+version: #43~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Apr 21 16:51:08 UTC 2
+machine: x86_64
+processor: x86_64
+python_version: 3.10.6
+python_compiler: GCC 11.3.0
+python_implementation: CPython
+python_build: ('main', 'Mar 10 2023 10:55:28')
+os_info: Linux-5.19.0-42-generic-x86_64-with-glibc2.35
+ln: -----------------------------------------------------------------------
+boot_time: 1684885357.0
+
+cpu_count_logical: 8
+cpu_count_physical: 4
+cpu_percent: 16.6
+cpu_freq: scpufreq(current=1965.91775, min=1600.0, max=2000.0)
+
+virtual_memory: svmem(total=7970926592, available=3544596480, percent=55.5, used=4026925056, free=399335424, active=1937948672, inactive=3987574784, buffers=353443840, cached=3191222272, shared=93089792, slab=457023488)
+swap_memory: sswap(total=0, used=0, free=0, percent=0.0, sin=0, sout=0)
+
+disk_partitions: [
+    sdiskpart(device='/dev/mapper/sda2_crypt', mountpoint='/', fstype='ext4', opts='rw,relatime,errors=remount-ro', maxfile=255, maxpath=4096), 
+    sdiskpart(device='/dev/loop23', mountpoint='/snap/bare/5', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop15', mountpoint='/snap/snapd-desktop-integration/57', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop20', mountpoint='/snap/gtk2-common-themes/13', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop10', mountpoint='/snap/core/14946', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop0', mountpoint='/snap/gnome-42-2204/99', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop5', mountpoint='/snap/gnome-3-38-2004/140', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop3', mountpoint='/snap/gnome-42-2204/102', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop19', mountpoint='/snap/gnome-3-38-2004/137', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop6', mountpoint='/snap/core20/1891', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop17', mountpoint='/snap/core22/617', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop12', mountpoint='/snap/snap-store/959', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop22', mountpoint='/snap/gtk-common-themes/1535', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop1', mountpoint='/snap/firefox/2645', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop4', mountpoint='/snap/core20/1879', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop14', mountpoint='/snap/snapd/18933', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop13', mountpoint='/snap/snapd/19122', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop2', mountpoint='/snap/gimp/393', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop16', mountpoint='/snap/spotify/64', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop9', mountpoint='/snap/spotify/67', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop21', mountpoint='/snap/snap-store/638', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/mapper/sda2_crypt', mountpoint='/var/snap/firefox/common/host-hunspell', fstype='ext4', opts='ro,noexec,noatime,errors=remount-ro', maxfile=255, maxpath=4096), 
+    sdiskpart(device='/dev/loop11', mountpoint='/snap/snapd-desktop-integration/83', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop7', mountpoint='/snap/core22/634', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop8', mountpoint='/snap/firefox/2667', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/loop18', mountpoint='/snap/inkscape/10530', fstype='squashfs', opts='ro,nodev,relatime,errors=continue', maxfile=256, maxpath=4096), 
+    sdiskpart(device='/dev/sda1', mountpoint='/boot', fstype='ext4', opts='rw,relatime', maxfile=255, maxpath=4096), 
+    sdiskpart(device='/dev/nvme0n1p1', mountpoint='/boot/efi', fstype='vfat', opts='rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro', maxfile=1530, maxpath=4096), 
+    sdiskpart(device='/dev/mapper/veracrypt1', mountpoint='/media/veracrypt1', fstype='fuseblk', opts='rw,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096', maxfile=255, maxpath=4096)]
+
+disk_usage: {'/dev/mapper/sda2_crypt': {'total': 194722607104, 'used': 20369854464, 'free': 164386824192, 'percent': 11.0}, 
+             '/dev/loop23': {'total': 131072, 'used': 131072, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop15': {'total': 524288, 'used': 524288, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop20': {'total': 262144, 'used': 262144, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop10': {'total': 122552320, 'used': 122552320, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop0': {'total': 483000320, 'used': 483000320, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop5': {'total': 366739456, 'used': 366739456, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop3': {'total': 483000320, 'used': 483000320, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop19': {'total': 366739456, 'used': 366739456, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop6': {'total': 66584576, 'used': 66584576, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop17': {'total': 76546048, 'used': 76546048, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop12': {'total': 12976128, 'used': 12976128, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop22': {'total': 96206848, 'used': 96206848, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop1': {'total': 253886464, 'used': 253886464, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop4': {'total': 66453504, 'used': 66453504, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop14': {'total': 55836672, 'used': 55836672, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop13': {'total': 55836672, 'used': 55836672, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop2': {'total': 546832384, 'used': 546832384, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop16': {'total': 164757504, 'used': 164757504, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop9': {'total': 165543936, 'used': 165543936, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop21': {'total': 48234496, 'used': 48234496, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop11': {'total': 524288, 'used': 524288, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop7': {'total': 76677120, 'used': 76677120, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop8': {'total': 253886464, 'used': 253886464, 'free': 0, 'percent': 100.0}, 
+             '/dev/loop18': {'total': 346030080, 'used': 346030080, 'free': 0, 'percent': 100.0}, 
+             '/dev/sda1': {'total': 964341760, 'used': 291098624, 'free': 606502912, 'percent': 32.4}, 
+             '/dev/nvme0n1p1': {'total': 100663296, 'used': 34573312, 'free': 66089984, 'percent': 34.3}, 
+             '/dev/mapper/veracrypt1': {'total': 800202682368, 'used': 23018991616, 'free': 777183690752, 'percent': 2.9}}
+
+net_io_counters: snetio(bytes_sent=760293718, bytes_recv=13686970666, packets_sent=4147479, packets_recv=9916689, errin=0, errout=0, dropin=913, dropout=0)
+net_if_addrs: {'lo': [{'family': <AddressFamily.AF_INET: 2>, 'address': '127.0.0.1', 'netmask': '255.0.0.0', 'broadcast': None, 'ptp': None}, {'family': <AddressFamily.AF_INET6: 10>, 'address': '::1', 'netmask': 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', 'broadcast': None, 'ptp': None}, {'family': <AddressFamily.AF_PACKET: 17>, 'address': '00:00:00:00:00:00', 'netmask': None, 'broadcast': None, 'ptp': None}], 'eno1': [{'family': <AddressFamily.AF_INET: 2>, 'address': '192.168.0.109', 'netmask': '255.255.255.0', 'broadcast': '192.168.0.255', 'ptp': None}, {'family': <AddressFamily.AF_INET6: 10>, 'address': 'fe80::dcfe:a0a5:c2d6:4d7d%eno1', 'netmask': 'ffff:ffff:ffff:ffff::', 'broadcast': None, 'ptp': None}, {'family': <AddressFamily.AF_PACKET: 17>, 'address': 'b0:0c:d1:84:7a:8c', 'netmask': None, 'broadcast': 'ff:ff:ff:ff:ff:ff', 'ptp': None}], 'wlo1': [{'family': <AddressFamily.AF_INET: 2>, 'address': '192.168.0.178', 'netmask': '255.255.255.0', 'broadcast': '192.168.0.255', 'ptp': None}, {'family': <AddressFamily.AF_INET6: 10>, 'address': 'fe80::99d7:739a:5368:6bdf%wlo1', 'netmask': 'ffff:ffff:ffff:ffff::', 'broadcast': None, 'ptp': None}, {'family': <AddressFamily.AF_PACKET: 17>, 'address': '48:5f:99:13:26:4d', 'netmask': None, 'broadcast': 'ff:ff:ff:ff:ff:ff', 'ptp': None}]}
+net_if_stats: {'lo': snicstats(isup=True, duplex=<NicDuplex.NIC_DUPLEX_UNKNOWN: 0>, speed=0, mtu=65536, flags='up,loopback,running'), 'eno1': snicstats(isup=True, duplex=<NicDuplex.NIC_DUPLEX_FULL: 2>, speed=100, mtu=1500, flags='up,broadcast,running,multicast'), 'wlo1': snicstats(isup=True, duplex=<NicDuplex.NIC_DUPLEX_UNKNOWN: 0>, speed=0, mtu=1500, flags='up,broadcast,running,multicast')}
+
+users: [suser(name='pfx', terminal='tty2', host='tty2', started=1684885444.0, pid=1828)]
+

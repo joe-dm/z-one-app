@@ -1,6 +1,6 @@
 from PySide6 import QtWidgets, QtGui
 
-from utils.theme import ThemeStylesheet, ThemeColor
+from config.theme import ThemeStylesheet, ThemeColor
 from utils.log import Log, LogFlag, LogHandler
 
 class Console(QtWidgets.QWidget):

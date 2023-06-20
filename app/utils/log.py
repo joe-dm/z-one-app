@@ -1,7 +1,7 @@
 import os
 import datetime
 
-from utils.config import AppConfig
+from config.config import AppConfig
 
 class LogFlag:
     info     = '•| '
@@ -21,14 +21,19 @@ class LogFlag:
         Log.debug('This is a debug message')
 
 class LogFile:
-    directory = os.path.join('logs')
-    full_log  = os.path.join(directory, 'z-one.log')
+    directory   = os.path.join('logs')    
+    full_log    = os.path.join(directory, 'z-one.log')
+    network     = os.path.join(directory, 'network.log')
 
-    network   = os.path.join(directory, 'network.log')
+    system_info = os.path.join(directory, '_system_info.txt')
 
     def check_directory():
         if not os.path.exists(LogFile.directory): 
             os.makedirs(LogFile.directory) 
+
+    def clear_system_info_file():
+        if os.path.exists(LogFile.system_info):
+            os.remove(LogFile.system_info)
 
 class Log:
     # main writers
@@ -50,10 +55,10 @@ class Log:
     def no_flag(message, file=None):
         LogHandler.handle(message, LogFlag.no_flag, file)
 
-    def debug(message, file=None):
-        LogHandler.handle(message, LogFlag.debug, file)
+    def debug(message, file=None, show_timestamp=True):
+        LogHandler.handle(message, LogFlag.debug, file, show_timestamp=show_timestamp)
 
-    def debug_init(obj, show_attributes=False, file=None, obj_name=None):
+    def debug_init(obj, show_attributes=False, file=None, obj_name=None, show_timestamp=True):
         message = f"Initialized {obj.__class__.__name__}"
         if obj_name: message = f"{message} '{obj_name}'"
 
@@ -62,30 +67,43 @@ class Log:
             message += " with attributes:"
             for attr, value in obj.__dict__.items():
                 message += f"\n{indent}{attr}: {value}"
-        Log.debug(message, file)
+        Log.debug(message, file, show_timestamp=show_timestamp)
+    
+    def debug_static(cls, file=None, cls_name=None, show_timestamp=True):
+        message = f"{cls.__name__}:"
+        #if cls_name:
+        #    message += f"'{cls_name}' "    
+
+        indent = ' ' * len(LogFlag.debug)
+        for var_name, var_value in cls.__dict__.items():
+            if not callable(var_value) and not var_name.startswith("__"):
+                message += f"\n{indent}{var_name}: {var_value}"
+        Log.debug(message, file, show_timestamp=show_timestamp)
+
 
 class LogHandler:
     gui_console = None
     preloaded_messages = []
 
-    def handle(message, flag, file):
+    def handle(message, flag, file, show_timestamp=True):
         LogFile.check_directory()
-        LogHandler.write_to_file(message, flag, file)
+        LogHandler.write_to_file(message, flag, file, show_timestamp=show_timestamp)
         LogHandler.write_to_gui_console(message, flag)
         print(f"{flag}{message}")    
 
-    def write_to_file(message, flag, log_file):
-        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    def write_to_file(message, flag, log_file, show_timestamp=True):        
+        now = f'[{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}] '        
 
         # write to main log file
         with open(LogFile.full_log, 'a') as file:
-                file.write(f"[{now}] {flag}{message}\n")
+                file.write(f"{now}{flag}{message}\n")
 
         # write to second log file 
         if log_file:
+            if not show_timestamp:
+                now = ''
             with open(log_file, 'a') as file:
-                file.write(f"[{now}] {flag}{message}\n")
-        
+                file.write(f"{now}{flag}{message}\n")        
         
 
         
