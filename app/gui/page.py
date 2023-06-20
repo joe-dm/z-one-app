@@ -1,8 +1,10 @@
 from PySide6 import QtWidgets, QtCore
 
-from gui.common import Heading, HLine, Chart
-from tools.info_gatherer import CPUInfo
-from utils.theme import ThemeStylesheet
+from gui.common.elements import Heading, HLine
+from gui.common.widgets import Chart, Table
+
+from tools.info_gatherer import InfoGatherer, CPUInfo
+from config.theme import ThemeStylesheet
 from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):
@@ -59,7 +61,6 @@ class Page(QtWidgets.QScrollArea):
         self.page_layout = QtWidgets.QVBoxLayout(self.page_container)              
         self.page_layout.addWidget(self.label_title) 
         self.page_layout.addWidget(self.separator) 
-        self.page_layout.addSpacing(5)
         
         # page properties
         self.setStyleSheet(ThemeStylesheet.page)        
@@ -70,6 +71,11 @@ class Page(QtWidgets.QScrollArea):
     
     def set_static_values(self): pass    
 
+    def insert_widget(self, widget):
+        self.page_layout.addSpacing(10)
+        self.page_layout.addWidget(widget)
+
+
 
 class PageCPU(Page):
     def __init__(self):
@@ -77,56 +83,15 @@ class PageCPU(Page):
         self.setup_ui()        
 
     def setup_ui(self):     
-        self.cpu_name_heading = Heading(CPUInfo.get_name())        
-
-        # charts
-        self.cpu_usage_chart = Chart(
-            get_value_func=CPUInfo.get_current_usage, 
-            title='Usage', y_axis_max=100, unit='%')        
+        self.name_heading = Heading(CPUInfo.get_name())
+        
+        self.usage_chart = Chart(get_value_func=CPUInfo.check_current_usage, title='Usage', y_axis_max=100, unit='%')        
+        self.info_table = Table(InfoGatherer.get_list(CPUInfo))
 
         # add widgets to layout
-        self.page_layout.addWidget(self.cpu_name_heading)        
-        self.page_layout.addWidget(self.cpu_usage_chart) 
-
-       
-
-class PageCPU2(Page):
-    def __init__(self):
-        super().__init__('CPU')        
-        
-        self.has_static_values = False        
-        
-        # timer to wait for values to be set
-        self.timer_wait_for_values = QtCore.QTimer()
-        self.timer_wait_for_values.timeout.connect(self.wait_for_values)
-        self.timer_wait_for_values.start(100)
-        
-
-    def setup_ui(self):     
-        self.cpu_name_heading = Heading(CPUInfo.name)        
-
-        # charts
-        self.cpu_usage_chart = Chart(
-            get_value_func=CPUInfo.get_current_usage, 
-            y_axis_max=100,
-            title='% Usage')
-        self.cpu_frequency_chart = Chart(
-            get_value_func=CPUInfo.get_current_frequency,
-            y_axis_max=CPUInfo.frequency_max,
-            title='Speed',
-            unit='MHz')
-
-        # add widgets to layout
-        self.page_layout.addWidget(self.cpu_name_heading)        
-        self.page_layout.addWidget(self.cpu_usage_chart)  
-        self.page_layout.addWidget(self.cpu_frequency_chart)        
-        
-
-    def wait_for_values(self):
-        if CPUInfo.has_values:
-            self.timer_wait_for_values.stop()    
-            self.setup_ui()     
-    
+        self.insert_widget(self.name_heading)        
+        self.insert_widget(self.usage_chart) 
+        self.insert_widget(self.info_table)     
 
 
 class PageDashboard(Page):

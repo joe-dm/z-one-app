@@ -3,15 +3,16 @@ import sys
 
 from PySide6 import QtWidgets, QtCore
 
-from gui.dialog import ExitDialog
+from config.config import AppConfig, PathConfig
+
+from gui.common.dialog import ExitDialog
 from gui.window import MainWindow
 
-from utils.config import AppConfig, PathConfig
-from utils.log import Log
-from utils.thread import ThreadManager
+from tools.info_gatherer import InfoGatherer, OSInfo, CPUInfo
+from tools.net_mon import NetworkMonitor
 
-# tests
-from tools.info_gatherer import InfoGatherer
+from utils.log import Log, LogFile
+from utils.thread import ThreadManager
 
 
 class App:
@@ -19,20 +20,12 @@ class App:
 
     def __init__(self):       
         self.app = QtWidgets.QApplication([])
-        self.start()
-        
-        InfoGatherer.gather_all()
+        self.start()              
 
         self.main_window = MainWindow()
-        self.main_window.closeEvent = self.prep_to_exit        
-
-        # tests     
-        #self.network_monitor = NetworkMonitor() 
-                     
-        #self.sheep_counter = SheepCounter() 
-        #self.important_counter = ImportantCounter()    
-        #self.exit_dialog = ExitDialog(self.main_window)
+        self.main_window.closeEvent = self.prep_to_exit
         
+        net_mon = NetworkMonitor()
     
     def start(self):
         # show app info
@@ -45,7 +38,7 @@ class App:
             Log.info(f"Debugging output is enabled")
             #LogFlag.show_samples()
         else:
-            Log.info(f"Debugging output is disabled")
+            Log.info(f"Debugging output is disabled")        
 
         # check resources
         Log.task(f"Checking resources")
@@ -61,6 +54,12 @@ class App:
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
         self.app.setStyleSheet(stylesheet_content)
+
+        # clear system info file
+        LogFile.clear_system_info_file()
+        
+        # gather system info
+        InfoGatherer.gather_all()  
         
 
     def prep_to_exit(self, event):

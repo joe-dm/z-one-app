@@ -6,8 +6,8 @@ from gui.sidebar import Sidebar
 from gui.page import PageStack
 from gui.console import Console
 
-from utils.config import AppConfig
-from utils.theme import ThemeSize
+from config.config import AppConfig
+from config.theme import ThemeSize
 from utils.log import Log
 
 class MainWindow(QtWidgets.QMainWindow):

@@ -1,7 +1,7 @@
 from PySide6 import QtCore, QtWidgets, QtGui
 
-from utils.config import PathConfig
-from utils.theme import ThemeSize, ThemeStylesheet
+from config.config import PathConfig
+from config.theme import ThemeSize, ThemeStylesheet
 from utils.log import Log
 
 class Sidebar(QtWidgets.QWidget):
