@@ -83,10 +83,11 @@ class PageCPU(Page):
         self.setup_ui()        
 
     def setup_ui(self):     
-        self.name_heading = Heading(CPUInfo.get_name())
+        self.name_heading = Heading(f"{CPUInfo.get_name()}")
         
-        self.usage_chart = Chart(get_value_func=CPUInfo.check_current_usage, title='Usage', y_axis_max=100, unit='%')        
-        self.info_table = Table(InfoGatherer.get_list(CPUInfo))
+        self.usage_chart = Chart(get_value_func=CPUInfo.check_current_usage, 
+                                 title='CPU Usage', y_axis_max=100, unit='%')        
+        self.info_table = Table(InfoGatherer.get_list(CPUInfo), 'CPU Info')
 
         # add widgets to layout
         self.insert_widget(self.name_heading)        
