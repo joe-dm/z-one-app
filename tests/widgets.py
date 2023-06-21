@@ -69,8 +69,8 @@ class Chart(QtWidgets.QWidget):
             self.y_axis_max = 0
         
         # chart title and max labels
-        #self.title_label = QtWidgets.QLabel(objectName='GraphTitle')
-        #self.max_label = QtWidgets.QLabel(f"{y_axis_max} {unit}", objectName='GraphMax')
+        self.title_label = QtWidgets.QLabel(objectName='GraphTitle')
+        self.max_label = QtWidgets.QLabel(f"{y_axis_max} {unit}", objectName='GraphMax')
 
         # widget properties
         self.setMaximumHeight(119)                
@@ -132,16 +132,16 @@ class Chart(QtWidgets.QWidget):
 
         
         # setup layout
-        layout = QtWidgets.QVBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0) 
+        layout = QtWidgets.QGridLayout(self)
+        layout.setContentsMargins(0, 0, 0, 0) # label widgets
         if title: 
-            self.title_label = WidgetTitle(title)            
-            layout.addWidget(self.title_label)
-            #if self.y_axis_max:
-            #    layout.addWidget(self.max_label)
-            layout.addWidget(self.chart_view) 
+            self.title_label.setText(title)
+            layout.addWidget(self.title_label, 0, 0)
+            if self.y_axis_max:
+                layout.addWidget(self.max_label, 0, 1)
+            layout.addWidget(self.chart_view, 1, 0, 1, 2) 
         else:
-            layout.addWidget(self.chart_view) 
+            layout.addWidget(self.chart_view, 0, 0, 1, 2) 
 
         # usage graph timer
         self.graph_timer = QtCore.QTimer()

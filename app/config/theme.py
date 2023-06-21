@@ -114,13 +114,20 @@ class ThemeStylesheet:
 
     # labels
     label_heading = (
-        f'font-size: 18px;'
+        f'font-size: 22px;'
         f'color: {ThemeColor.white};'
+    )
+    label_widget_title = (
+        f'font-size: 14px;'
+        f'color: {ThemeColor.white};'
+        f'font-weight: bold;'
     )
     label_table_title = (
-        f'font-size: 18px;'
-        f'color: {ThemeColor.white};'
+        f'font-size: 14px;'
+        f'color: {ThemeColor.secondary};'
+        f'font-weight: bold;'
     )
+    
 
     # lines
     line_horizontal_1 = (

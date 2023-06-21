@@ -21,7 +21,7 @@ class NetworkMonitor(Thread):
         while self.is_running:                 
             result = subprocess.run(["ping", "-c", "1", self.address], capture_output=True, text=True)
             if result.returncode == 0:
-                self.signals.log_debug.emit(f"Ping to {self.address} successful", None)                
+                #self.signals.log_debug.emit(f"Ping to {self.address} successful", None)                
                 if self.is_down == None:
                     self.signals.log_info.emit(f"Internet connection available", LogFile.network)                    
                 elif self.is_down == True:
@@ -29,7 +29,7 @@ class NetworkMonitor(Thread):
                     self.signals.play_alert.emit(PathConfig.sound_internet_restored)
                 self.is_down = False
             else:
-                self.signals.log_debug.emit(f"Ping to {self.address} failed", None) 
+                #self.signals.log_debug.emit(f"Ping to {self.address} failed", None) 
                 if self.is_down == None or self.is_down == False:                 
                     self.signals.log_warning.emit(f"Internet connection not available. Ping to {self.address} failed", LogFile.network)
                     self.signals.play_alert.emit(PathConfig.sound_internet_down)
