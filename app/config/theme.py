@@ -1,9 +1,3 @@
-class ThemeSize:
-    widget_spacing = 3
-    sidebar_button = 32
-    sidebar_icon = 20
-
-
 class ThemeColor:
     # main colors
     primary =       '#ff8400'
@@ -24,149 +18,101 @@ class ThemeColor:
     black_midnight ='#1d2022'
     black_dark =    '#191919'
     black =         '#000000'
-    
 
 
-class ThemeStylesheet:
-    # test widget
-    test_widget = (
-        f'border: 1px solid {ThemeColor.secondary};'
-    )
-
-    # widgets styles
-    cpu_monitor = (
-        f'''        
-        QLabel#HeadingTitle {{
-            font-size: 20px;    
-            color: {ThemeColor.white};
+class Style:    
+    def custom_style():
+        style = (f''' 
+        /* GUI COMPONENTS */ 
+        #Console{{
+            background-color: {ThemeColor.black_dark};
+            border: none;
+            font-family: "Courier New", monospace;
+            font-size: 13px;
         }}
-        QLabel#HeadingAltText {{
-            font-size: 12px;            
-            color: {ThemeColor.gray};
-            qproperty-alignment: 'AlignRight | AlignBottom';            
+        #Page QWidget{{
+            background-color: {ThemeColor.black_midnight};        
+            border: none;      
         }}
-        '''  
-    )    
 
-    # console styles
-    console = (
-        f'background-color: {ThemeColor.black_dark};'
-        f'border:none;'
-        f'font-family: "Courier New", monospace;'
-        f'font-size: 13px;'
-    )    
+        /* SIDEBAR */
+        #SidebarButton, #SidebarToggleButton{{
+            {Style.sidebar_button()}
+        }}        
+        #SidebarToggleButton{{
+            border: 0.5px solid {ThemeColor.gray};
+            text-align: center;
+        }}    
+        #SidebarToggleButton:hover{{
+            background-color: {ThemeColor.black_midnight};
+        }}
 
-    # dialog styles    
-    dialog = (
-        f'''
-        EmbeddedDialog {{
+        /* WIDGETS */
+        #Table {{
+            background-color: transparent; 
+            alternate-background-color: {ThemeColor.gray_3}; 
+        }}
+
+        /* DIALOGS */
+        #DialogOverlay {{
             background-color: rgba(78, 87, 95, 0.3);
         }}
-        QWidget#DialogContainer {{
+        #DialogContainer {{
             border: 2px solid {ThemeColor.gray};
         }}
-        '''    
-    )
-    dialog_heading = (
-        f'font-weight: bold;'
-        f'font-size: 18px;'
-        f'color: {ThemeColor.white};'
-    )    
-
-    # graph styles
-    chart = (
-        f'''
-        QLabel#GraphTitle {{
-            font-size: 14px;            
-            color: {ThemeColor.white_2};
+        #DialogProgressBar {{
+            border: 1px solid {ThemeColor.secondary};
         }}
-        QLabel#GraphMax {{
-            font-size: 12px;
-            color: {ThemeColor.gray}; 
-            qproperty-alignment: 'AlignRight | AlignBottom';           
-        }}
-        '''   
-    )
-    # table styles    
-    table = (
-        f'''        
-        QTableWidget {{              
-            background-color: transparent; 
-            alternate-background-color: {ThemeColor.gray_3};                              
-        }}        
-        '''
-    )
 
-    # page styles    
-    page_stack = (
-        f'background-color: {ThemeColor.black_midnight};'
-        f'border: none;'         
-    )
-    page = (
-        f'''
-        QLabel#PageTitle {{
+        /* LABELS */
+        #LabelPageTitle{{
             font-size: 16px;
             font-weight: bold;
             color: {ThemeColor.primary};
-        }}               
-        '''  
-    )    
+        }} 
+        #LabelWidgetTitle{{
+            font-size: 14px;            
+            color: {ThemeColor.secondary};
+        }}
+        #LabelHeading{{
+            font-size: 22px;
+            color: {ThemeColor.white};
+        }}
+        #LabelDialogHeading{{
+            font-weight: bold;
+            font-size: 18px;
+            color: {ThemeColor.white};
+        }}
 
-    # labels
-    label_heading = (
-        f'font-size: 22px;'
-        f'color: {ThemeColor.white};'
-    )
-    label_widget_title = (
-        f'font-size: 14px;'
-        f'color: {ThemeColor.white};'
-        f'font-weight: bold;'
-    )
-    label_table_title = (
-        f'font-size: 14px;'
-        f'color: {ThemeColor.secondary};'
-        f'font-weight: bold;'
-    )
+        /* OTHER ELEMENTS */
+        #LineHorizontal{{
+            {Style.line_horizontal()}
+        }}
+        ''')
+        return style
     
+    def line_horizontal(color=ThemeColor.gray, width=1):
+        style = f'''
+            border-style: none;
+            border-bottom: {width}px solid {color};
+        '''
+        return style
 
-    # lines
-    line_horizontal_1 = (
-        f'border-style: none;'
-        f'border-bottom: 1px solid {ThemeColor.gray};'
-    )
+    def sidebar_button(active=False, hover=False): 
+        background = 'transparent'
+        color = ThemeColor.white                
 
-    # progress bars
-    progress_bar = (
-        f'border: 1px solid {ThemeColor.secondary};'
-    )
+        if hover:
+            background = ThemeColor.black_midnight
+        elif active:
+            background = ThemeColor.primary
+            color = ThemeColor.black            
 
-    # sidebar styles
-    sidebar_button = (
-        f'background-color: none;'
-        f'border: none;'
-        f'color: {ThemeColor.white};'
-        f'text-align: left;'
-        f'border-radius: 0px;'      
-    )
-    sidebar_button_active = sidebar_button + (
-        f'background-color: {ThemeColor.primary};'        
-        f'color: {ThemeColor.black};'     
-    )
-    sidebar_button_hover = sidebar_button + (
-        f'background-color: {ThemeColor.black_midnight};'
-    )
-    sidebar_header_button = (
-        f'background-color: none;'
-        f'border: 0.5px solid {ThemeColor.gray};'
-        f'border-radius: 0px;' 
-    )
-    sidebar_header_button_hover = sidebar_header_button + (
-        f'background-color: {ThemeColor.black_midnight};'
-        f'border: 0.5px solid {ThemeColor.gray};'
-    )
-    sidebar_header_text = (
-        f'color: {ThemeColor.white};'
-        f'font-size: 18px;'       
-    )
-
-    
+        style = f'''
+        background-color: {background};
+        color: {color};
+        border: none;            
+        text-align: left;
+        border-radius: 0px;
+        '''
+        return style
