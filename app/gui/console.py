@@ -1,13 +1,13 @@
 from PySide6 import QtWidgets, QtGui
 
-from config.theme import ThemeStylesheet, ThemeColor
+from config.theme import ThemeColor
 from utils.log import Log, LogFlag, LogHandler
 
 class Console(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.text_edit = QtWidgets.QTextEdit()
+        self.text_edit = QtWidgets.QTextEdit(objectName='Console')
         self.vertical_scrollbar = self.text_edit.verticalScrollBar()
         
         self.previous_scroll_value = self.vertical_scrollbar.value() 
@@ -28,8 +28,7 @@ class Console(QtWidgets.QWidget):
 
         # text edit properties
         self.text_edit.setReadOnly(True)
-        self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap) # disable text wrapping        
-        self.text_edit.setStyleSheet(ThemeStylesheet.console)        
+        self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap) 
 
         Log.debug_init(self)
     

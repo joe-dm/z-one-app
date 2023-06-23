@@ -4,12 +4,13 @@ import sys
 from PySide6 import QtWidgets, QtCore
 
 from config.config import AppConfig, PathConfig
+from config.theme import Style
 
 from gui.common.dialog import ExitDialog
 from gui.window import MainWindow
 
-from tools.info_gatherer import InfoGatherer, OSInfo, CPUInfo
-from tools.net_mon import NetworkMonitor
+from tools.info_gatherer import InfoGatherer
+from tools.net_mon import NetworkMonitor, ImportantCounter
 
 from utils.log import Log, LogFile
 from utils.thread import ThreadManager
@@ -26,6 +27,7 @@ class App:
         self.main_window.closeEvent = self.prep_to_exit
         
         net_mon = NetworkMonitor()
+        important_counter = ImportantCounter()
     
     def start(self):
         # show app info
@@ -53,7 +55,7 @@ class App:
         Log.task(f"Setting stylesheet")
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
-        self.app.setStyleSheet(stylesheet_content)
+        self.app.setStyleSheet(stylesheet_content + Style.custom_style())
 
         # clear system info file
         LogFile.clear_system_info_file()

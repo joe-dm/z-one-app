@@ -7,7 +7,6 @@ from gui.page import PageStack
 from gui.console import Console
 
 from config.config import AppConfig
-from config.theme import ThemeSize
 from utils.log import Log
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -24,7 +23,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setup_ui()
         self.setup_connections()
     
-    def setup_ui(self):    
+    def setup_ui(self):        
         # setup content layout
         content_layout = QtWidgets.QHBoxLayout(self.content)
         content_layout.setContentsMargins(0,0,0,0)        
@@ -35,7 +34,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # setup splitter
         self.splitter.addWidget(self.content)
         self.splitter.addWidget(self.console)
-        self.splitter.setHandleWidth(ThemeSize.widget_spacing)
+        self.splitter.setHandleWidth(3)
 
         # window properties
         self.setWindowTitle(AppConfig.name)

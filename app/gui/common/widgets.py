@@ -1,7 +1,7 @@
 from PySide6 import QtCharts, QtCore, QtGui, QtWidgets
 
-from config.theme import ThemeColor, ThemeStylesheet
-from gui.common.elements import HLine, WidgetTitle
+from config.theme import ThemeColor
+from gui.common.elements import LabelWidgetTitle
 
 
 class Table(QtWidgets.QWidget):
@@ -9,7 +9,7 @@ class Table(QtWidgets.QWidget):
         super().__init__()   
         
         # create table and set num of rows and cols
-        self.table = QtWidgets.QTableWidget()
+        self.table = QtWidgets.QTableWidget(objectName='Table')
         num_rows = len(data)
         num_cols = max(len(row) for row in data)
         self.table.setRowCount(num_rows)
@@ -38,15 +38,13 @@ class Table(QtWidgets.QWidget):
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)        
         # enable alternating colors
         self.table.setAlternatingRowColors(True)
-        self.setStyleSheet(ThemeStylesheet.table)    
-
                
         # setup layout
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
         # add title 
         if title:
-            title_label = WidgetTitle(title)
+            title_label = LabelWidgetTitle(title)
             layout.addWidget(title_label)            
         layout.addWidget(self.table)          
         
@@ -73,8 +71,7 @@ class Chart(QtWidgets.QWidget):
         #self.max_label = QtWidgets.QLabel(f"{y_axis_max} {unit}", objectName='GraphMax')
 
         # widget properties
-        self.setMaximumHeight(119)                
-        self.setStyleSheet(ThemeStylesheet.chart)
+        self.setMaximumHeight(119)        
 
         # x axis
         self.x_axis = QtCharts.QValueAxis()        
@@ -102,8 +99,8 @@ class Chart(QtWidgets.QWidget):
         self.line_series_top.setPen(QtGui.QPen(QtCore.Qt.NoPen)) 
         # area series effect
         self.area_series_effect = QtCharts.QAreaSeries(self.line_series_bottom, self.line_series_top)        
-        area_series_color = QtGui.QColor(ThemeColor.secondary)                
-        area_series_color.setAlpha(180)
+        area_series_color = QtGui.QColor(ThemeColor.white_2)                
+        area_series_color.setAlpha(100)
         area_brush = QtGui.QBrush(area_series_color)
         self.area_series_effect.setBrush(area_brush)
         area_pen = QtGui.QPen(QtGui.QColor(ThemeColor.secondary))
@@ -135,7 +132,7 @@ class Chart(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0) 
         if title: 
-            self.title_label = WidgetTitle(title)            
+            self.title_label = LabelWidgetTitle(title)            
             layout.addWidget(self.title_label)
             #if self.y_axis_max:
             #    layout.addWidget(self.max_label)

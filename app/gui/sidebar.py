@@ -1,7 +1,7 @@
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from config.config import PathConfig
-from config.theme import ThemeSize, ThemeStylesheet
+from config.theme import Style
 from utils.log import Log
 
 class Sidebar(QtWidgets.QWidget):
@@ -38,7 +38,7 @@ class Sidebar(QtWidgets.QWidget):
         # setup layout
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
-        layout.setSpacing(ThemeSize.widget_spacing)
+        layout.setSpacing(3)
         layout.addSpacing(5)
         layout.addWidget(self.header)
         layout.addSpacing(10)
@@ -55,7 +55,7 @@ class Sidebar(QtWidgets.QWidget):
         layout.addStretch()
         
         # set dashboard as active page
-        self.set_active_button(self.button_dashboard)
+        self.set_active_button(self.button_dashboard)        
 
         Log.debug_init(self)
         
@@ -72,7 +72,7 @@ class Sidebar(QtWidgets.QWidget):
             Log.debug(f"Collapsing sidebar")   
             # hide text buttons
             for button in self.sidebar_buttons:
-                button.button_text.setVisible(False)  
+                button.button_text.setVisible(False)                
             # shrink header          
             self.header.shrink()
             self.is_expanded = False
@@ -80,38 +80,41 @@ class Sidebar(QtWidgets.QWidget):
             Log.debug(f"Expanding sidebar")   
             # show text buttons
             for button in self.sidebar_buttons:
-                button.button_text.setVisible(True) 
+                button.button_text.setVisible(True)             
             # expand header          
             self.header.expand()
             self.is_expanded = True
 
 
 class SidebarButton(QtWidgets.QWidget):
+    ICON_SIZE = 20
+    BUTTON_SIZE = 32
+
     def __init__(self, text, icon, icon_active):
-        super().__init__()        
+        super().__init__(objectName='SidebarButton')        
         self.icon = icon
         self.icon_active = icon_active
         self.text = text       
         self.is_active = False
 
-        self.button_icon = QtWidgets.QPushButton()
-        self.button_text = QtWidgets.QPushButton()        
+        self.button_icon = QtWidgets.QPushButton(objectName='SidebarButton')
+        self.button_text = QtWidgets.QPushButton(objectName='SidebarButton')        
 
         self.setup_ui()
 
 
     def setup_ui(self):
-        # icon button properties        
+        # icon button properties                
         self.button_icon.setIcon(QtGui.QIcon(self.icon))
-        self.button_icon.setIconSize(QtCore.QSize(ThemeSize.sidebar_icon, ThemeSize.sidebar_icon))
-        self.button_icon.setFixedWidth(ThemeSize.sidebar_button)
-        self.button_icon.setFixedHeight(ThemeSize.sidebar_button)   
-        self.button_icon.setCursor(QtCore.Qt.PointingHandCursor)
+        self.button_icon.setIconSize(QtCore.QSize(SidebarButton.ICON_SIZE, SidebarButton.ICON_SIZE))
+        self.button_icon.setFixedWidth(SidebarButton.BUTTON_SIZE)
+        self.button_icon.setFixedHeight(SidebarButton.BUTTON_SIZE)   
+        self.button_icon.setCursor(QtCore.Qt.PointingHandCursor)        
         self.button_icon.setStyleSheet(f'text-align: center;') 
 
-        # button text properties
+        # button text properties        
         self.button_text.setText(self.text)
-        self.button_text.setFixedHeight(ThemeSize.sidebar_button)
+        self.button_text.setFixedHeight(SidebarButton.BUTTON_SIZE)
         self.button_text.setCursor(QtCore.Qt.PointingHandCursor)
 
         # setup layout
@@ -119,10 +122,7 @@ class SidebarButton(QtWidgets.QWidget):
         layout.setContentsMargins(0,0,0,0)
         layout.setSpacing(0)
         layout.addWidget(self.button_icon)
-        layout.addWidget(self.button_text)        
-
-        # set style
-        self.setStyleSheet(ThemeStylesheet.sidebar_button)
+        layout.addWidget(self.button_text)       
 
         # setup enter/leave events
         self.button_icon.enterEvent = self.on_enter_event
@@ -130,23 +130,24 @@ class SidebarButton(QtWidgets.QWidget):
         self.button_text.enterEvent = self.on_enter_event
         self.button_text.leaveEvent = self.on_leave_event
 
+        #self.setStyleSheet(Style.sidebar_button())
         Log.debug_init(self, obj_name=self.text)
     
-    def set_active(self):
-        self.setStyleSheet(ThemeStylesheet.sidebar_button_active)
+    def set_active(self):        
+        self.setStyleSheet(Style.sidebar_button(active=True))   
         self.button_icon.setIcon(QtGui.QIcon(self.icon_active))
         self.is_active = True    
     def set_inactive(self):
-        self.setStyleSheet(ThemeStylesheet.sidebar_button)
+        self.setStyleSheet(Style.sidebar_button())      
         self.button_icon.setIcon(QtGui.QIcon(self.icon))
         self.is_active = False
 
     def on_enter_event(self, event):
-        if not self.is_active:            
-            self.setStyleSheet(ThemeStylesheet.sidebar_button_hover)
+        if not self.is_active: 
+            self.setStyleSheet(Style.sidebar_button(hover=True))     
     def on_leave_event(self, event):
         if not self.is_active:
-            self.setStyleSheet(ThemeStylesheet.sidebar_button)
+            self.setStyleSheet(Style.sidebar_button())
 
 class SidebarHeader(QtWidgets.QWidget):
     def __init__(self):
@@ -154,7 +155,7 @@ class SidebarHeader(QtWidgets.QWidget):
 
         self.logo_image = QtWidgets.QLabel()
         self.logo_text = QtWidgets.QLabel()
-        self.button_toggle = QtWidgets.QPushButton('‹')
+        self.button_toggle = QtWidgets.QPushButton('‹', objectName='SidebarToggleButton')
         self.spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
 
         self.header_layout = QtWidgets.QHBoxLayout(self)
@@ -163,23 +164,21 @@ class SidebarHeader(QtWidgets.QWidget):
     
     def setup_ui(self):
         # header properties
-        self.setMinimumHeight(ThemeSize.sidebar_button)        
+        self.setMinimumHeight(SidebarButton.BUTTON_SIZE)        
 
         # setup logo image
         logo_pixmap = QtGui.QPixmap(PathConfig.logo)
-        logo_size = ThemeSize.sidebar_button - 2
+        logo_size = SidebarButton.BUTTON_SIZE - 2
         logo_pixmap = logo_pixmap.scaled(logo_size, logo_size, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
         self.logo_image.setPixmap(logo_pixmap)     
 
         # setup logo text image
         logo_text_pixmap = QtGui.QPixmap(PathConfig.logo_text)
-        logo_text_size = ThemeSize.sidebar_button + 45
+        logo_text_size = SidebarButton.BUTTON_SIZE + 45
         logo_text_pixmap = logo_text_pixmap.scaled(logo_text_size, logo_text_size, QtCore.Qt.AspectRatioMode.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
-        self.logo_text.setPixmap(logo_text_pixmap)     
-
+        self.logo_text.setPixmap(logo_text_pixmap)    
         
         # setup toggle buttons
-        self.button_toggle.setStyleSheet(ThemeStylesheet.sidebar_header_button)
         self.button_toggle.setFixedWidth(20)           
 
         # setup layout
@@ -190,11 +189,7 @@ class SidebarHeader(QtWidgets.QWidget):
         self.header_layout.addWidget(self.logo_text)
         self.header_layout.addSpacerItem(self.spacer)
         self.header_layout.addWidget(self.button_toggle)
-
-        # setup enter/leave events
-        self.button_toggle.enterEvent = self.on_enter_event
-        self.button_toggle.leaveEvent = self.on_leave_event
-
+        
         Log.debug_init(self)
     
     def shrink(self):
@@ -204,7 +199,7 @@ class SidebarHeader(QtWidgets.QWidget):
         self.header_layout.removeWidget(self.logo_text)
         self.logo_text.setVisible(False)
         self.header_layout.removeItem(self.spacer)
-        self.button_toggle.setFixedWidth(ThemeSize.sidebar_button)
+        self.button_toggle.setFixedWidth(SidebarButton.BUTTON_SIZE)
     
     def expand(self):
         self.header_layout.removeWidget(self.button_toggle)
@@ -217,8 +212,3 @@ class SidebarHeader(QtWidgets.QWidget):
         self.header_layout.addItem(self.spacer)
         self.header_layout.addWidget(self.button_toggle)
         self.button_toggle.setFixedWidth(20)
-
-    def on_enter_event(self, event):        
-        self.button_toggle.setStyleSheet(ThemeStylesheet.sidebar_header_button_hover)
-    def on_leave_event(self, event):
-        self.button_toggle.setStyleSheet(ThemeStylesheet.sidebar_header_button)
