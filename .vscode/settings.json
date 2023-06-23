@@ -4,5 +4,6 @@
     ],
     "files.exclude": {
         "**/.vscode": true
-    }
+    },
+    "editor.fontSize": 20
 }

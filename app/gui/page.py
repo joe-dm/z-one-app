@@ -1,18 +1,18 @@
-from PySide6 import QtWidgets, QtCore
+from PySide6 import QtWidgets
 
-from gui.common.elements import Heading, HLine
+from gui.common.elements import LabelHeading, HLine
 from gui.common.widgets import Chart, Table
 
+from config.theme import ThemeColor
+
 from tools.info_gatherer import InfoGatherer, CPUInfo
-from config.theme import ThemeStylesheet
 from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):
     def __init__(self):
-        super().__init__()     
-        self.setObjectName('PageStack')  
+        super().__init__(objectName='Page')           
 
-        self.stacked_layout = QtWidgets.QStackedLayout(self)
+        self.stacked_layout = QtWidgets.QStackedLayout(self)        
         self.page_dashboard = PageDashboard()
         self.page_cpu = PageCPU()
         self.page_gpu = PageGPU()
@@ -35,7 +35,6 @@ class PageStack(QtWidgets.QWidget):
         self.stacked_layout.addWidget(self.page_apps)
         self.stacked_layout.addWidget(self.page_settings)
         self.stacked_layout.addWidget(self.page_logs)
-        self.setStyleSheet(ThemeStylesheet.page_stack)
 
         Log.debug_init(self)
     
@@ -46,12 +45,12 @@ class PageStack(QtWidgets.QWidget):
 
 class Page(QtWidgets.QScrollArea):
     def __init__(self, title):
-        super().__init__()        
+        super().__init__()            
         self.title = title
-
+        
         # main widgets
-        self.label_title = QtWidgets.QLabel(self.title, objectName='PageTitle')   
-        self.separator = HLine()             
+        self.label_title = QtWidgets.QLabel(self.title, objectName='LabelPageTitle')   
+        self.separator = HLine(color=ThemeColor.primary)             
         
         # container properties
         self.page_container = QtWidgets.QWidget() 
@@ -62,8 +61,7 @@ class Page(QtWidgets.QScrollArea):
         self.page_layout.addWidget(self.label_title) 
         self.page_layout.addWidget(self.separator) 
         
-        # page properties
-        self.setStyleSheet(ThemeStylesheet.page)        
+        # page properties       
         self.setWidget(self.page_container)    
         self.setWidgetResizable(True)  
 
@@ -83,11 +81,10 @@ class PageCPU(Page):
         self.setup_ui()        
 
     def setup_ui(self):     
-        self.name_heading = Heading(f"{CPUInfo.get_name()}")
-        
+        self.name_heading = LabelHeading(f"{CPUInfo.get_name()}")        
         self.usage_chart = Chart(get_value_func=CPUInfo.check_current_usage, 
-                                 title='CPU Usage', y_axis_max=100, unit='%')        
-        self.info_table = Table(InfoGatherer.get_list(CPUInfo), 'CPU Info')
+                                 title='Overall Usage', y_axis_max=100, unit='%')        
+        self.info_table = Table(InfoGatherer.get_list(CPUInfo), 'Device Info')
 
         # add widgets to layout
         self.insert_widget(self.name_heading)        
