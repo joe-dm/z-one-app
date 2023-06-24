@@ -1,7 +1,8 @@
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtGui
 
 from gui.common.elements import LabelHeading, HLine
 from gui.common.widgets import Chart, Table
+from gui.widgets.stats import CPUStats
 
 from config.theme import ThemeColor
 
@@ -10,7 +11,7 @@ from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):
     def __init__(self):
-        super().__init__(objectName='Page')           
+        super().__init__()       
 
         self.stacked_layout = QtWidgets.QStackedLayout(self)        
         self.page_dashboard = PageDashboard()
@@ -40,16 +41,16 @@ class PageStack(QtWidgets.QWidget):
     
     def switch_page(self, page):
         Log.debug(f"Switching to page '{page.title}'")
-        self.stacked_layout.setCurrentWidget(page)
+        self.stacked_layout.setCurrentWidget(page)    
         
 
 class Page(QtWidgets.QScrollArea):
     def __init__(self, title):
-        super().__init__()            
-        self.title = title
+        super().__init__(objectName='Page')          
+        self.title = title        
         
         # main widgets
-        self.label_title = QtWidgets.QLabel(self.title, objectName='LabelPageTitle')   
+        self.label_title = QtWidgets.QLabel(self.title, objectName='PageTitleLabel')   
         self.separator = HLine(color=ThemeColor.primary)             
         
         # container properties
@@ -65,9 +66,7 @@ class Page(QtWidgets.QScrollArea):
         self.setWidget(self.page_container)    
         self.setWidgetResizable(True)  
 
-        Log.debug_init(self)
-    
-    def set_static_values(self): pass    
+        Log.debug_init(self)     
 
     def insert_widget(self, widget):
         self.page_layout.addSpacing(10)
@@ -78,18 +77,19 @@ class Page(QtWidgets.QScrollArea):
 class PageCPU(Page):
     def __init__(self):
         super().__init__('CPU')
-        self.setup_ui()        
-
-    def setup_ui(self):     
+            
         self.name_heading = LabelHeading(f"{CPUInfo.get_name()}")        
-        self.usage_chart = Chart(get_value_func=CPUInfo.check_current_usage, 
-                                 title='Overall Usage', y_axis_max=100, unit='%')        
-        self.info_table = Table(InfoGatherer.get_list(CPUInfo), 'Device Info')
+        
+        self.usage_chart = Chart(get_value_func=CPUInfo.check_current_usage, title='Overall Usage', y_axis_max=100, unit='%')    
+        self.info_table = Table(InfoGatherer.get_list(CPUInfo), 'Device Info')        
+        self.stats_view = CPUStats()
 
         # add widgets to layout
         self.insert_widget(self.name_heading)        
-        self.insert_widget(self.usage_chart) 
+        self.insert_widget(self.usage_chart)
+        self.insert_widget(self.stats_view)
         self.insert_widget(self.info_table)     
+        
 
 
 class PageDashboard(Page):

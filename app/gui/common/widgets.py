@@ -1,4 +1,5 @@
 from PySide6 import QtCharts, QtCore, QtGui, QtWidgets
+import PySide6.QtGui
 
 from config.theme import ThemeColor
 from gui.common.elements import LabelWidgetTitle

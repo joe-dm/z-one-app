@@ -27,7 +27,6 @@ class App:
         self.main_window.closeEvent = self.prep_to_exit
         
         net_mon = NetworkMonitor()
-        important_counter = ImportantCounter()
     
     def start(self):
         # show app info
