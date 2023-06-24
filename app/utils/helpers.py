@@ -7,7 +7,8 @@ class Convert:
         return date
     
     def megahertz_to_gigahertz(mhz):
-        ghz = f"{mhz / 1000} GHz"
+        ghz = mhz / 1000
+        ghz = round(ghz, 1)
         return ghz
 
     def convert_bytes_to_unit(bytes_value):

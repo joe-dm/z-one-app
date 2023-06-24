@@ -131,9 +131,15 @@ class CPUInfo:
 
     # changing values getters
     def check_current_usage(format_output=False):
-        return psutil.cpu_percent()
+        usage = psutil.cpu_percent()
+        if format_output:
+            usage = f'{usage}%' 
+        return usage
     def check_current_frequency(format_output=False):
-        return psutil.cpu_freq()[0]     
+        frequency = psutil.cpu_freq()[0]     
+        if format_output:
+            frequency = f'{Convert.megahertz_to_gigahertz(frequency)} GHz'
+        return frequency
     
 
 class OSInfo:

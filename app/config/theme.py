@@ -23,21 +23,9 @@ class ThemeColor:
 class Style:    
     def custom_style():
         style = (f''' 
-        /* GUI COMPONENTS */ 
-        #Console{{
-            background-color: {ThemeColor.black_dark};
-            border: none;
-            font-family: "Courier New", monospace;
-            font-size: 13px;
-        }}
-        #Page QWidget{{
-            background-color: {ThemeColor.black_midnight};        
-            border: none;      
-        }}
-
         /* SIDEBAR */
         #SidebarButton, #SidebarToggleButton{{
-            {Style.sidebar_button()}
+            {Style.sidebar_button()};
         }}        
         #SidebarToggleButton{{
             border: 0.5px solid {ThemeColor.gray};
@@ -47,11 +35,48 @@ class Style:
             background-color: {ThemeColor.black_midnight};
         }}
 
+        /* CONSOLE */ 
+        #Console{{
+            background-color: {ThemeColor.black_dark};
+            border: none;
+            font-family: "Courier New", monospace;
+            font-size: 13px;
+        }}
+
+        /* PAGE */
+        #Page QWidget{{
+            background-color: transparent;             
+        }}
+        #Page{{
+            background-color: {ThemeColor.black_midnight};        
+            border: none;      
+        }}
+        #PageTitleLabel{{
+            font-size: 16px;
+            font-weight: bold;
+            color: {ThemeColor.primary};
+        }} 
+        
+
         /* WIDGETS */
         #Table {{
             background-color: transparent; 
             alternate-background-color: {ThemeColor.gray_3}; 
+        }}    
+        QFrame#StatCard{{
+            
+            border: none;
+        }} 
+        #StatCardTitleLabel{{
+            font-size: 12px;
+            color: {ThemeColor.white_2};                   
         }}
+        #StatCardTextLabel{{
+            font-size: 18px;
+            font-weight: bold;
+            color: {ThemeColor.white};            
+        }}
+            
 
         /* DIALOGS */
         #DialogOverlay {{
@@ -63,13 +88,13 @@ class Style:
         #DialogProgressBar {{
             border: 1px solid {ThemeColor.secondary};
         }}
-
-        /* LABELS */
-        #LabelPageTitle{{
-            font-size: 16px;
+        #DialogHeadingLabel{{
             font-weight: bold;
-            color: {ThemeColor.primary};
-        }} 
+            font-size: 18px;
+            color: {ThemeColor.white};
+        }}
+
+        /* OTHER LABELS */        
         #LabelWidgetTitle{{
             font-size: 14px;            
             color: {ThemeColor.secondary};
@@ -78,19 +103,17 @@ class Style:
             font-size: 22px;
             color: {ThemeColor.white};
         }}
-        #LabelDialogHeading{{
-            font-weight: bold;
-            font-size: 18px;
-            color: {ThemeColor.white};
-        }}
+        
 
         /* OTHER ELEMENTS */
         #LineHorizontal{{
-            {Style.line_horizontal()}
-        }}
+            {Style.line_horizontal()};
+        }}   
         ''')
         return style
     
+    
+
     def line_horizontal(color=ThemeColor.gray, width=1):
         style = f'''
             border-style: none;

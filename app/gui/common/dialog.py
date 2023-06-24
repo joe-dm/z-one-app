@@ -19,7 +19,7 @@ class EmbeddedDialog(QtWidgets.QWidget):
         self.full_layout.addWidget(self.container, alignment=QtCore.Qt.AlignCenter)     
 
         # main widgets
-        self.heading = QtWidgets.QLabel(heading, objectName='LabelDialogHeading')
+        self.heading = QtWidgets.QLabel(heading, objectName='DialogHeadingLabel')
         self.heading.setAlignment(QtCore.Qt.AlignCenter)
         self.message = QtWidgets.QLabel(message)
         self.message.setAlignment(QtCore.Qt.AlignCenter)
