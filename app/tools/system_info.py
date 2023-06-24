@@ -42,6 +42,12 @@ class CPUInfo:
         return CPUInfo.cores_physical     
     def get_cores_logical():
         return CPUInfo.cores_logical
+    # usage
+    def get_usage_current(format_output=False):
+        usage = CPUInfo.current_usage
+        if format_output:
+            usage = f"{usage}%"
+        return usage  
     # frequency
     def get_frequency_min(format_output=False):
         frequency = CPUInfo.frequency_min
@@ -95,14 +101,4 @@ class CPUInfo:
         cache_size = CPUInfo.l3_cache_size * CPUInfo.cores_logical
         if format_output:
             cache_size = Convert.bytes_to_unit(cache_size)
-        return cache_size
-
-    def get_usage_current(format_output=False):
-        usage = CPUInfo.current_usage
-        if format_output:
-            usage = f"{usage}%"
-        return usage    
-    
-
-
-    
+        return cache_size   

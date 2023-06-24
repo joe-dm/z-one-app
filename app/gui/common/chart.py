@@ -1,63 +1,16 @@
 from PySide6 import QtCharts, QtCore, QtGui, QtWidgets
-import PySide6.QtGui
 
 from config.theme import ThemeColor
 from gui.common.elements import LabelWidgetTitle
 
-
-class Table(QtWidgets.QWidget):
-    def __init__(self, data, title=None):
-        super().__init__()   
-        
-        # create table and set num of rows and cols
-        self.table = QtWidgets.QTableWidget(objectName='Table')
-        num_rows = len(data)
-        num_cols = max(len(row) for row in data)
-        self.table.setRowCount(num_rows)
-        self.table.setColumnCount(num_cols)        
-
-        # disable headers
-        self.table.horizontalHeader().setVisible(False)
-        self.table.verticalHeader().setVisible(False)
-
-        # populate table with data        
-        for row, row_data in enumerate(data):
-            for col, value in enumerate(row_data):
-                item = QtWidgets.QTableWidgetItem(str(value)) 
-                self.table.setItem(row, col, item)     
-        
-        # resize first column to fit contents
-        self.table.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
-        # stretch last column to fill remaining space
-        self.table.horizontalHeader().setStretchLastSection(True)
-        # adjust table height
-        table_height = sum([self.table.rowHeight(row) for row in range(num_rows)])        
-        self.table.setFixedHeight(table_height)         
-        # disable editing
-        self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        # disable cell selection        
-        self.table.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)        
-        # enable alternating colors
-        self.table.setAlternatingRowColors(True)
-               
-        # setup layout
-        layout = QtWidgets.QVBoxLayout(self)
-        layout.setContentsMargins(0,0,0,0)
-        # add title 
-        if title:
-            title_label = LabelWidgetTitle(title)
-            layout.addWidget(title_label)            
-        layout.addWidget(self.table)          
-        
-        
 class Chart(QtWidgets.QWidget):
     def __init__(self, get_value_func, y_axis_max=None, title=None, unit='%'):
         super().__init__() 
-        # value to be updated/tracked
-        self.get_value_func = get_value_func
-        
         self.y_axis_max = y_axis_max
         self.unit = unit
+
+        # value to be updated/tracked
+        self.get_value_func = get_value_func        
 
         # determine if the y axis has a fixed max value
         self.has_fixed_y_axis = None
@@ -65,14 +18,10 @@ class Chart(QtWidgets.QWidget):
             self.has_fixed_y_axis = True            
         else: 
             self.has_fixed_y_axis = False
-            self.y_axis_max = 0
-        
-        # chart title and max labels
-        #self.title_label = QtWidgets.QLabel(objectName='GraphTitle')
-        #self.max_label = QtWidgets.QLabel(f"{y_axis_max} {unit}", objectName='GraphMax')
+            self.y_axis_max = 0        
 
         # widget properties
-        self.setMaximumHeight(119)        
+        self.setMaximumHeight(119)       
 
         # x axis
         self.x_axis = QtCharts.QValueAxis()        
@@ -124,19 +73,16 @@ class Chart(QtWidgets.QWidget):
         self.area_series_effect.attachAxis(self.y_axis)        
 
         # setup chart view
-        self.chart_view = QtCharts.QChartView()
+        self.chart_view = QtCharts.QChartView(objectName='ChartView')
         self.chart_view.setRenderHint(QtGui.QPainter.Antialiasing)
-        self.chart_view.setChart(self.my_chart)  
-
+        self.chart_view.setChart(self.my_chart)
         
         # setup layout
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0) 
         if title: 
             self.title_label = LabelWidgetTitle(title)            
-            layout.addWidget(self.title_label)
-            #if self.y_axis_max:
-            #    layout.addWidget(self.max_label)
+            layout.addWidget(self.title_label)            
             layout.addWidget(self.chart_view) 
         else:
             layout.addWidget(self.chart_view) 

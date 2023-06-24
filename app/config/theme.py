@@ -63,6 +63,9 @@ class Style:
             background-color: transparent; 
             alternate-background-color: {ThemeColor.gray_3}; 
         }}    
+        #ChartView {{
+            border: none;
+        }}
         QFrame#StatCard{{
             
             border: none;
