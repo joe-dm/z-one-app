@@ -1,7 +1,7 @@
 from PySide6 import QtWidgets, QtCore
 
 from gui.common.elements import LabelWidgetTitle
-from tools.info_gatherer import CPUInfo
+from tools.gatherer import CPUInfo
 
 class StatsViewer(QtWidgets.QWidget):
     def __init__(self):
@@ -51,13 +51,9 @@ class StatCard(QtWidgets.QFrame):
         self.stat_timer.start(timer_ms)        
 
     def update_stat(self):
-        try:
-            value = self.get_value_func(format_output=True)
-        except TypeError:
-            value = self.get_value_func()
-
-        if value:             
-            self.stat_label.setText(f'{value}')
+        value = self.get_value_func(format_output=True)
+                 
+        self.stat_label.setText(f'{value}')
 
 
 class CPUStats(StatsViewer):
@@ -65,9 +61,9 @@ class CPUStats(StatsViewer):
         super().__init__()
         
         self.utilization = StatCard(
-            title='Utilization', get_value_func=CPUInfo.check_current_usage, unit='%')
+            title='Utilization', get_value_func=CPUInfo.get_usage_current, unit='%')
         self.frequency = StatCard(
-            title='Frequency', get_value_func=CPUInfo.check_current_frequency, unit=' GHz')
+            title='Frequency', get_value_func=CPUInfo.get_frequency_current, unit=' GHz')
         #self.temperature = StatCard('Temperature')
         #self.processes = StatCard('Processes')
         #self.threads = StatCard('Threads')

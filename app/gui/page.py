@@ -6,7 +6,7 @@ from gui.widgets.stats import CPUStats
 
 from config.theme import ThemeColor
 
-from tools.info_gatherer import InfoGatherer, CPUInfo
+from tools.system_info import CPUInfo
 from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):
@@ -80,16 +80,15 @@ class PageCPU(Page):
             
         self.name_heading = LabelHeading(f"{CPUInfo.get_name()}")        
         
-        self.usage_chart = Chart(get_value_func=CPUInfo.check_current_usage, title='Overall Usage', y_axis_max=100, unit='%')    
-        self.info_table = Table(InfoGatherer.get_list(CPUInfo), 'Device Info')        
+        self.usage_chart = Chart(get_value_func=CPUInfo.get_usage_current, title='Overall Usage', y_axis_max=100, unit='%')    
+        self.info_table = Table(CPUInfo.get_tuple_list(), 'Specifications')        
         self.stats_view = CPUStats()
 
         # add widgets to layout
         self.insert_widget(self.name_heading)        
         self.insert_widget(self.usage_chart)
         self.insert_widget(self.stats_view)
-        self.insert_widget(self.info_table)     
-        
+        self.insert_widget(self.info_table)             
 
 
 class PageDashboard(Page):
