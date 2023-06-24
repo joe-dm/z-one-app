@@ -9,8 +9,8 @@ from config.theme import Style
 from gui.common.dialog import ExitDialog
 from gui.window import MainWindow
 
-from tools.info_gatherer import InfoGatherer
-from tools.net_mon import NetworkMonitor, ImportantCounter
+from tools.gatherer import Gatherer
+from tools.system_info import CPUInfo
 
 from utils.log import Log, LogFile
 from utils.thread import ThreadManager
@@ -20,13 +20,13 @@ class App:
     is_closing = False
 
     def __init__(self):       
-        self.app = QtWidgets.QApplication([])
-        self.start()              
+        self.app = QtWidgets.QApplication([])        
+        self.start()
 
         self.main_window = MainWindow()
-        self.main_window.closeEvent = self.prep_to_exit
+        self.main_window.closeEvent = self.prep_to_exit        
         
-        net_mon = NetworkMonitor()
+        CPUInfo.get_tuple_list()
     
     def start(self):
         # show app info
@@ -58,9 +58,10 @@ class App:
 
         # clear system info file
         LogFile.clear_system_info_file()
+
+        # gather system info and start monitoring
+        self.gatherer = Gatherer()
         
-        # gather system info
-        InfoGatherer.gather_all()  
         
 
     def prep_to_exit(self, event):

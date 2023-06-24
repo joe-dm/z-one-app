@@ -1,7 +1,6 @@
 import platform
 import psutil
 import cpuinfo
-import inspect
 
 from utils.log import Log, LogFile
 from utils.helpers import Convert
