@@ -11,6 +11,7 @@ from gui.window import MainWindow
 
 from tools.gatherer import Gatherer
 from tools.system_info import CPUInfo
+from tools.network import NetworkMonitor
 
 from utils.log import Log, LogFile
 from utils.thread import ThreadManager
@@ -61,6 +62,7 @@ class App:
 
         # gather system info and start monitoring
         self.gatherer = Gatherer()
+        self.net_mon = NetworkMonitor()
         
         
 

@@ -1,8 +1,9 @@
 from PySide6 import QtWidgets, QtGui
 
 from gui.common.elements import LabelHeading, HLine
-from gui.common.widgets import Chart, Table
-from gui.widgets.stats import CPUStats
+from gui.common.chart import Chart
+from gui.common.table import Table
+from gui.common.stats import CPUStats
 
 from config.theme import ThemeColor
 
