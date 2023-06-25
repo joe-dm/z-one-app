@@ -9,12 +9,10 @@ from config.theme import Style
 from gui.common.dialog import ExitDialog
 from gui.window import MainWindow
 
-from tools.gatherer import Gatherer
-from tools.system_info import CPUInfo
-from tools.network import NetworkMonitor
-
 from utils.log import Log, LogFile
 from utils.thread import ThreadManager
+from tools.gatherer import Gatherer
+from tools.assistant import Assistant
 
 
 class App:
@@ -22,12 +20,14 @@ class App:
 
     def __init__(self):       
         self.app = QtWidgets.QApplication([])        
-        self.start()
+        self.start()     
+        
+        self.gatherer = Gatherer()  
+        self.assistant = Assistant()
 
         self.main_window = MainWindow()
         self.main_window.closeEvent = self.prep_to_exit        
         
-        CPUInfo.get_tuple_list()
     
     def start(self):
         # show app info
@@ -43,7 +43,7 @@ class App:
             Log.info(f"Debugging output is disabled")        
 
         # check resources
-        Log.task(f"Checking resources")
+        Log.info(f"Checking resources")
         for attr, resource_path in PathConfig.__dict__.items():
             if not callable(resource_path) and not attr.startswith("__"):
                 if os.path.exists(resource_path):
@@ -52,25 +52,19 @@ class App:
                     Log.critical(f"Resource not found: {resource_path}")
              
         # set app stylesheet 
-        Log.task(f"Setting stylesheet")
+        Log.info(f"Setting stylesheet")
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
         self.app.setStyleSheet(stylesheet_content + Style.custom_style())
 
         # clear system info file
-        LogFile.clear_system_info_file()
-
-        # gather system info and start monitoring
-        self.gatherer = Gatherer()
-        self.net_mon = NetworkMonitor()
-        
-        
-
+        LogFile.clear_system_info_file()            
+    
     def prep_to_exit(self, event):
         if self.is_closing:
             event.ignore()
         elif ThreadManager.active_threads:
-            Log.task('Preparing to exit app')
+            Log.info('Preparing to exit app')
 
             self.is_closing = True
             event.ignore()
@@ -88,8 +82,7 @@ class App:
             ThreadManager.clean_up()
         else:
             self.exit()
-            
-
+    
     def exit(self):        
         if not ThreadManager.active_threads: 
             Log.info('App exiting')                    

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class Convert:
     def timestamp_to_date(timestamp, format="%Y-%m-%d %H:%M"):
         date = datetime.fromtimestamp(timestamp)
@@ -9,7 +10,7 @@ class Convert:
     def mhz_to_ghz(mhz):
         ghz = mhz / 1000
         ghz = round(ghz, 1)
-        return f"{ghz} GHz"
+        return ghz
 
     def bytes_to_unit(bytes_value):
         units = ['B', 'KB', 'MB', 'GB', 'TB']

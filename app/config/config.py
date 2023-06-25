@@ -16,10 +16,10 @@ class PathConfig:
     logo_text = os.path.join('app', '_resources', 'images', 'logo-text.png')
 
     # sounds
-    sounds_directory = os.path.join('app', '_resources', 'sounds')
+    alerts_directory = os.path.join('app', '_resources', 'sound_alerts')
 
-    sound_internet_down = os.path.join(sounds_directory, 'internet_down.wav')
-    sound_internet_restored = os.path.join(sounds_directory, 'internet_restored.wav')
+    alert_internet_down = os.path.join(alerts_directory, 'internet_down.wav')
+    alert_internet_restored = os.path.join(alerts_directory, 'internet_restored.wav')
 
     # icons
     icons_directory = os.path.join('app', '_resources', 'images', 'icons')
@@ -42,8 +42,8 @@ class PathConfig:
     icon_network = os.path.join(icons_directory, 'network.svg')
     icon_network_active = os.path.join(icons_directory, 'network_dark.svg')
 
-    icon_apps = os.path.join(icons_directory, 'box.svg')
-    icon_apps_active = os.path.join(icons_directory, 'box_dark.svg')
+    icon_software = os.path.join(icons_directory, 'box.svg')
+    icon_software_active = os.path.join(icons_directory, 'box_dark.svg')
 
     icon_settings = os.path.join(icons_directory, 'cogwheel.svg')
     icon_settings_active = os.path.join(icons_directory, 'cogwheel_dark.svg')
