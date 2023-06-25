@@ -41,7 +41,7 @@ class EmbeddedDialog(QtWidgets.QWidget):
     
 class ExitDialog(EmbeddedDialog):
     def __init__(self, parent_widget):
-        super().__init__(parent_widget, 'Exiting', 'Cleaning up and exiting\nPlease wait.')
+        super().__init__(parent_widget, 'Exiting', 'Waiting for processes to finish.')
 
         # progress bar
         self.progress_bar = QtWidgets.QProgressBar(objectName='DialogProgressBar')

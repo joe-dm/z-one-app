@@ -72,12 +72,17 @@ class Style:
         }} 
         #StatCardTitleLabel{{
             font-size: 12px;
-            color: {ThemeColor.white_2};                   
+            color: {ThemeColor.gray};   
         }}
         #StatCardTextLabel{{
             font-size: 18px;
             font-weight: bold;
-            color: {ThemeColor.white};            
+            font-family: "Courier New", monospace;
+            color: {ThemeColor.white};  
+        }}
+        #StatCardUnitLabel{{
+            font-size: 12px;
+            color: {ThemeColor.white_2};
         }}
             
 

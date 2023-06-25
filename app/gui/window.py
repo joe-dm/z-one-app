@@ -12,7 +12,7 @@ from utils.log import Log
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        Log.task(f"Loading interface")
+        Log.info(f"Loading graphical interface")
 
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Vertical)
         self.content = QtWidgets.QWidget()
@@ -56,7 +56,7 @@ class MainWindow(QtWidgets.QMainWindow):
             (self.sidebar.button_memory, self.page_stack.page_memory),
             (self.sidebar.button_disk, self.page_stack.page_disk),
             (self.sidebar.button_network, self.page_stack.page_network),
-            (self.sidebar.button_apps, self.page_stack.page_apps),
+            (self.sidebar.button_software, self.page_stack.page_software),
             (self.sidebar.button_settings, self.page_stack.page_settings),
             (self.sidebar.button_logs, self.page_stack.page_logs)]
         # connect sidebar buttons to switch pages

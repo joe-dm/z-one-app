@@ -3,11 +3,11 @@ from PySide6 import QtWidgets, QtGui
 from gui.common.elements import LabelHeading, HLine
 from gui.common.chart import Chart
 from gui.common.table import Table
-from gui.common.stats import CPUStats
+from gui.common.stats import CPUStats, NetworkStats
 
 from config.theme import ThemeColor
 
-from tools.system_info import CPUInfo
+from tools.system_info import CPUInfo, NetworkInfo
 from utils.log import Log
 
 class PageStack(QtWidgets.QWidget):
@@ -21,7 +21,7 @@ class PageStack(QtWidgets.QWidget):
         self.page_memory = PageMemory()
         self.page_disk = PageDisk()
         self.page_network = PageNetwork()
-        self.page_apps = PageApps()
+        self.page_software = PageSoftware()
         self.page_settings = PageSettings()
         self.page_logs = PageLogs()
         
@@ -34,7 +34,7 @@ class PageStack(QtWidgets.QWidget):
         self.stacked_layout.addWidget(self.page_memory)
         self.stacked_layout.addWidget(self.page_disk)
         self.stacked_layout.addWidget(self.page_network)
-        self.stacked_layout.addWidget(self.page_apps)
+        self.stacked_layout.addWidget(self.page_software)
         self.stacked_layout.addWidget(self.page_settings)
         self.stacked_layout.addWidget(self.page_logs)
 
@@ -81,7 +81,9 @@ class PageCPU(Page):
             
         self.name_heading = LabelHeading(f"{CPUInfo.get_name()}")        
         
-        self.usage_chart = Chart(get_value_func=CPUInfo.get_usage_current, title='Overall Usage', y_axis_max=100, unit='%')    
+        self.usage_chart = Chart(
+            get_value_func=CPUInfo.get_usage_current, 
+            title='Overall Usage', y_axis_max=100)
         self.info_table = Table(CPUInfo.get_tuple_list(), 'Specifications')        
         self.stats_view = CPUStats()
 
@@ -111,7 +113,6 @@ class PageGPU(Page):
         self.page_layout.addWidget(self.description)
         #self.page_layout.addStretch()
 
-
 class PageMemory(Page):
     def __init__(self):
         super().__init__('Memory')        
@@ -121,7 +122,6 @@ class PageMemory(Page):
     def setup_ui(self):
         self.page_layout.addWidget(self.description)
         #self.page_layout.addStretch()
-
 
 class PageDisk(Page):
     def __init__(self):
@@ -133,22 +133,24 @@ class PageDisk(Page):
         self.page_layout.addWidget(self.description)
         #self.page_layout.addStretch()
 
-
 class PageNetwork(Page):
     def __init__(self):
         super().__init__('Network')        
-        self.description = QtWidgets.QLabel('This is the Network page!')
-        self.setup_ui()
+        
+        self.speed_chart = Chart(
+            get_value_func=lambda: NetworkInfo.get_speed_download(format_output=False),
+            title='Download Speed')
+        self.stats_view = NetworkStats()
 
-    def setup_ui(self):
-        self.page_layout.addWidget(self.description)
-        #self.page_layout.addStretch()
+        # add widgets to layout
+        self.insert_widget(self.speed_chart)
+        self.insert_widget(self.stats_view)
 
 
-class PageApps(Page):
+class PageSoftware(Page):
     def __init__(self):
-        super().__init__('Apps')        
-        self.description = QtWidgets.QLabel('This is the Apps page!')
+        super().__init__('Software')        
+        self.description = QtWidgets.QLabel('This is the Software page!')
         self.setup_ui()
 
     def setup_ui(self):

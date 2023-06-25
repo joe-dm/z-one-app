@@ -4,10 +4,9 @@ from config.theme import ThemeColor
 from gui.common.elements import LabelWidgetTitle
 
 class Chart(QtWidgets.QWidget):
-    def __init__(self, get_value_func, y_axis_max=None, title=None, unit='%'):
+    def __init__(self, get_value_func, y_axis_max=None, title=None):
         super().__init__() 
-        self.y_axis_max = y_axis_max
-        self.unit = unit
+        self.y_axis_max = y_axis_max        
 
         # value to be updated/tracked
         self.get_value_func = get_value_func        
@@ -96,26 +95,31 @@ class Chart(QtWidgets.QWidget):
         self.data_point_counter = 0
     
     def update_graph(self): 
-        value = self.get_value_func()        
+        value = self.get_value_func()
+        
+        if isinstance(value, (int, float)):        
+            value = round(value)
+            value = int(value)
+        if isinstance(value, str):
+            value = 0
+        
+        # add the value to the graph
+        self.line_series_bottom.append(QtCore.QPointF(self.time_counter / 10, 0))
+        self.line_series_top.append(QtCore.QPointF(self.time_counter / 10, value))
+        self.time_counter += 1
 
-        if value:
-            # add the value to the graph
-            self.line_series_bottom.append(QtCore.QPointF(self.time_counter / 10, 0))
-            self.line_series_top.append(QtCore.QPointF(self.time_counter / 10, value))
-            self.time_counter += 1
+        # remove the oldest data point if the x-axis range exceeds 60 seconds
+        if self.time_counter > 600:
+            self.line_series_bottom.remove(0)
+            self.line_series_top.remove(0)
 
-            # remove the oldest data point if the x-axis range exceeds 60 seconds
-            if self.time_counter > 600:
-                self.line_series_bottom.remove(0)
-                self.line_series_top.remove(0)
+        # Update the chart's x-axis range to keep only the last 60 seconds in view
+        self.x_axis.setRange((self.time_counter - 600) / 10, self.time_counter / 10)
 
-            # Update the chart's x-axis range to keep only the last 60 seconds in view
-            self.x_axis.setRange((self.time_counter - 600) / 10, self.time_counter / 10)
+        # Update the y-axis range based on the maximum value encountered
+        if (not self.has_fixed_y_axis) and (value > self.y_axis_max):
+            self.y_axis_max = value
+            self.y_axis.setRange(0, self.y_axis_max)
 
-            # Update the y-axis range based on the maximum value encountered
-            if (not self.has_fixed_y_axis) and (value > self.y_axis_max):
-                self.y_axis_max = value
-                self.y_axis.setRange(0, self.y_axis_max)
-
-            # Redraw the chart
-            self.repaint()
+        # Redraw the chart
+        self.repaint()

@@ -48,7 +48,8 @@ class Thread(QtCore.QRunnable):
     
     # overridden by child classes
     def execute(self): pass 
-    def finish(self): pass
+    def finish(self): 
+        self.is_running = False
 
 
 class ThreadManager(QtCore.QObject):
