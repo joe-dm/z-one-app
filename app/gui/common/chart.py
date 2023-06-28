@@ -48,7 +48,7 @@ class Chart(QtWidgets.QWidget):
         self.line_series_top.setPen(QtGui.QPen(QtCore.Qt.NoPen)) 
         # area series effect
         self.area_series_effect = QtCharts.QAreaSeries(self.line_series_bottom, self.line_series_top)        
-        area_series_color = QtGui.QColor(ThemeColor.white_2)                
+        area_series_color = QtGui.QColor(ThemeColor.secondary)                
         area_series_color.setAlpha(100)
         area_brush = QtGui.QBrush(area_series_color)
         self.area_series_effect.setBrush(area_brush)
