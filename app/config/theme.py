@@ -19,8 +19,6 @@ class ThemeColor:
     black_dark =    '#191919'
     black =         '#000000'
 
-    
-
 
 class Style:    
     def custom_style():
