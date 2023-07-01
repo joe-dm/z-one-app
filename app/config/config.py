@@ -1,28 +1,32 @@
 import os
 import datetime
 
+
 class AppConfig:    
     name = 'z-one'
     version = '1.0.2306'
+    full_name = f'{name} [Version {version}]'
+
     dev_name = 'Joe Morais'
     dev_url = 'github.com/joe-dm'
-    description = f'{name} [Version {version}]\n© {datetime.datetime.now().year} {dev_name} ({dev_url})'
+    copyright_info = f'© {datetime.datetime.now().year} {dev_name} ({dev_url})'
+
     debug = True
         
 
 class PathConfig:
-    stylesheet = os.path.join('app', '_resources', 'breeze_style', 'style.qss')    
-    logo = os.path.join('app', '_resources', 'images', 'logo.png')
-    logo_text = os.path.join('app', '_resources', 'images', 'logo-text.png')
+    stylesheet = os.path.join('app', 'config', 'resources', 'breeze_style', 'style.qss')    
+    logo = os.path.join('app', 'config', 'resources', 'images', 'logo.png')
+    logo_text = os.path.join('app', 'config', 'resources', 'images', 'logo-text.png')
 
     # sounds
-    alerts_directory = os.path.join('app', '_resources', 'sound_alerts')
+    alerts_directory = os.path.join('app', 'config', 'resources', 'sound_alerts')
 
     alert_internet_down = os.path.join(alerts_directory, 'internet_down.wav')
     alert_internet_restored = os.path.join(alerts_directory, 'internet_restored.wav')
 
     # icons
-    icons_directory = os.path.join('app', '_resources', 'images', 'icons')
+    icons_directory = os.path.join('app', 'config', 'resources', 'images', 'icons')
 
     icon_dashboard = os.path.join(icons_directory, 'dashboard.svg')
     icon_dashboard_active = os.path.join(icons_directory, 'dashboard_dark.svg')

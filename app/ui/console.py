@@ -3,6 +3,7 @@ from PySide6 import QtWidgets, QtGui
 from config.theme import ThemeColor
 from utils.log import Log, LogFlag, LogHandler
 
+
 class Console(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()

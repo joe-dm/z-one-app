@@ -2,6 +2,7 @@ from PySide6 import QtWidgets
 
 from config.theme import Style, ThemeColor
 
+
 class HLine(QtWidgets.QFrame):
     def __init__(self, color=ThemeColor.gray, width=1):
         super().__init__(objectName='LineHorizontal')
