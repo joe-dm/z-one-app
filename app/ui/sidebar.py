@@ -4,14 +4,18 @@ from config.config import PathConfig
 from config.theme import Style
 from utils.log import Log
 
+
 class Sidebar(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         # expanded/collapsed status
         self.is_expanded = True
-        # header
+        
+        # initialize header and setup connection to toggle sidebar
         self.header = SidebarHeader()
-        # buttons
+        self.header.button_toggle.clicked.connect(self.toggle)
+
+        # initialize buttons
         self.button_dashboard = SidebarButton('Dashboard', PathConfig.icon_dashboard, PathConfig.icon_dashboard_active)
         self.button_cpu = SidebarButton('CPU', PathConfig.icon_processor, PathConfig.icon_processor_active)
         self.button_gpu = SidebarButton('GPU', PathConfig.icon_gpu, PathConfig.icon_gpu_active)
@@ -22,26 +26,22 @@ class Sidebar(QtWidgets.QWidget):
         self.button_settings = SidebarButton('Settings', PathConfig.icon_settings, PathConfig.icon_settings_active)
         self.button_logs = SidebarButton('Logs', PathConfig.icon_logs, PathConfig.icon_logs_active)
         # list of all buttons
-        self.sidebar_buttons = [
+        self.buttons = [
             self.button_dashboard, self.button_cpu,
             self.button_gpu, self.button_memory,
             self.button_disk, self.button_network,
             self.button_software, self.button_settings,
             self.button_logs]
 
-        self.setup_ui()
-
-    def setup_ui(self):
-        # sidebar properties
-        self.setMaximumWidth(130)
-
         # setup layout
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
         layout.setSpacing(3)
         layout.addSpacing(5)
+        # add header to layout
         layout.addWidget(self.header)
         layout.addSpacing(10)
+        # add buttons to layout
         layout.addWidget(self.button_dashboard)
         layout.addWidget(self.button_cpu)
         layout.addWidget(self.button_gpu)
@@ -53,6 +53,9 @@ class Sidebar(QtWidgets.QWidget):
         layout.addWidget(self.button_settings)
         layout.addWidget(self.button_logs)        
         layout.addStretch()
+
+        # sidebar properties
+        self.setMaximumWidth(130)
         
         # set dashboard as active page
         self.set_active_button(self.button_dashboard)        
@@ -61,7 +64,7 @@ class Sidebar(QtWidgets.QWidget):
         
     
     def set_active_button(self, button):        
-        for btn in self.sidebar_buttons:
+        for btn in self.buttons:
             if btn is button:
                 btn.set_active()
             else:
@@ -71,7 +74,7 @@ class Sidebar(QtWidgets.QWidget):
         if self.is_expanded:     
             Log.debug(f"Collapsing sidebar")   
             # hide text buttons
-            for button in self.sidebar_buttons:
+            for button in self.buttons:
                 button.button_text.setVisible(False)                
             # shrink header          
             self.header.shrink()
@@ -79,7 +82,7 @@ class Sidebar(QtWidgets.QWidget):
         else:
             Log.debug(f"Expanding sidebar")   
             # show text buttons
-            for button in self.sidebar_buttons:
+            for button in self.buttons:
                 button.button_text.setVisible(True)             
             # expand header          
             self.header.expand()

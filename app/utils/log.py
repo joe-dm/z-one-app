@@ -3,6 +3,7 @@ import datetime
 
 from config.config import AppConfig
 
+
 class LogFlag:
     info     = '•| '
     warning  = '!| '
@@ -104,7 +105,6 @@ class LogHandler:
                 now = ''
             with open(log_file, 'a') as file:
                 file.write(f"{now}{flag}{message}\n")        
-        
 
         
     def write_to_gui_console(message, flag):
