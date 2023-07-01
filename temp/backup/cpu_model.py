@@ -4,11 +4,9 @@ import psutil
 from PySide6 import QtCore
 
 from utils.thread import Thread
-from utils.helpers.convert import Convert
 
 class CPUModelSignals(QtCore.QObject):
     updated_usage = QtCore.Signal(int)
-    updated_frequency = QtCore.Signal(float)
 
 class CPUModel:
     def __init__(self):
@@ -37,25 +35,24 @@ class CPUModel:
 
     def get_usage(self):
         return self.usage
-    def get_frequency(self):
-        return Convert.mhz_to_ghz(self.frequency_current)
 
-    def update_usage(self):
-        self.usage = psutil.cpu_percent()        
-        self.signals.updated_usage.emit(self.get_usage())    
-    def update_frequency(self):
-        self.frequency_current = psutil.cpu_freq()[0]  
-        self.signals.updated_frequency.emit(self.get_frequency())
+    def update_usage(self, usage):
+        self.usage = usage
+        self.signals.updated_usage.emit(self.get_usage())
+    
+    def update_frequency(self, frequency):
+        self.frequency_current = frequency        
 
 
 class CPUMonitor(Thread):
     def __init__(self, model: CPUModel):
         super().__init__()
-        self.model = model               
+        self.model = model
+        self.thread_signals.log_task.emit('Monitoring CPU', None)        
+        
 
-    def execute(self):   
-        self.thread_signals.log_task.emit('Monitoring CPU', None)      
-        while self.is_running:            
-            self.model.update_usage()
-            self.model.update_frequency()            
+    def execute(self):
+        while self.is_running:
+            self.model.update_usage(psutil.cpu_percent()) # i want to update this every 100ms
+            self.model.update_frequency(psutil.cpu_freq()[0]) # i want to update this every 1000ms
             QtCore.QThread.msleep(100)

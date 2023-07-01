@@ -19,21 +19,21 @@ class ThreadSignals(QtCore.QObject):
 class Thread(QtCore.QRunnable):
     def __init__(self):
         super().__init__()        
-        self.signals = ThreadSignals()
+        self.thread_signals = ThreadSignals()
         self.thread_name = type(self).__name__  
         self.is_running = True      
                 
         # connect finished/waiting signal
-        self.signals.finished.connect(ThreadManager.report_finished)
-        self.signals.waiting.connect(ThreadManager.report_waiting)
-        # connect log signals
-        self.signals.log_info.connect(Log.info)
-        self.signals.log_warning.connect(Log.warning)
-        self.signals.log_error.connect(Log.error)
-        self.signals.log_critical.connect(Log.critical)
-        self.signals.log_task.connect(Log.task)
-        self.signals.log_debug.connect(Log.debug)    
-        self.signals.log_debug_init.connect(Log.debug_init)        
+        self.thread_signals.finished.connect(ThreadManager.report_finished)
+        self.thread_signals.waiting.connect(ThreadManager.report_waiting)
+        # connect log thread
+        self.thread_signals.log_info.connect(Log.info)
+        self.thread_signals.log_warning.connect(Log.warning)
+        self.thread_signals.log_error.connect(Log.error)
+        self.thread_signals.log_critical.connect(Log.critical)
+        self.thread_signals.log_task.connect(Log.task)
+        self.thread_signals.log_debug.connect(Log.debug)    
+        self.thread_signals.log_debug_init.connect(Log.debug_init)        
 
         # start the thread
         ThreadManager.start_thread(self)
@@ -41,7 +41,7 @@ class Thread(QtCore.QRunnable):
     @QtCore.Slot()
     def run(self):      
         self.execute()
-        self.signals.finished.emit(self)    
+        self.thread_signals.finished.emit(self)    
     
     # overridden by child classes
     def execute(self): pass 

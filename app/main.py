@@ -17,11 +17,10 @@ class App:
     def __init__(self):       
         self.app = QtWidgets.QApplication([])        
         self.start()     
-        self.setup_ui()     
-
+        self.setup_ui()
 
     def setup_ui(self):
-        Log.info(f"Loading graphical interface")
+        Log.info(f"Setting up UI")
 
         # initialize window content
         self.content = Content()        

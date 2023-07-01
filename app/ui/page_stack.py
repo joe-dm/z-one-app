@@ -1,6 +1,8 @@
 from PySide6 import QtWidgets
 
-from ui.common.page import Page
+from modules.modules import Modules
+
+from ui.common.page import Page 
 from utils.log import Log
 
 
@@ -10,9 +12,10 @@ class PageStack(QtWidgets.QWidget):
         # initialize stacked layout
         self.stacked_layout = QtWidgets.QStackedLayout(self)        
         
-        # initialize pages
-        self.page_dashboard = Page('Dashboard')
-        self.page_cpu = Page('CPU')
+        # initialize page views
+        modules = Modules() 
+        self.page_dashboard = Page('Dashboard')            
+        self.page_cpu = modules.cpu_page_view
         self.page_gpu = Page('GPU')
         self.page_memory = Page('Memory')
         self.page_disk = Page('Disk')
@@ -20,6 +23,7 @@ class PageStack(QtWidgets.QWidget):
         self.page_software = Page('Software')
         self.page_settings = Page('Settings')
         self.page_logs = Page('Logs')
+
         # list of all pages
         self.pages = [
             self.page_dashboard, self.page_cpu,
