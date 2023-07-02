@@ -1,24 +1,27 @@
 from ui.common.page import Page
 from ui.common.chart import Chart
 from ui.common.card import Card, CardGroup
+from ui.common.table import TableForm
+
 
 class CPUPageView(Page):
     def __init__(self):
-        super().__init__('CPU')
+        super().__init__('CPU')         
 
         self.usage_chart = Chart(title='Overall Usage', y_axis_max=100)
         self.stats_cards = CPUStats()
+        self.info_table = TableForm(title='Specifications')
 
         self.insert_widget(self.usage_chart)
         self.insert_widget(self.stats_cards)
+        self.insert_widget(self.info_table)
 
         self.last_usage_value = 0
         self.ms_since_usage_updated = 0
 
         self.last_frequency_value = 0
-        self.ms_since_frequency_updated = 0
-              
-    
+        self.ms_since_frequency_updated = 0               
+
     def update_usage(self, value):           
         self.usage_chart.update_chart(value)
 
@@ -49,8 +52,7 @@ class CPUPageView(Page):
         else:
             self.ms_since_frequency_updated += 100
         
-        self.last_frequency_value = value
-        
+        self.last_frequency_value = value        
 
 
 class CPUStats(CardGroup):

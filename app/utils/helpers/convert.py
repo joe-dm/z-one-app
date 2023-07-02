@@ -17,7 +17,7 @@ class Convert:
         while bytes_value >= 1024 and unit_index < len(units) - 1:
             bytes_value /= 1024
             unit_index += 1
-        return f"{int(bytes_value)} {units[unit_index]}"
+        return int(bytes_value), units[unit_index]
 
     
 
