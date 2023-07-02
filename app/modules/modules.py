@@ -1,7 +1,7 @@
 from utils.helpers.decorators import singleton
 from modules.cpu.cpu_model import CPUModel
-from modules.cpu.cpu_view import CPUPageView
-from modules.cpu.cpu_controller import CPUPageController
+from modules.cpu.cpu_page_view import CPUPageView
+from modules.cpu.cpu_page_controller import CPUPageController
 
 @singleton
 class Modules:

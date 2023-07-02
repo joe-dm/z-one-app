@@ -59,15 +59,17 @@ class Style:
         
 
         /* WIDGETS */
-        #Table {{
-            background-color: transparent; 
-            alternate-background-color: {ThemeColor.gray_3}; 
+        #FancyTableTextEdit {{
+            border: 1px solid {ThemeColor.gray_2};             
         }}    
+        #FancyTableLabel {{
+            font-size: 14px; 
+            color: {ThemeColor.gray};            
+        }}   
         #ChartView {{
             border: none;
         }}
-        QFrame#StatCard{{
-            
+        QFrame#StatCard{{            
             border: none;
         }} 
         #StatCardTitleLabel{{

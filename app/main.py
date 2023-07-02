@@ -5,6 +5,7 @@ from PySide6 import QtWidgets, QtCore
 
 from config.config import AppConfig, PathConfig
 from config.theme import Style
+from modules.modules import Modules
 from ui.common.dialog import OverlayDialog
 from ui.content import Content
 from utils.log import Log, LogFile
@@ -17,7 +18,7 @@ class App:
     def __init__(self):       
         self.app = QtWidgets.QApplication([])        
         self.start()     
-        self.setup_ui()
+        self.setup_ui()        
 
     def setup_ui(self):
         Log.info(f"Setting up UI")
