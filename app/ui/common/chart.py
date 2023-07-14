@@ -4,7 +4,7 @@ from config.theme import ThemeColor
 from ui.common.element import LabelWidgetTitle
 
 class Chart(QtWidgets.QWidget):
-    def __init__(self, title=None, y_axis_max=None):
+    def __init__(self, title=None, y_axis_max=None, height=260):
         super().__init__() 
         self.y_axis_max = y_axis_max              
 
@@ -17,7 +17,7 @@ class Chart(QtWidgets.QWidget):
             self.y_axis_max = 0        
 
         # widget properties
-        self.setMaximumHeight(119)       
+        self.setMaximumHeight(height)       
 
         # x axis
         self.x_axis = QtCharts.QValueAxis()        

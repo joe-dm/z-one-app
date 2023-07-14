@@ -30,5 +30,10 @@ class Page(QtWidgets.QScrollArea):
         Log.debug_init(self)     
 
     def insert_widget(self, widget):
-        self.page_layout.addSpacing(10)
+        #self.page_layout.addSpacing(10)
+        #self.page_layout.insertSpacerItem
         self.page_layout.addWidget(widget)
+    
+    def remove_widget(self, widget):
+        self.page_layout.removeWidget(widget)
+        widget.setParent(None)

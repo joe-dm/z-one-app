@@ -24,6 +24,7 @@ class LabelWidgetTitle(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
         layout.setSpacing(0)        
+        layout.addSpacing(10)
         layout.addWidget(self.title_label)
-        layout.addWidget(HLine(color=ThemeColor.secondary))
+        layout.addWidget(HLine(color=ThemeColor.white_2))
         

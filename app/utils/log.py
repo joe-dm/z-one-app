@@ -5,7 +5,7 @@ from config.config import AppConfig
 
 
 class LogFlag:
-    info     = '•| '
+    info     = 'i| '
     warning  = '!| '
     error    = '×| '
     critical = '✖| '
