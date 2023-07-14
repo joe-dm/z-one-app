@@ -19,8 +19,8 @@ class PageStack(QtWidgets.QWidget):
         self.page_gpu = Page('GPU')
         self.page_memory = Page('Memory')
         self.page_disk = Page('Disk')
-        self.page_network = Page('Network')
-        self.page_software = Page('Software')
+        self.page_network = modules.network_page_view
+        self.page_software = modules.software_page_view
         self.page_settings = Page('Settings')
         self.page_logs = Page('Logs')
 
@@ -38,6 +38,6 @@ class PageStack(QtWidgets.QWidget):
     
         Log.debug_init(self)
     
-    def switch_page(self, page):
-        Log.debug(f"Switching to page '{page.title}'")
+    def switch_page(self, page: Page):
+        Log.debug(f"Switching to {page.title} page")
         self.stacked_layout.setCurrentWidget(page)    

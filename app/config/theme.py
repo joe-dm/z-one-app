@@ -106,7 +106,7 @@ class Style:
 
         /* OTHER LABELS */        
         #LabelWidgetTitle{{
-            font-size: 14px;            
+            font-size: 14px;        
             color: {ThemeColor.secondary};
         }}
         #LabelHeading{{

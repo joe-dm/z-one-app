@@ -5,7 +5,6 @@ from PySide6 import QtWidgets, QtCore
 
 from config.config import AppConfig, PathConfig
 from config.theme import Style
-from modules.modules import Modules
 from ui.common.dialog import OverlayDialog
 from ui.content import Content
 from utils.log import Log, LogFile
@@ -18,10 +17,11 @@ class App:
     def __init__(self):       
         self.app = QtWidgets.QApplication([])        
         self.start()     
-        self.setup_ui()        
+        self.setup_ui()             
+           
 
     def setup_ui(self):
-        Log.info(f"Setting up UI")
+        Log.debug(f"Setting up UI")
 
         # initialize window content
         self.content = Content()        
@@ -40,18 +40,19 @@ class App:
     def start(self):
         # show app info
         Log.no_flag(f"{AppConfig.full_name}")
+
         Log.no_flag(f"{AppConfig.copyright_info}")
         Log.no_flag("")
-        Log.info(f"App started at {os.getcwd()}")        
+        Log.debug(f"App started at {os.getcwd()}")        
 
         # show debugging mode
         if AppConfig.debug:
-            Log.info(f"Debugging output is enabled")            
+            Log.debug(f"Debugging output is enabled")            
         else:
-            Log.info(f"Debugging output is disabled")        
+            Log.debug(f"Debugging output is disabled")        
 
         # check app resources
-        Log.info(f"Checking resources")
+        Log.debug(f"Checking resources")
         for attr, resource_path in PathConfig.__dict__.items():
             if not callable(resource_path) and not attr.startswith("__"):
                 if os.path.exists(resource_path):
@@ -60,7 +61,7 @@ class App:
                     Log.critical(f"Resource not found: {resource_path}")
              
         # set app stylesheet 
-        Log.info(f"Setting stylesheet")
+        Log.debug(f"Setting stylesheet")
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
         self.app.setStyleSheet(stylesheet_content + Style.custom_style())

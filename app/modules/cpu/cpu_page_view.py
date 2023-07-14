@@ -14,47 +14,9 @@ class CPUPageView(Page):
 
         self.insert_widget(self.usage_chart)
         self.insert_widget(self.stats_cards)
-        self.insert_widget(self.info_table)
-
-        self.last_usage_value = 0
-        self.ms_since_usage_updated = 0
-
-        self.last_frequency_value = 0
-        self.ms_since_frequency_updated = 0               
-
-    def update_usage(self, value):           
-        self.usage_chart.update_chart(value)
-
-        if self.ms_since_usage_updated > 300:
-            if abs(self.last_usage_value - value) > 15:
-                self.stats_cards.update_card(self.stats_cards.usage_card, f"{value}%")            
-                self.ms_since_usage_updated = 0
-            elif self.ms_since_usage_updated > 1000:
-                self.stats_cards.update_card(self.stats_cards.usage_card, f"{value}%")
-                self.ms_since_usage_updated = 0
-            else:
-                self.ms_since_usage_updated += 100
-        else:
-            self.ms_since_usage_updated += 100
-        
-        self.last_usage_value = value
+        self.insert_widget(self.info_table)   
     
-    def update_frequency(self, value):
-        if self.ms_since_frequency_updated > 300:        
-            if abs(self.last_frequency_value - value) > 0.2:
-                self.stats_cards.update_card(self.stats_cards.frequency_card, value)
-                self.ms_since_frequency_updated = 0
-            elif self.ms_since_frequency_updated > 1000:
-                self.stats_cards.update_card(self.stats_cards.frequency_card, value)
-                self.ms_since_frequency_updated = 0
-            else:
-                self.ms_since_frequency_updated += 100
-        else:
-            self.ms_since_frequency_updated += 100
-        
-        self.last_frequency_value = value        
-
-
+    
 class CPUStats(CardGroup):
     def __init__(self):
         super().__init__()
@@ -63,6 +25,4 @@ class CPUStats(CardGroup):
         self.frequency_card = Card('Frequency', 'GHz')
 
         self.insert_cards([self.usage_card, self.frequency_card])
-    
-    def update_card(self, card: Card, value):
-        card.update_stat(value)
+        
