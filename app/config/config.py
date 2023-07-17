@@ -11,13 +11,16 @@ class AppConfig:
     dev_url = 'github.com/joe-dm'
     copyright_info = f'© {datetime.datetime.now().year} {dev_name} ({dev_url})'
 
-    debug = True
+    debug = False
         
 
 class PathConfig:
     stylesheet = os.path.join('app', 'config', 'resources', 'breeze_style', 'style.qss')    
     logo = os.path.join('app', 'config', 'resources', 'images', 'logo.png')
     logo_text = os.path.join('app', 'config', 'resources', 'images', 'logo-text.png')
+
+    # admin files
+    admin_scripts_output_directory = os.path.join('app', 'utils', 'admin_scripts', 'output')    
 
     # sounds
     alerts_directory = os.path.join('app', 'config', 'resources', 'sound_alerts')
@@ -28,8 +31,13 @@ class PathConfig:
     # icons
     icons_directory = os.path.join('app', 'config', 'resources', 'images', 'icons')
 
+    icon_warning = os.path.join(icons_directory, 'warning.svg')
+
     icon_dashboard = os.path.join(icons_directory, 'dashboard.svg')
     icon_dashboard_active = os.path.join(icons_directory, 'dashboard_dark.svg')
+
+    icon_device = os.path.join(icons_directory, 'pc.svg')
+    icon_device_active = os.path.join(icons_directory, 'pc_dark.svg')
 
     icon_processor = os.path.join(icons_directory, 'cpu.svg')
     icon_processor_active = os.path.join(icons_directory, 'cpu_dark.svg')

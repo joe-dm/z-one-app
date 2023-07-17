@@ -60,10 +60,12 @@ class Console(QtWidgets.QWidget):
         self.previous_scroll_value = value   
 
     def get_color(self, flag):
-        color = ThemeColor.white
+        color = ThemeColor.white_2
 
-        if flag == LogFlag.task:
-            color = ThemeColor.secondary
+        if flag == LogFlag.operation:
+            color = ThemeColor.secondary   
+        elif flag == LogFlag.info:
+            color = ThemeColor.white
         elif flag == LogFlag.warning:
             color = ThemeColor.yellow
         elif flag == LogFlag.error or flag == LogFlag.critical:

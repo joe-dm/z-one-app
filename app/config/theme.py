@@ -9,7 +9,8 @@ class ThemeColor:
     red =           '#ff7d6c'
     # grayscale
     white =         '#ffffff'
-    white_2 =       '#cccccc'  
+    white_2 =       '#cccccc'    
+    white_3 =       '#aaaaaa'
     
     gray =          '#757575'
     gray_2 =        '#31363b'
@@ -119,6 +120,9 @@ class Style:
         #LineHorizontal{{
             {Style.line_horizontal()};
         }}   
+        #WarningText{{
+            color: {ThemeColor.yellow};
+        }}
         ''')
         return style
     

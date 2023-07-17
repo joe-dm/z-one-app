@@ -1,12 +1,66 @@
 from config.theme import ThemeColor
-from modules.network.network_model import NetworkModel
-from modules.network.network_page_view import NetworkPageView
+
+from models.network_model import NetworkModel
+
+from ui.common.card import Card, CardGroup
+from ui.common.page import Page
+from ui.common.table import TableForm
+
 from utils.log import Log
 
+
+class NetworkPageView(Page):
+    def __init__(self):
+        super().__init__('Network')
+
+        self.stats_cards = NetworkStatsCards()
+        self.speed_cards = NetworkSpeedCards()
+        self.ip_isp_table = TableForm(title='Connection')
+        self.interface_tables = []
+
+        self.insert_widget(self.stats_cards)    
+        self.insert_widget(self.speed_cards)  
+        self.insert_widget(self.ip_isp_table)
+
+        self._controller = NetworkPageController(self)
+        Log.debug_init(self)
+
+    def clear_interface_tables(self):
+        for table in self.interface_tables:
+            self.remove_widget(table)        
+        self.interface_tables = []
+    def add_interface_table(self, data, title):        
+        table = TableForm(title)
+        table.set_data(data)
+        self.insert_widget(table)
+        self.interface_tables.append(table)
+    
+
+class NetworkSpeedCards(CardGroup):
+    def __init__(self):
+        super().__init__(title='Speed Test')
+
+        self.download_card = Card('Download', 'Mbps')
+        self.upload_card = Card('Upload', 'Mbps')
+        self.latency_card = Card('Latency', 'ms')
+        self.quality_card = Card('Quality')
+        self.insert_cards([self.download_card, self.upload_card, self.latency_card, self.quality_card])       
+
+class NetworkStatsCards(CardGroup):
+    def __init__(self):
+        super().__init__()
+
+        self.internet_card = Card('Internet')
+        self.sent_card = Card('Sent', 'Mbps')
+        self.received_card = Card('Received', 'Mbps')
+    
+        self.insert_cards([self.internet_card, self.sent_card, self.received_card])
+
+
 class NetworkPageController:
-    def __init__(self, model: NetworkModel, view: NetworkPageView):
+    def __init__(self, view: NetworkPageView):
         self.view = view
-        self.model = model
+        self.model = NetworkModel()
         
         self.update_interface_tables(self.model.get_interfaces())
         self.view.ip_isp_table.set_data([('IP', ''), ('ISP', '')])
@@ -20,6 +74,8 @@ class NetworkPageController:
         self.model.signals.updated_ip_isp.connect(self.update_ip_isp)
         self.model.signals.updated_bytes_sent.connect(self.update_bytes_sent)
         self.model.signals.updated_bytes_received.connect(self.update_bytes_received)
+        
+        Log.debug_init(self)
 
     def update_internet_available(self, internet_available):
         if internet_available:
@@ -81,4 +137,3 @@ class NetworkPageController:
                 self.view.add_interface_table(data=table_data, title=f"Interface: {interface['interface']}")
         self.view.add_interface_table(data=loopback_interface, title=f"Loopback Interface")
             
-                
