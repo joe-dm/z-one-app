@@ -4,11 +4,11 @@ from utils.log import Log
 
 
 class OverlayDialog(QtWidgets.QWidget):
-    def __init__(self, parent_widget, heading, message, loading_bar=True):
+    def __init__(self, heading, message, parent_widget, loading_bar=True):
         super().__init__(parent_widget, objectName='DialogOverlay')       
 
-        self.parent_widget = parent_widget        
-        
+        self.parent_widget = parent_widget   
+
         # widget options        
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setAttribute(QtCore.Qt.WA_StyledBackground)        
@@ -46,6 +46,4 @@ class OverlayDialog(QtWidgets.QWidget):
     def showEvent(self, event):
         self.setGeometry(self.parent().rect())    
 
-    
 
-        

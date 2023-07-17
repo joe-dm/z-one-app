@@ -3,12 +3,19 @@ import distro
 import psutil
 import subprocess
 
-from utils.helpers.decorators import singleton
+from utils.decorators import singleton
+from utils.log import Log
+from utils.file import File, JSON
+from utils.session import Session
 
 @singleton
-class SoftwareModel:
+class SoftwareModel:   
+
     def __init__(self):
+        Log.task('Gathering software info')
+
         self._os_type = platform.system()
+        Session.os_type = self._os_type
         self._os_name = None
         self._os_family = None
         self._os_codename = None
@@ -18,16 +25,20 @@ class SoftwareModel:
         self._boot_time = psutil.boot_time()        
         self._installed_apps = []
 
-        self._gather_os_info()
+        self._gather_additional_info()
         self._gather_installed_apps()
                 
 
-    def _gather_os_info(self):
-        if self._os_type == 'Linux':
+    def _gather_additional_info(self):
+        if self._os_type == 'Linux':            
+            File.run_admin_script('get_dmi_info.py')
+
             self._os_name = distro.name()
             self._os_version = distro.version()
             self._os_family = f'{distro.like().capitalize()}'
-            self._os_codename = distro.codename()
+            self._os_codename = distro.codename()            
+            
+
 
     def _gather_installed_apps(self):
         if self._os_type == 'Linux' and self._os_family == 'Debian':

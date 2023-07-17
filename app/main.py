@@ -5,8 +5,10 @@ from PySide6 import QtWidgets, QtCore
 
 from config.config import AppConfig, PathConfig
 from config.theme import Style
+
 from ui.common.dialog import OverlayDialog
 from ui.content import Content
+
 from utils.log import Log, LogFile
 from utils.thread import ThreadManager
 
@@ -15,44 +17,47 @@ class App:
     is_closing = False
 
     def __init__(self):       
-        self.app = QtWidgets.QApplication([])        
-        self.start()     
-        self.setup_ui()             
-           
+        self.app = QtWidgets.QApplication([])          
+        
+        self.start() 
+        self.setup_ui()   
+
 
     def setup_ui(self):
-        Log.debug(f"Setting up UI")
+        Log.task(f"Setting up UI")
+        # create main window
+        self.main_window = QtWidgets.QMainWindow()        
 
         # initialize window content
-        self.content = Content()        
+        self.content = Content()
 
-        # setup main window
-        self.main_window = QtWidgets.QMainWindow()
+        # setup the main window
         self.main_window.setWindowTitle(AppConfig.name)
         self.main_window.setMinimumWidth(750)
         self.main_window.setMinimumHeight(400)
         self.main_window.resize(800, 600)
         self.main_window.setCentralWidget(self.content)
         self.main_window.show()
-        self.main_window.closeEvent = self.prep_to_exit             
-
-    
+        self.main_window.closeEvent = self.prep_to_exit    
+        
+        
+        
     def start(self):
         # show app info
         Log.no_flag(f"{AppConfig.full_name}")
 
         Log.no_flag(f"{AppConfig.copyright_info}")
         Log.no_flag("")
-        Log.debug(f"App started at {os.getcwd()}")        
+        Log.info(f"App started at {os.getcwd()}")        
 
         # show debugging mode
         if AppConfig.debug:
-            Log.debug(f"Debugging output is enabled")            
+            Log.info(f"Debugging output is enabled")            
         else:
-            Log.debug(f"Debugging output is disabled")        
+            Log.info(f"Debugging output is disabled")         
 
         # check app resources
-        Log.debug(f"Checking resources")
+        Log.task(f"Checking resources")
         for attr, resource_path in PathConfig.__dict__.items():
             if not callable(resource_path) and not attr.startswith("__"):
                 if os.path.exists(resource_path):
@@ -61,10 +66,10 @@ class App:
                     Log.critical(f"Resource not found: {resource_path}")
              
         # set app stylesheet 
-        Log.debug(f"Setting stylesheet")
+        Log.task(f"Setting stylesheet")
         with open(PathConfig.stylesheet, "r") as file:
             stylesheet_content = file.read()
-        self.app.setStyleSheet(stylesheet_content + Style.custom_style())
+        self.app.setStyleSheet(stylesheet_content + Style.custom_style())              
 
         # clear system info file
         LogFile.clear_system_info_file()    
@@ -73,7 +78,7 @@ class App:
         if self.is_closing:
             event.ignore()
         elif ThreadManager.active_threads:        
-            Log.info('Preparing to exit app')
+            Log.task('Preparing to exit app')
 
             self.is_closing = True
             event.ignore()
@@ -84,8 +89,8 @@ class App:
             self.content.console.scroll_to_bottom()            
             
             # create exit dialog
-            exit_dialog = OverlayDialog(
-                parent_widget=self.main_window,
+            exit_dialog = OverlayDialog(  
+                parent_widget=self.main_window,              
                 heading='Exiting',
                 message='Waiting for processes to finish')
             exit_dialog.show()            

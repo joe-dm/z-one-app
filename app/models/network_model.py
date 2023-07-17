@@ -6,6 +6,8 @@ import speedtest
 from PySide6 import QtCore
 
 from utils.thread import Thread
+from utils.decorators import singleton
+from utils.log import Log
 
 
 class NetworkModelSignals(QtCore.QObject):
@@ -19,8 +21,12 @@ class NetworkModelSignals(QtCore.QObject):
     updated_bytes_sent = QtCore.Signal(float)
     updated_bytes_received = QtCore.Signal(float)
 
+
+@singleton
 class NetworkModel:
     def __init__(self):
+        Log.task('Gathering network info')
+
         self.signals = NetworkModelSignals()
 
         self._internet_available = None
@@ -110,7 +116,7 @@ class NetMonitor(Thread):
         self.model = model        
     
     def execute(self):
-        self.thread_signals.log_task.emit('Started monitoring network', None)        
+        self.thread_signals.log_operation.emit('Started monitoring network', None)        
         self.check_interfaces()          
 
         while self.is_running:               
@@ -185,6 +191,7 @@ class NetIOMonitor(Thread):
         self.interval = 1000
     
     def execute(self):
+        self.thread_signals.log_operation.emit('Started monitoring network I/O', None)
         while self.is_running:
             if self.model.get_internet_available():
                 net_io = psutil.net_io_counters()
@@ -213,7 +220,7 @@ class NetPingMonitor(Thread):
         self.model = model
 
     def execute(self, address='8.8.8.8'):
-        self.thread_signals.log_task.emit('Started monitoring internet availability', None)
+        self.thread_signals.log_operation.emit('Started monitoring internet availability', None)
         
         while self.is_running:    
             result = subprocess.run(["ping", "-c", "1", address], capture_output=True, text=True)
@@ -230,7 +237,7 @@ class NetSpeedMonitor(Thread):
         self.model = model
 
     def execute(self):
-        self.thread_signals.log_task.emit('Started monitoring internet speeds', None)
+        self.thread_signals.log_operation.emit('Started monitoring internet speeds', None)
         
         while self.is_running:
             try:
