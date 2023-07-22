@@ -36,6 +36,8 @@ class DeviceModel:
     def _gather_info_from_os(self):
         # from dmi
         if Session.os_type == 'Linux' and Session.is_admin:
+            Log.debug('Gathering additional device info from dmi')
+
             # get system info from json file
             dmi_system_info = JSON.find_dmi_entries('System Information')
             dmi_system_info = dmi_system_info[0]

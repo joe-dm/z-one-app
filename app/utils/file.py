@@ -37,8 +37,9 @@ class File:
 class JSON:
     dmi_file = os.path.join(PathConfig.admin_scripts_output_directory, 'dmi_info.json')
 
-    def find_dmi_entries(dmi_name):
+    def find_dmi_entries(dmi_name):        
         json_file_path = JSON.dmi_file
+        Log.debug(f"Looking for '{dmi_name}' in dmi info file")
 
         with open(json_file_path, "r") as json_file:
             dmi_data = json.load(json_file)

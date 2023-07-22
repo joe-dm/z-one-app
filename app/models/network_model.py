@@ -255,7 +255,7 @@ class NetSpeedMonitor(Thread):
     def check_ip(self):
         try:
             ip_address = self.speedtest_obj.get_config()['client']['ip']            
-            self.model.update_ip_address(ip_address) 
+            self.model.update_ip_address(ip_address)
         except:
             self.model.update_ip_address(None)            
             
@@ -263,7 +263,7 @@ class NetSpeedMonitor(Thread):
     def check_isp(self):     
         try:   
             isp = self.speedtest_obj.get_config()['client']['isp']          
-            self.model.update_isp(isp)         
+            self.model.update_isp(isp)  
         except:
             self.model.update_isp(None)
         

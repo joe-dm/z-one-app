@@ -24,14 +24,12 @@ class Sidebar(QtWidgets.QWidget):
         self.button_disk = SidebarButton('Disk', PathConfig.icon_disk, PathConfig.icon_disk_active)
         self.button_network = SidebarButton('Network', PathConfig.icon_network, PathConfig.icon_network_active)
         self.button_software = SidebarButton('Software', PathConfig.icon_software, PathConfig.icon_software_active)
-        self.button_settings = SidebarButton('Settings', PathConfig.icon_settings, PathConfig.icon_settings_active)
-        self.button_logs = SidebarButton('Logs', PathConfig.icon_logs, PathConfig.icon_logs_active)
+        
         # list of all buttons
         self.buttons = [
             self.button_dashboard, self.button_device, self.button_cpu, 
             self.button_gpu, self.button_memory, self.button_disk, 
-            self.button_network, self.button_software, self.button_settings,
-            self.button_logs]
+            self.button_network, self.button_software]
 
         # setup layout
         layout = QtWidgets.QVBoxLayout(self)
@@ -49,10 +47,7 @@ class Sidebar(QtWidgets.QWidget):
         layout.addWidget(self.button_memory)
         layout.addWidget(self.button_disk)
         layout.addWidget(self.button_network)
-        layout.addWidget(self.button_software)
-        layout.addStretch(1)
-        layout.addWidget(self.button_settings)
-        layout.addWidget(self.button_logs)        
+        layout.addWidget(self.button_software)               
         layout.addStretch()
 
         # sidebar properties
