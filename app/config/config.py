@@ -11,7 +11,7 @@ class AppConfig:
     dev_url = 'github.com/joe-dm'
     copyright_info = f'© {datetime.datetime.now().year} {dev_name} ({dev_url})'
 
-    debug = False
+    debug = True
         
 
 class PathConfig:

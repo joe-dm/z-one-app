@@ -39,7 +39,7 @@ class TableForm(QtWidgets.QWidget):
         for row, item in enumerate(data):
             description, value = item
 
-            if value != None:
+            if value != None and value != '':
                 label = QtWidgets.QLabel(description, objectName='FancyTableLabel')
                 label.setMinimumWidth(100)
                 label.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)

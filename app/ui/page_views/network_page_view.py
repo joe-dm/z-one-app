@@ -63,7 +63,7 @@ class NetworkPageController:
         self.model = NetworkModel()
         
         self.update_interface_tables(self.model.get_interfaces())
-        self.view.ip_isp_table.set_data([('IP', ''), ('ISP', '')])
+        self.view.ip_isp_table.set_data([('IP', '-'), ('ISP', '-')])
 
         self.model.signals.updated_interfaces.connect(self.update_interface_tables)
         self.model.signals.updated_internet_available.connect(self.update_internet_available)

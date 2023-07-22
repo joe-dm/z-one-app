@@ -7,6 +7,7 @@ from ui.page_views.network_page_view import NetworkPageView
 from ui.page_views.gpu_page_view import GPUPageView
 from ui.page_views.memory_page_view import MemoryPageView
 from ui.page_views.device_page_view import DevicePageView
+from ui.page_views.disk_page_view import DiskPageView
 
 from utils.log import Log
 
@@ -24,17 +25,16 @@ class PageStack(QtWidgets.QWidget):
         self.page_gpu = GPUPageView()
         self.page_memory = MemoryPageView()
         self.page_device = DevicePageView()
+        self.page_disk = DiskPageView()
 
-        self.page_dashboard = Page('Dashboard')                
-        self.page_disk = Page('Disk')
-        self.page_settings = Page('Settings')
-        self.page_logs = Page('Logs')
+        self.page_dashboard = Page('Dashboard')       
+        
 
         # list of all pages
         self.pages = [
             self.page_dashboard, self.page_device, self.cpu_page_view, 
             self.page_gpu, self.page_memory, self.page_disk, self.page_network,
-            self.page_software, self.page_settings, self.page_logs]
+            self.page_software]
         
         # add pages to layout
         for page in self.pages:

@@ -59,6 +59,7 @@ class CPUModel:
     def _gather_info_from_os(self):
         # from dmi
         if Session.os_type == 'Linux' and Session.is_admin:
+            Log.debug('Gathering additional CPU info from dmi')
             # get cpu info from json file
             dmi_cpu_info = JSON.find_dmi_entries("Processor Information")
             dmi_cpu_info = dmi_cpu_info[0]

@@ -17,6 +17,7 @@ class GPUModel:
     
     def _gather_info_from_os(self):
         if Session.os_type == 'Linux':
+            Log.debug('Gathering GPU info from lshw')
             try:
                 output = subprocess.check_output(
                     ['lshw', '-C', 'display'], stderr=subprocess.DEVNULL, universal_newlines=True)
