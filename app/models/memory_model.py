@@ -40,8 +40,15 @@ class MemoryModel:
 
     def get_ram_usage(self):
         return self._ram_usage
+    def get_ram_total(self):
+        return self._ram_total
     def get_ram_devices(self):
         return self._ram_devices
+    def get_ram_type(self):
+        if self._ram_devices:
+            for device in self._ram_devices:
+                return device['Type']
+        else: return self._ram_devices
     
     def update_usage(self):
         self._ram_usage = psutil.virtual_memory().percent        

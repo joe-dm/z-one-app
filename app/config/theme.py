@@ -123,6 +123,9 @@ class Style:
         #WarningText{{
             color: {ThemeColor.yellow};
         }}
+        #DashboardCardTextEdit{{
+            border: none;
+        }}
         ''')
         return style
     

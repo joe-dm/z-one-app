@@ -34,3 +34,20 @@ class GPUModel:
 
     def get_display_adapter_dict(self):
         return self._display_adapter_dict
+    
+    def get_resolution(self):
+        if self.get_display_adapter_dict():
+            config = self.get_display_adapter_dict().get('configuration', '')
+            
+            if 'resolution=' in config:
+                start_index = config.find('resolution=') + len('resolution=')
+                end_index = config.find(' ', start_index)
+                if end_index == -1:
+                    end_index = None
+                resolution = config[start_index:end_index]
+                if resolution:
+                    width, height = resolution.split(',')
+                    resolution = f'{width}x{height}'
+                    return resolution
+                
+        return None

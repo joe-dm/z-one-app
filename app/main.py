@@ -38,8 +38,7 @@ class App:
         self.main_window.resize(800, 600)
         self.main_window.setCentralWidget(self.content)
         self.main_window.show()
-        self.main_window.closeEvent = self.prep_to_exit    
-        
+        self.main_window.closeEvent = self.prep_to_exit            
         
         
     def start(self):
