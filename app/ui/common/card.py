@@ -1,6 +1,28 @@
-from PySide6 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore, QtGui
 
 from ui.common.element import LabelWidgetTitle
+
+class DashboardCard(QtWidgets.QWidget):
+    def __init__(self, title=None):
+        super().__init__()
+
+        self.text_edit = QtWidgets.QTextEdit(objectName='DashboardCardTextEdit')
+        self.text_edit.setReadOnly(True)
+        self.text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap) 
+        self.text_edit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.text_edit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.text_edit.setFixedHeight(80)
+
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.setContentsMargins(0,0,0,0)
+        if title:
+            layout.addWidget(LabelWidgetTitle(title))
+        layout.addWidget(self.text_edit)
+    
+    def set_info_text(self, info_text):
+        self.text_edit.clear()
+        self.text_edit.insertHtml(info_text)
+
 
 class Card(QtWidgets.QFrame):
     def __init__(self, title, unit=''):

@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets
 
 from ui.common.page import Page 
+from ui.page_views.dashboard_page_view import DashboardPageView
 from ui.page_views.software_page_view import SoftwarePageView
 from ui.page_views.cpu_page_view import CPUPageView
 from ui.page_views.network_page_view import NetworkPageView
@@ -25,10 +26,8 @@ class PageStack(QtWidgets.QWidget):
         self.page_gpu = GPUPageView()
         self.page_memory = MemoryPageView()
         self.page_device = DevicePageView()
-        self.page_disk = DiskPageView()
-
-        self.page_dashboard = Page('Dashboard')       
-        
+        self.page_disk = DiskPageView()             
+        self.page_dashboard = DashboardPageView()        
 
         # list of all pages
         self.pages = [

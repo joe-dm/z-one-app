@@ -17,7 +17,7 @@ class Chart(QtWidgets.QWidget):
             self.y_axis_max = 0        
 
         # widget properties
-        self.setMaximumHeight(height)       
+        self.setFixedHeight(height)       
 
         # x axis
         self.x_axis = QtCharts.QValueAxis()        

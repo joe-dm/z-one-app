@@ -89,6 +89,8 @@ class CPUModel:
         return self._voltage
     def get_usage(self): 
         return self._usage
+    def get_total_cache(self):
+        return self.get_l1_total_size() + self.get_l2_total_size() + self.get_l3_cache_size()
     # cores getters
     def get_cores_physical(self): 
         return self._cores_physical
