@@ -81,6 +81,7 @@
 ## Future Plans
 
 - Windows support
+- Version checking
 - Enhance the user interface
 - Check if OS needs updates
 - Add CPU information, such as the number of active threads/processes and the ability to monitor individual core usage
