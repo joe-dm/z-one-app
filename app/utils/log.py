@@ -1,14 +1,17 @@
 import os
 import datetime
+import sys
 
 from config.config import AppConfig
 
+
 class LogFlag:
-    info     = '•| '
+    info     = 'i| '
     warning  = '!| '
     error    = '×| '
     critical = '✖| '
-    task     = '»| '
+    task     = '•| '
+    operation= '»| '
     debug    = '#| '  
     no_flag  = ''   
     
@@ -17,6 +20,7 @@ class LogFlag:
         Log.warning('This is a warning message')
         Log.error('This is an error message')
         Log.critical('This is a critical error message')
+        Log.operation('This is an operation message')
         Log.task('This is a task message')
         Log.debug('This is a debug message')
 
@@ -48,9 +52,14 @@ class Log:
 
     def critical(message, file=None):
         LogHandler.handle(f"CRITICAL ERROR! {message}", LogFlag.critical, file)
+        LogHandler.handle(f"App exiting", LogFlag.info, file)
+        sys.exit()
 
     def task(message, file=None):
         LogHandler.handle(f"{message}...", LogFlag.task, file)
+
+    def operation(message, file=None):
+        LogHandler.handle(f"{message}...", LogFlag.operation, file)
 
     def no_flag(message, file=None):
         LogHandler.handle(message, LogFlag.no_flag, file)
@@ -104,7 +113,6 @@ class LogHandler:
                 now = ''
             with open(log_file, 'a') as file:
                 file.write(f"{now}{flag}{message}\n")        
-        
 
         
     def write_to_gui_console(message, flag):

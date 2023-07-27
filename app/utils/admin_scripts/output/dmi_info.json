@@ -1,0 +1,646 @@
+[
+    [
+        {
+            "DMIType": 0,
+            "DMISize": 26,
+            "DMIName": "BIOS Information",
+            "Vendor": "Insyde",
+            "Version": "F.15",
+            "Release Date": "12/04/2018",
+            "Address": "0xE0000",
+            "Runtime Size": "128 kB",
+            "ROM Size": "8 MB",
+            "BIOS Revision": "15.15",
+            "Firmware Revision": "86.21"
+        }
+    ],
+    [
+        {
+            "DMIType": 1,
+            "DMISize": 27,
+            "DMIName": "System Information",
+            "Manufacturer": "HP",
+            "Product Name": "HP Laptop 15-db0xxx",
+            "Version": "Type1ProductConfigId",
+            "Serial Number": "CND9034ZK0",
+            "UUID": "879c4381-ca1a-e911-8bb6-b00cd1847a8c",
+            "Wake-up Type": "Power Switch",
+            "SKU Number": "4AS13EA#ABU",
+            "Family": "103C_5335KV HP Notebook"
+        }
+    ],
+    [
+        {
+            "DMIType": 2,
+            "DMISize": 17,
+            "DMIName": "Base Board Information",
+            "Manufacturer": "HP",
+            "Product Name": "84AE",
+            "Version": "86.21",
+            "Serial Number": "PHJMPF2MYBUK7J",
+            "Asset Tag": "Type2 - Board Asset Tag",
+            "Location In Chassis": "Type2 - Board Chassis Location",
+            "Chassis Handle": "0x0003",
+            "Type": "Motherboard",
+            "Contained Object Handles": "0"
+        }
+    ],
+    [
+        {
+            "DMIType": 3,
+            "DMISize": 24,
+            "DMIName": "Chassis Information",
+            "Manufacturer": "HP",
+            "Type": "Notebook",
+            "Lock": "Not Present",
+            "Version": "Chassis Version",
+            "Serial Number": "CND9034ZK0",
+            "Asset Tag": "Chassis Asset Tag",
+            "Boot-up State": "Safe",
+            "Power Supply State": "Safe",
+            "Thermal State": "Safe",
+            "Security Status": "None",
+            "OEM Information": "0x0000010E",
+            "Height": "Unspecified",
+            "Number Of Power Cords": "1",
+            "Contained Elements": "0",
+            "SKU Number": "<BAD INDEX>"
+        }
+    ],
+    [
+        {
+            "DMIType": 4,
+            "DMISize": 48,
+            "DMIName": "Processor Information",
+            "Socket Designation": "FP5",
+            "Type": "Central Processor",
+            "Family": "Zen",
+            "Manufacturer": "Advanced Micro Devices, Inc.",
+            "ID": "10 0F 81 00 FF FB 8B 17",
+            "Signature": "Family 23, Model 17, Stepping 0",
+            "Version": "AMD Ryzen 5 2500U with Radeon Vega Mobile Gfx  ",
+            "Voltage": "1.2 V",
+            "External Clock": "100 MHz",
+            "Max Speed": "3600 MHz",
+            "Current Speed": "2000 MHz",
+            "Status": "Populated, Enabled",
+            "Upgrade": "None",
+            "L1 Cache Handle": "0x0005",
+            "L2 Cache Handle": "0x0006",
+            "L3 Cache Handle": "0x0007",
+            "Serial Number": "Unknown",
+            "Asset Tag": "Unknown",
+            "Part Number": "Unknown",
+            "Core Count": "4",
+            "Core Enabled": "4",
+            "Thread Count": "8"
+        }
+    ],
+    [
+        {
+            "DMIType": 7,
+            "DMISize": 27,
+            "DMIName": "Cache Information",
+            "Socket Designation": "L1 - Cache",
+            "Configuration": "Enabled, Not Socketed, Level 1",
+            "Operational Mode": "Write Back",
+            "Location": "Internal",
+            "Installed Size": "384 kB",
+            "Maximum Size": "384 kB",
+            "Installed SRAM Type": "Pipeline Burst",
+            "Speed": "1 ns",
+            "Error Correction Type": "Multi-bit ECC",
+            "System Type": "Unified",
+            "Associativity": "8-way Set-associative"
+        },
+        {
+            "DMIType": 7,
+            "DMISize": 27,
+            "DMIName": "Cache Information",
+            "Socket Designation": "L2 - Cache",
+            "Configuration": "Enabled, Not Socketed, Level 2",
+            "Operational Mode": "Write Back",
+            "Location": "Internal",
+            "Installed Size": "2 MB",
+            "Maximum Size": "2 MB",
+            "Installed SRAM Type": "Pipeline Burst",
+            "Speed": "1 ns",
+            "Error Correction Type": "Multi-bit ECC",
+            "System Type": "Unified",
+            "Associativity": "8-way Set-associative"
+        },
+        {
+            "DMIType": 7,
+            "DMISize": 27,
+            "DMIName": "Cache Information",
+            "Socket Designation": "L3 - Cache",
+            "Configuration": "Enabled, Not Socketed, Level 3",
+            "Operational Mode": "Write Back",
+            "Location": "Internal",
+            "Installed Size": "4 MB",
+            "Maximum Size": "4 MB",
+            "Installed SRAM Type": "Pipeline Burst",
+            "Speed": "1 ns",
+            "Error Correction Type": "Multi-bit ECC",
+            "System Type": "Unified",
+            "Associativity": "16-way Set-associative"
+        }
+    ],
+    [
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J2604/J2606",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "Keyboard",
+            "External Connector Type": "PS/2",
+            "Port Type": "Keyboard Port"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J2605",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "Touch pad",
+            "External Connector Type": "PS/2",
+            "Port Type": "Mouse Port"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1500",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "USB",
+            "External Connector Type": "Access Bus (USB)",
+            "Port Type": "USB"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1501",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "USB",
+            "External Connector Type": "Access Bus (USB)",
+            "Port Type": "USB"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1502",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "USB",
+            "External Connector Type": "Access Bus (USB)",
+            "Port Type": "USB"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1301",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "USB",
+            "External Connector Type": "Access Bus (USB)",
+            "Port Type": "USB"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1300",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "Network",
+            "External Connector Type": "RJ-45",
+            "Port Type": "Network Port"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1707",
+            "Internal Connector Type": "SAS/SATA Plug Receptacle",
+            "External Reference Designator": "Sata HDD",
+            "External Connector Type": "None",
+            "Port Type": "SATA"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1705",
+            "Internal Connector Type": "SAS/SATA Plug Receptacle",
+            "External Reference Designator": "Sata ODD",
+            "External Connector Type": "None",
+            "Port Type": "SATA"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1100",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "DP0",
+            "External Connector Type": "None",
+            "Port Type": "Video Port"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J1102",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "DP2",
+            "External Connector Type": "None",
+            "Port Type": "Video Port"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J2106",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "Microphone In",
+            "External Connector Type": "Mini Jack (headphones)",
+            "Port Type": "Audio Port"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "J2105",
+            "Internal Connector Type": "None",
+            "External Reference Designator": "Head Phone",
+            "External Connector Type": "Mini Jack (headphones)",
+            "Port Type": "Audio Port"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "Ctrl0Port0",
+            "Internal Connector Type": "SAS/SATA Plug Receptacle",
+            "External Reference Designator": "Primary HDD Bay*",
+            "External Connector Type": "SAS/SATA Plug Receptacle",
+            "Port Type": "SATA"
+        },
+        {
+            "DMIType": 8,
+            "DMISize": 9,
+            "DMIName": "Port Connector Information",
+            "Internal Reference Designator": "Ctrl0Port1",
+            "Internal Connector Type": "SAS/SATA Plug Receptacle",
+            "External Reference Designator": "Secondary HDD Bay*",
+            "External Connector Type": "SAS/SATA Plug Receptacle",
+            "Port Type": "SATA"
+        }
+    ],
+    [
+        {
+            "DMIType": 9,
+            "DMISize": 17,
+            "DMIName": "System Slot Information",
+            "Designation": "J3600",
+            "Type": "x1 PCI Express x1",
+            "Current Usage": "Available",
+            "Length": "Short",
+            "ID": "2",
+            "Bus Address": "0200:00:02.2"
+        },
+        {
+            "DMIType": 9,
+            "DMISize": 17,
+            "DMIName": "System Slot Information",
+            "Designation": "J3700",
+            "Type": "x1 PCI Express x1",
+            "Current Usage": "Available",
+            "Length": "Short",
+            "ID": "3",
+            "Bus Address": "0200:00:02.2"
+        },
+        {
+            "DMIType": 9,
+            "DMISize": 17,
+            "DMIName": "System Slot Information",
+            "Designation": "J3605",
+            "Type": "x8 PCI Express x8",
+            "Current Usage": "Available",
+            "Length": "Short",
+            "ID": "3",
+            "Bus Address": "0200:00:02.2"
+        },
+        {
+            "DMIType": 9,
+            "DMISize": 17,
+            "DMIName": "System Slot Information",
+            "Designation": "J3702",
+            "Type": "x1 Other",
+            "Current Usage": "Available",
+            "Length": "Short",
+            "Bus Address": "0200:00:02.4"
+        },
+        {
+            "DMIType": 9,
+            "DMISize": 17,
+            "DMIName": "System Slot Information",
+            "Designation": "J3703",
+            "Type": "x1 Other",
+            "Current Usage": "Available",
+            "Length": "Short",
+            "Bus Address": "0200:00:02.5"
+        },
+        {
+            "DMIType": 9,
+            "DMISize": 17,
+            "DMIName": "System Slot Information",
+            "Designation": "J4000",
+            "Type": "x1 PCI Express x1",
+            "Current Usage": "Available",
+            "Length": "Short",
+            "ID": "4",
+            "Bus Address": "0200:00:02.6"
+        }
+    ],
+    [
+        {
+            "DMIType": 11,
+            "DMISize": 5,
+            "DMIName": "OEM Strings",
+            "String 1": "$HP$",
+            "String 2": "LOC#ABA",
+            "String 3": "BCU_Y",
+            "String 4": "ABS 70/71 78 79 7A 7B",
+            "String 5": "OemString5",
+            "String 6": "HP_Mute_LED_P_G",
+            "String 7": "FBYTE#3K6b7B7K7P7W7zaBapaqasawbCbhcbdUdXdpdqfP.tF;",
+            "String 8": "BUILDID#18WW2W5T601#SABU#DABU;",
+            "String 9": "OemString9"
+        }
+    ],
+    [
+        {
+            "DMIType": 12,
+            "DMISize": 5,
+            "DMIName": "System Configuration Options",
+            "Option 1": "ConfigOptions1",
+            "Option 2": "ConfigOptions2",
+            "Option 3": "ConfigOptions3",
+            "Option 4": "ConfigOptions4",
+            "Option 5": "ConfigOptions5",
+            "Option 6": "ConfigOptions6",
+            "Option 7": "ConfigOptions7",
+            "Option 8": "ConfigOptions8"
+        }
+    ],
+    [
+        {
+            "DMIType": 13,
+            "DMISize": 22,
+            "DMIName": "BIOS Language Information",
+            "Language Description Format": "Long",
+            "Installable Languages": "5",
+            "Currently Installed Language": "en|US|iso8859-1,0"
+        }
+    ],
+    [
+        {
+            "DMIType": 16,
+            "DMISize": 23,
+            "DMIName": "Physical Memory Array",
+            "Location": "System Board Or Motherboard",
+            "Use": "System Memory",
+            "Error Correction Type": "None",
+            "Maximum Capacity": "64 GB",
+            "Error Information Handle": "0x0023",
+            "Number Of Devices": "2"
+        }
+    ],
+    [
+        {
+            "DMIType": 17,
+            "DMISize": 40,
+            "DMIName": "Memory Device",
+            "Array Handle": "0x0020",
+            "Error Information Handle": "0x0024",
+            "Total Width": "64 bits",
+            "Data Width": "64 bits",
+            "Size": "4 GB",
+            "Form Factor": "SODIMM",
+            "Set": "None",
+            "Locator": "Bottom-slot 1(left)",
+            "Bank Locator": "P0 CHANNEL A",
+            "Type": "DDR4",
+            "Type Detail": "Synchronous Unbuffered (Unregistered)",
+            "Speed": "2400 MT/s",
+            "Manufacturer": "Samsung",
+            "Serial Number": "999A7D1E",
+            "Asset Tag": "Not Specified",
+            "Part Number": "M471A5244CB0-CTD    ",
+            "Rank": "1",
+            "Configured Memory Speed": "2400 MT/s",
+            "Minimum Voltage": "1.2 V",
+            "Maximum Voltage": "1.2 V",
+            "Configured Voltage": "1.2 V"
+        },
+        {
+            "DMIType": 17,
+            "DMISize": 40,
+            "DMIName": "Memory Device",
+            "Array Handle": "0x0020",
+            "Error Information Handle": "0x0025",
+            "Total Width": "64 bits",
+            "Data Width": "64 bits",
+            "Size": "4 GB",
+            "Form Factor": "SODIMM",
+            "Set": "None",
+            "Locator": "Bottom-slot 2(right)",
+            "Bank Locator": "P0 CHANNEL B",
+            "Type": "DDR4",
+            "Type Detail": "Synchronous Unbuffered (Unregistered)",
+            "Speed": "2400 MT/s",
+            "Manufacturer": "Samsung",
+            "Serial Number": "999A7C69",
+            "Asset Tag": "Not Specified",
+            "Part Number": "M471A5244CB0-CTD    ",
+            "Rank": "1",
+            "Configured Memory Speed": "2400 MT/s",
+            "Minimum Voltage": "1.2 V",
+            "Maximum Voltage": "1.2 V",
+            "Configured Voltage": "1.2 V"
+        }
+    ],
+    [
+        {
+            "DMIType": 18,
+            "DMISize": 23,
+            "DMIName": "32-bit Memory Error Information",
+            "Type": "OK",
+            "Granularity": "Unknown",
+            "Operation": "Unknown",
+            "Vendor Syndrome": "Unknown",
+            "Memory Array Address": "Unknown",
+            "Device Address": "Unknown",
+            "Resolution": "Unknown"
+        },
+        {
+            "DMIType": 18,
+            "DMISize": 23,
+            "DMIName": "32-bit Memory Error Information",
+            "Type": "OK",
+            "Granularity": "Unknown",
+            "Operation": "Unknown",
+            "Vendor Syndrome": "Unknown",
+            "Memory Array Address": "Unknown",
+            "Device Address": "Unknown",
+            "Resolution": "Unknown"
+        },
+        {
+            "DMIType": 18,
+            "DMISize": 23,
+            "DMIName": "32-bit Memory Error Information",
+            "Type": "OK",
+            "Granularity": "Unknown",
+            "Operation": "Unknown",
+            "Vendor Syndrome": "Unknown",
+            "Memory Array Address": "Unknown",
+            "Device Address": "Unknown",
+            "Resolution": "Unknown"
+        }
+    ],
+    [
+        {
+            "DMIType": 19,
+            "DMISize": 31,
+            "DMIName": "Memory Array Mapped Address",
+            "Starting Address": "0x00000000000",
+            "Ending Address": "0x001FFFFFFFF",
+            "Range Size": "8 GB",
+            "Physical Array Handle": "0x0020",
+            "Partition Width": "2"
+        }
+    ],
+    [
+        {
+            "DMIType": 20,
+            "DMISize": 35,
+            "DMIName": "Memory Device Mapped Address",
+            "Starting Address": "0x00000000000",
+            "Ending Address": "0x001FFFFFFFF",
+            "Range Size": "8 GB",
+            "Physical Device Handle": "0x0021",
+            "Memory Array Mapped Address Handle": "0x0026",
+            "Partition Row Position": "1"
+        },
+        {
+            "DMIType": 20,
+            "DMISize": 35,
+            "DMIName": "Memory Device Mapped Address",
+            "Starting Address": "0x00000000000",
+            "Ending Address": "0x001FFFFFFFF",
+            "Range Size": "8 GB",
+            "Physical Device Handle": "0x0022",
+            "Memory Array Mapped Address Handle": "0x0026",
+            "Partition Row Position": "1"
+        }
+    ],
+    [
+        {
+            "DMIType": 21,
+            "DMISize": 7,
+            "DMIName": "Built-in Pointing Device",
+            "Type": "Touch Pad",
+            "Interface": "PS/2",
+            "Buttons": "4"
+        }
+    ],
+    [
+        {
+            "DMIType": 22,
+            "DMISize": 26,
+            "DMIName": "Portable Battery",
+            "Location": "Primary",
+            "Manufacturer": "333-42-5C-A",
+            "Manufacture Date": "<null str",
+            "Serial Number": "<null string>",
+            "Name": "HT03041",
+            "Design Capacity": "41926 mWh",
+            "Design Voltage": "11550 mV",
+            "SBDS Version": "1",
+            "Maximum Error": "1%",
+            "SBDS Chemistry": "LION",
+            "OEM-specific Information": "0x000A070C"
+        }
+    ],
+    [
+        {
+            "DMIType": 26,
+            "DMISize": 22,
+            "DMIName": "Voltage Probe",
+            "Description": "Voltage Probe Description",
+            "Location": "Unknown",
+            "Status": "Unknown",
+            "Maximum Value": "Unknown",
+            "Minimum Value": "Unknown",
+            "Resolution": "Unknown",
+            "Tolerance": "Unknown",
+            "Accuracy": "Unknown",
+            "OEM-specific Information": "0x00000000",
+            "Nominal Value": "Unknown"
+        }
+    ],
+    [
+        {
+            "DMIType": 32,
+            "DMISize": 20,
+            "DMIName": "System Boot Information",
+            "Status": "No errors detected"
+        }
+    ],
+    [
+        {
+            "DMIType": 40,
+            "DMISize": 18,
+            "DMIName": "Additional Information 1",
+            "Referenced Handle": "0x0000",
+            "Referenced Offset": "0x05",
+            "String": "PCIExpressx16",
+            "Value": "0x05dc",
+            "String: Compiler Version": "VC 9.0"
+        }
+    ],
+    [
+        {
+            "DMIType": 41,
+            "DMISize": 11,
+            "DMIName": "Onboard Device",
+            "Reference Designation": "Hanksville Gbe Lan Connection",
+            "Type": "Ethernet",
+            "Status": "Enabled",
+            "Type Instance": "1",
+            "Bus Address": "0000:02:00.0"
+        },
+        {
+            "DMIType": 41,
+            "DMISize": 11,
+            "DMIName": "Onboard Device",
+            "Reference Designation": "WLAN",
+            "Type": "Other",
+            "Status": "Enabled",
+            "Type Instance": "1",
+            "Bus Address": "0000:03:00.0"
+        },
+        {
+            "DMIType": 41,
+            "DMISize": 11,
+            "DMIName": "Onboard Device",
+            "Reference Designation": "ATI Vega 3 Mobile Graphics",
+            "Type": "Video",
+            "Status": "Enabled",
+            "Type Instance": "1",
+            "Bus Address": "0000:05:00.0"
+        }
+    ]
+]

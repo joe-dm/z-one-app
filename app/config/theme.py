@@ -9,7 +9,8 @@ class ThemeColor:
     red =           '#ff7d6c'
     # grayscale
     white =         '#ffffff'
-    white_2 =       '#cccccc'  
+    white_2 =       '#cccccc'    
+    white_3 =       '#aaaaaa'
     
     gray =          '#757575'
     gray_2 =        '#31363b'
@@ -59,15 +60,17 @@ class Style:
         
 
         /* WIDGETS */
-        #Table {{
-            background-color: transparent; 
-            alternate-background-color: {ThemeColor.gray_3}; 
+        #FancyTableTextEdit {{
+            border: 1px solid {ThemeColor.gray_2};             
         }}    
+        #FancyTableLabel {{
+            font-size: 14px; 
+            color: {ThemeColor.gray};            
+        }}   
         #ChartView {{
             border: none;
         }}
-        QFrame#StatCard{{
-            
+        QFrame#StatCard{{            
             border: none;
         }} 
         #StatCardTitleLabel{{
@@ -104,7 +107,7 @@ class Style:
 
         /* OTHER LABELS */        
         #LabelWidgetTitle{{
-            font-size: 14px;            
+            font-size: 14px;        
             color: {ThemeColor.secondary};
         }}
         #LabelHeading{{
@@ -117,6 +120,12 @@ class Style:
         #LineHorizontal{{
             {Style.line_horizontal()};
         }}   
+        #WarningText{{
+            color: {ThemeColor.yellow};
+        }}
+        #DashboardCardTextEdit{{
+            border: none;
+        }}
         ''')
         return style
     
