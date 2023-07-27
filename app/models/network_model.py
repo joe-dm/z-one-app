@@ -46,7 +46,7 @@ class NetworkModel:
         self._net_io_monitor = NetIOMonitor(self)
         self._net_monitor = NetMonitor(self)
         self._net_ping_monitor = NetPingMonitor(self)        
-        self._net_slow_monitor = NetSpeedMonitor(self)
+        self._net_speed_monitor = NetSpeedMonitor(self)
 
     def get_bytes_sent(self):
         return self._bytes_sent
@@ -235,6 +235,7 @@ class NetSpeedMonitor(Thread):
     def __init__(self, model: NetworkModel):
         super().__init__()
         self.model = model
+        self.speed_test_enabled = True
 
     def execute(self):
         self.thread_signals.log_operation.emit('Started monitoring internet speeds', None)
@@ -244,14 +245,23 @@ class NetSpeedMonitor(Thread):
                 self.speedtest_obj = speedtest.Speedtest(secure=True)
                 self.speedtest_obj.get_best_server()
                 self.check_ip()
-                self.check_isp()                
-                self.check_speeds()                
+                self.check_isp()    
+                if self.speed_test_enabled:        
+                    self.check_speeds()     
+                else:
+                    self.model.update_speed_download(None)
             except:
                 self.model.update_ip_address(None)
                 self.model.update_isp(None)
                 self.model.update_speed_download(None) 
                 self.model.update_speed_upload(None)
     
+    def toggle_speed_test_enabled(self):
+        if self.speed_test_enabled:
+            self.speed_test_enabled = False
+        else:
+            self.speed_test_enabled = True
+
     def check_ip(self):
         try:
             ip_address = self.speedtest_obj.get_config()['client']['ip']            

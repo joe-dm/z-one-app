@@ -37,14 +37,14 @@ class Card(QtWidgets.QFrame):
         self.label_unit.setAlignment(QtCore.Qt.AlignCenter) 
 
         # setup layout
-        layout = QtWidgets.QVBoxLayout(self)   
-        layout.setContentsMargins(5, 1, 5, 1)   
-        layout.setSpacing(1) 
-        layout.setAlignment(QtCore.Qt.AlignCenter)        
-        layout.addWidget(self.label_title)    
-        layout.addSpacing(5)
-        layout.addWidget(self.label_stat)
-        layout.addWidget(self.label_unit)
+        self.widget_layout = QtWidgets.QVBoxLayout(self)   
+        self.widget_layout.setContentsMargins(5, 1, 5, 1)   
+        self.widget_layout.setSpacing(1) 
+        self.widget_layout.setAlignment(QtCore.Qt.AlignTop)
+        self.widget_layout.addWidget(self.label_title)    
+        self.widget_layout.addSpacing(5)
+        self.widget_layout.addWidget(self.label_stat)
+        self.widget_layout.addWidget(self.label_unit)
 
         self.setMinimumWidth(80)
 
