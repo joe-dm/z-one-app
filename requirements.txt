@@ -1,0 +1,9 @@
+distro==1.8.0
+psutil==5.9.5
+py-cpuinfo==9.0.0
+py-dmidecode==0.1.2
+PySide6==6.5.1.1
+PySide6-Addons==6.5.1.1
+PySide6-Essentials==6.5.1.1
+shiboken6==6.5.1.1
+speedtest-cli==2.1.3
