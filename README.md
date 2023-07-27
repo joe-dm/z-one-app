@@ -1,4 +1,4 @@
-#z-one - System Information and Monitoring Tool
+# z-one - System Information and Monitoring Tool
 
 **z-one** is a Python application designed to gather system information and monitor various aspects of your computer's performance. The app is currently compatible with Ubuntu, and future plans include adding Windows support.
 
