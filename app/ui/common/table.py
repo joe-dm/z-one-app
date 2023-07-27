@@ -36,24 +36,25 @@ class TableForm(QtWidgets.QWidget):
         self.widget_layout.addWidget(title_label, 0, 0, 1, 2)        
     
     def set_data(self, data):
-        for row, item in enumerate(data):
-            description, value = item
+        if data:
+            for row, item in enumerate(data):
+                description, value = item
 
-            if value != None and value != '':
-                label = QtWidgets.QLabel(description, objectName='FancyTableLabel')
-                label.setMinimumWidth(100)
-                label.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
+                if value != None and value != '':
+                    label = QtWidgets.QLabel(description, objectName='FancyTableLabel')
+                    label.setMinimumWidth(100)
+                    label.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
 
-                text_edit = QtWidgets.QTextEdit(objectName='FancyTableTextEdit')
-                text_edit.setText(str(value))
-                text_edit.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-                text_edit.setFixedHeight(30)
-                text_edit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-                text_edit.setReadOnly(True)             
-                self.text_edits.append(text_edit)
+                    text_edit = QtWidgets.QTextEdit(objectName='FancyTableTextEdit')
+                    text_edit.setText(str(value))
+                    text_edit.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+                    text_edit.setFixedHeight(30)
+                    text_edit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+                    text_edit.setReadOnly(True)             
+                    self.text_edits.append(text_edit)
 
-                self.widget_layout.addWidget(label, row + 1, 0)
-                self.widget_layout.addWidget(text_edit, row + 1, 1)
+                    self.widget_layout.addWidget(label, row + 1, 0)
+                    self.widget_layout.addWidget(text_edit, row + 1, 1)
     
     def update_data(self, data):
         for row, item in enumerate(data):
