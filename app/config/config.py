@@ -17,10 +17,7 @@ class AppConfig:
 class PathConfig:
     stylesheet = os.path.join('app', 'config', 'resources', 'breeze_style', 'style.qss')    
     logo = os.path.join('app', 'config', 'resources', 'images', 'logo.png')
-    logo_text = os.path.join('app', 'config', 'resources', 'images', 'logo-text.png')
-
-    # admin files
-    admin_scripts_output_directory = os.path.join('app', 'utils', 'admin_scripts', 'output')    
+    logo_text = os.path.join('app', 'config', 'resources', 'images', 'logo-text.png')     
 
     # sounds
     alerts_directory = os.path.join('app', 'config', 'resources', 'sound_alerts')

@@ -34,8 +34,8 @@ class File:
             Session.is_admin = False
 
 
-class JSON:
-    dmi_file = os.path.join(PathConfig.admin_scripts_output_directory, 'dmi_info.json')
+class JSON:    
+    dmi_file = os.path.join('app', 'utils', 'admin_scripts', 'output', 'dmi_info.json')
 
     def find_dmi_entries(dmi_name):        
         json_file_path = JSON.dmi_file
