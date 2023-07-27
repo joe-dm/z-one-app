@@ -1,4 +1,7 @@
+from PySide6 import QtWidgets, QtGui, QtCore
+
 from config.theme import ThemeColor
+from config.config import PathConfig
 
 from models.network_model import NetworkModel
 
@@ -40,11 +43,35 @@ class NetworkSpeedCards(CardGroup):
     def __init__(self):
         super().__init__(title='Speed Test')
 
-        self.download_card = Card('Download', 'Mbps')
+        self.download_card = DownloadCard()
         self.upload_card = Card('Upload', 'Mbps')
         self.latency_card = Card('Latency', 'ms')
         self.quality_card = Card('Quality')
-        self.insert_cards([self.download_card, self.upload_card, self.latency_card, self.quality_card])       
+        self.insert_cards([self.download_card, self.upload_card, self.latency_card, self.quality_card])   
+
+
+class DownloadCard(Card):
+    def __init__(self):
+        super().__init__(title='Download', unit='Mbps')
+        self.toggle_button = QtWidgets.QPushButton()
+        self.toggle_button.setIcon(QtGui.QIcon(PathConfig.icon_pause))
+        self.toggle_button.setIconSize(QtCore.QSize(15,15))
+        self.toggle_button.clicked.connect(self.toggle)
+
+        self.widget_layout.addWidget(self.toggle_button)
+        self.is_running = True
+
+    def toggle(self):
+        if self.is_running:
+            Log.debug('Pausing speed test')
+            self.toggle_button.setIcon(QtGui.QIcon(PathConfig.icon_play))
+            self.is_running = False            
+        else:
+            Log.debug('Resuming speed test')
+            self.toggle_button.setIcon(QtGui.QIcon(PathConfig.icon_pause))
+            self.is_running = True
+            
+
 
 class NetworkStatsCards(CardGroup):
     def __init__(self):
@@ -74,6 +101,8 @@ class NetworkPageController:
         self.model.signals.updated_ip_isp.connect(self.update_ip_isp)
         self.model.signals.updated_bytes_sent.connect(self.update_bytes_sent)
         self.model.signals.updated_bytes_received.connect(self.update_bytes_received)
+        
+        self.view.speed_cards.download_card.toggle_button.clicked.connect(self.model._net_speed_monitor.toggle_speed_test_enabled)
         
         Log.debug_init(self)
 

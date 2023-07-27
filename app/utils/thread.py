@@ -22,7 +22,7 @@ class Thread(QtCore.QRunnable):
         super().__init__()        
         self.thread_signals = ThreadSignals()
         self.thread_name = type(self).__name__  
-        self.is_running = True      
+        self.is_running = True         
                 
         # connect finished/waiting signal
         self.thread_signals.finished.connect(ThreadManager.report_finished)
@@ -43,10 +43,9 @@ class Thread(QtCore.QRunnable):
     @QtCore.Slot()
     def run(self):      
         self.execute()
-        self.thread_signals.finished.emit(self)    
-    
+        self.thread_signals.finished.emit(self)     
     # overridden by child classes
-    def execute(self): pass 
+    def execute(self): pass     
     def finish(self): 
         self.is_running = False
 

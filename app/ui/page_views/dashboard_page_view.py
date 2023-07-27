@@ -14,9 +14,10 @@ from models.gpu_model import GPUModel
 from ui.common.page import Page
 from ui.common.card import DashboardCard
 from ui.common.chart import Chart
-from ui.common.element import LabelWidgetTitle
 
 from utils.convert import Convert
+from utils.log import Log
+from utils.session import Session
 
 
 class DashboardPageView(Page):
@@ -26,6 +27,7 @@ class DashboardPageView(Page):
         # grid container
         self.grid_container = QtWidgets.QWidget()
         self.grid_layout = QtWidgets.QGridLayout(self.grid_container)
+        self.grid_layout.setContentsMargins(0,0,0,0)
 
         # add common widgets
         self.grid_layout.addWidget(self.label_title, 0, 0, 1, 2)
@@ -57,22 +59,30 @@ class DashboardPageView(Page):
         self.display_info = DashboardCard('Display')
         self.grid_layout.addWidget(self.display_info, 6, 1)        
 
+        # add the container to the parent layout        
         self.page_layout.addWidget(self.grid_container)
+        
         self.controller = DashboardPageController(self)
+        self.check_missing_info()
+        Log.debug_init(self)
 
 class DashboardPageController:
     def __init__(self, view: DashboardPageView):
         self.view = view
 
         # set device info
-        self.device_model = DeviceModel()        
-        device_info = (
-            f'{self.device_model.get_system_product()}<br>'
-            f'{self.device_model.get_system_family()}<br>'
-            f'Motherboard: {self.device_model.get_board_product()}<br>'
-            f'BIOS: {self.device_model.get_bios_vendor()} '
-            f'{self.device_model.get_bios_version()} '
-            f'{self.device_model.get_bios_revision()}')        
+        self.device_model = DeviceModel()     
+        if Session.is_admin:   
+            device_info = (
+                f'{self.device_model.get_system_product()}<br>'
+                f'{self.device_model.get_system_family()}<br>'
+                f'Motherboard: {self.device_model.get_board_product()}<br>'
+                f'BIOS: {self.device_model.get_bios_vendor()} '
+                f'{self.device_model.get_bios_version()} '
+                f'{self.device_model.get_bios_revision()}')     
+        else:
+            device_info = 'Unavailable'
+            self.view.missing_info = True
         self.view.device_info.set_info_text(device_info)
 
         # set os info

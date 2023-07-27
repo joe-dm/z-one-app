@@ -32,6 +32,8 @@ class PathConfig:
     icons_directory = os.path.join('app', 'config', 'resources', 'images', 'icons')
 
     icon_warning = os.path.join(icons_directory, 'warning.svg')
+    icon_pause = os.path.join(icons_directory, 'pause.svg')
+    icon_play = os.path.join(icons_directory, 'play.svg')
 
     icon_dashboard = os.path.join(icons_directory, 'dashboard.svg')
     icon_dashboard_active = os.path.join(icons_directory, 'dashboard_dark.svg')
