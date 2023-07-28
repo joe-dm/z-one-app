@@ -110,9 +110,6 @@ Memory Page<br>
 Disk Page<br>
 <img src="screenshots/6_disk.png" alt="Disk Page" width="400">
 
-Network Page<br>
-<img src="screenshots/7_network.png" alt="Network Page" width="400">
-
 Software Page<br>
 <img src="screenshots/8_software.png" alt="Software Page" width="400">
 
