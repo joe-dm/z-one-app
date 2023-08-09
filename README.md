@@ -2,32 +2,30 @@
 
 **z-one** is a Python application designed to gather system information and monitor various aspects of your computer's performance. The app is currently compatible with Ubuntu, and future plans include adding Windows support.
 
-## Information Gathering Features
+## Screenshots
+Dashboard Page<br>
+<img src="screenshots/1_dashboard.png" alt="Dashboard Page" width="400">
 
-- Device Information
-- Motherboard Specifications
-- BIOS Information
-- CPU Specifications
-- Display Adapter(s) Information
-- RAM Device(s) Information
-- Physical Disk(s) Information
-- Partition(s) Information
-- Operating System Information
-- Installed Apps
+Device Page<br>
+<img src="screenshots/2_device.png" alt="Device Page" width="400">
 
-## Live Monitoring Features
+CPU Page<br>
+<img src="screenshots/3_cpu.png" alt="CPU Page" width="400">
 
-- CPU Usage
-- CPU Frequency
-- RAM Usage
-- Internet Availability
-- Network Usage (Sent/Received)
-- Speed Test (Download/Upload)
-- Connection Latency
-- Connection Quality
-- External IP
-- ISP Name
-- Network Interface(s)
+GPU Page<br>
+<img src="screenshots/4_gpu.png" alt="GPU Page" width="400">
+
+Memory Page<br>
+<img src="screenshots/5_memory.png" alt="Memory Page" width="400">
+
+Disk Page<br>
+<img src="screenshots/6_disk.png" alt="Disk Page" width="400">
+
+Network Page<br>
+<img src="screenshots/7_network.png" alt="Network Page" width="400">
+
+Software Page<br>
+<img src="screenshots/8_software.png" alt="Software Page" width="400">
 
 ## Getting Started
 
@@ -89,32 +87,6 @@
 - Create a settings page
 - Create separate log files for each aspect of the system
 - Create an 'assistant' module to monitor various aspects of the system and give the user recommendations and notifications
-
-
-## Screenshots
-Dashboard Page<br>
-<img src="screenshots/1_dashboard.png" alt="Dashboard Page" width="400">
-
-Device Page<br>
-<img src="screenshots/2_device.png" alt="Device Page" width="400">
-
-CPU Page<br>
-<img src="screenshots/3_cpu.png" alt="CPU Page" width="400">
-
-GPU Page<br>
-<img src="screenshots/4_gpu.png" alt="GPU Page" width="400">
-
-Memory Page<br>
-<img src="screenshots/5_memory.png" alt="Memory Page" width="400">
-
-Disk Page<br>
-<img src="screenshots/6_disk.png" alt="Disk Page" width="400">
-
-Network Page<br>
-<img src="screenshots/7_network.png" alt="Network Page" width="400">
-
-Software Page<br>
-<img src="screenshots/8_software.png" alt="Software Page" width="400">
 
 ## Contributing
 
